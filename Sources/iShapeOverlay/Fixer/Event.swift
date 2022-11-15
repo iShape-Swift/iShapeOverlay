@@ -15,7 +15,7 @@ extension Fixer {
         
         let sortValue: Int64
         let action: Action
-        var edgeId: Int
+        let edgeId: Int
         
     }
 }

@@ -36,6 +36,7 @@ extension Linker {
         let node: Node
         private var index: Int = 0
         
+        @inlinable
         init(_ node: Node) {
             self.node = node
         }
