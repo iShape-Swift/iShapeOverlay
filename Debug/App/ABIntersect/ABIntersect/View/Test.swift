@@ -57,6 +57,48 @@ final class Test {
                 IntPoint(point: CGPoint(x:  50, y:   -50)),
                 IntPoint(point: CGPoint(x:  50, y:    50))
             ]
+        ),
+        TestData (
+            shapeA: [
+                IntPoint(point: CGPoint(x: -100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y: -100)),
+                IntPoint(point: CGPoint(x: -100, y: -100))
+            ],
+            shapeB: [
+                IntPoint(point: CGPoint(x: -50, y:     0)),
+                IntPoint(point: CGPoint(x: -50, y:   -50)),
+                IntPoint(point: CGPoint(x:  50, y:   -50)),
+                IntPoint(point: CGPoint(x:  50, y:     0))
+            ]
+        ),
+        TestData (
+            shapeA: [
+                IntPoint(point: CGPoint(x: -100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y: -100)),
+                IntPoint(point: CGPoint(x: -100, y: -100))
+            ],
+            shapeB: [
+                IntPoint(point: CGPoint(x:-200, y:     0)),
+                IntPoint(point: CGPoint(x:-200, y:   -50)),
+                IntPoint(point: CGPoint(x:   0, y:   -50)),
+                IntPoint(point: CGPoint(x:   0, y:     0))
+            ]
+        ),
+        TestData (
+            shapeA: [
+                IntPoint(point: CGPoint(x: -100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y:    0)),
+                IntPoint(point: CGPoint(x:  100, y: -100)),
+                IntPoint(point: CGPoint(x: -100, y: -100))
+            ],
+            shapeB: [
+                IntPoint(point: CGPoint(x:-200, y:   100)),
+                IntPoint(point: CGPoint(x:-200, y:  -100)),
+                IntPoint(point: CGPoint(x: 200, y:  -100)),
+                IntPoint(point: CGPoint(x: 200, y:   100))
+            ]
         )
     ]
 

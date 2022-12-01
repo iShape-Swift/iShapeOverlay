@@ -9,24 +9,26 @@ import iGeometry
 
 extension Collision {
 
-    struct Contact: Equatable {
-        let edge: Int
-        let vertex: Int
+    private struct Segment {
+        let eIndex: Int
+        let vIndex: Int
+        let end: IntPoint
     }
     
     struct Composition {
 
-        private var list_A: [Contact] = []
-        private var list_B: [Contact] = []
+        private var setA: ContactSet
+        private var setB: ContactSet
 
-        private var dots: [Dot] = []
+        private var dots = Set<Dot>()
         
-        func isContain(edgeA: Int, vertexB: Int) -> Bool {
-            false
+        init(countA: Int, countB: Int) {
+            setA = ContactSet(module: countA)
+            setB = ContactSet(module: countB)
         }
         
         mutating func addPure(edge0: Edge, edge1: Edge, point: IntPoint) {
-            dots.append(Dot(ed0: edge0, ed1: edge1, type: .simple, point: point))
+            dots.insert(Dot(ed0: edge0, ed1: edge1, type: .simple, point: point))
         }
         
         mutating func addCommon(edge0: Edge, edge1: Edge, point: IntPoint) {
@@ -55,125 +57,68 @@ extension Collision {
 
             if a0 {
                 mA = MileStone(index: eA.p0.index)
-                
-                list_B.add(
-                    Contact(
-                        edge: eB.p0.index,
-                        vertex: eA.p0.index
-                    )
-                )
+                setB.put(edge: eB.p0.index, vertex: eA.p0.index)
                 if b1 {
-                    list_B.add(
-                        Contact(
-                            edge: eB.p1.index,
-                            vertex: eA.p0.index
-                        )
-                    )
+                    setB.put(edge: eB.p1.index, vertex: eA.p0.index)
                 }
             } else if a1 {
                 mA = MileStone(index: eA.p1.index)
-                
-                list_B.add(
-                    Contact(
-                        edge: eB.p0.index,
-                        vertex: eA.p1.index
-                    )
-                )
+                setB.put(edge: eB.p0.index, vertex: eA.p1.index)
             } else {
                 mA = MileStone(index: eA.p0.index, offset: point.sqrDistance(point: eA.p0.point))
             }
             
             if b0 {
                 mB = MileStone(index: eB.p0.index)
-                
-                list_A.add(
-                    Contact(
-                        edge: eA.p0.index,
-                        vertex: eB.p0.index
-                    )
-                )
+                setA.put(edge: eA.p0.index, vertex: eB.p0.index)
                 if a1 {
-                    list_A.add(
-                        Contact(
-                            edge: eA.p1.index,
-                            vertex: eB.p0.index
-                        )
-                    )
+                    setA.put(edge: eA.p1.index, vertex: eB.p0.index)
                 }
             } else if b1 {
                 mB = MileStone(index: eB.p1.index)
-                
-                list_A.add(
-                    Contact(
-                        edge: eA.p0.index,
-                        vertex: eB.p1.index
-                    )
-                )
+                setA.put(edge: eA.p0.index, vertex: eB.p1.index)
             } else {
                 mB = MileStone(index: eB.p0.index, offset: point.sqrDistance(point: eB.p0.point))
             }
             
-            dots.append(Dot(mA: mA, mB: mB, type: .complex, point: point))
+            dots.insert(Dot(mA: mA, mB: mB, type: .complex, point: point))
         }
 
         mutating func addSameLine(edge0: Edge, edge1: Edge) {
-            let edgeA: Edge
-            let edgeB: Edge
+            let eA: Edge
+            let eB: Edge
     
             if edge0.shapeId == 0 {
-                edgeA = edge0
-                edgeB = edge1
+                eA = edge0
+                eB = edge1
             } else {
-                edgeA = edge1
-                edgeB = edge0
+                eA = edge1
+                eB = edge0
             }
             
-            let rectA = Rect(edge: edgeA)
+            let rectA = Rect(edge: eA)
             
-            if rectA.isContain(edgeB.p0.point) {
-                list_A.add(
-                    Contact(
-                        edge: edgeA.p0.index,
-                        vertex: edgeB.p0.index
-                    )
-                )
+            if rectA.isContain(eB.p0.point) {
+                setA.put(edge: eA.p0.index, vertex: eB.p0.index)
             }
-            if rectA.isContain(edgeB.p1.point) {
-                list_A.add(
-                    Contact(
-                        edge: edgeA.p0.index,
-                        vertex: edgeB.p1.index
-                    )
-                )
+            if rectA.isContain(eB.p1.point) {
+                setA.put(edge: eA.p0.index, vertex: eB.p1.index)
             }
             
-            let rectB = Rect(edge: edgeB)
+            let rectB = Rect(edge: eB)
 
-            if rectB.isContain(edgeA.p0.point) {
-                list_B.add(
-                    Contact(
-                        edge: edgeB.p0.index,
-                        vertex: edgeA.p0.index
-                    )
-                )
+            if rectB.isContain(eA.p0.point) {
+                setB.put(edge: eB.p0.index, vertex: eA.p0.index)
             }
-            if rectB.isContain(edgeA.p1.point) {
-                list_B.add(
-                    Contact(
-                        edge: edgeB.p0.index,
-                        vertex: edgeA.p1.index
-                    )
-                )
+            if rectB.isContain(eA.p1.point) {
+                setB.put(edge: eB.p0.index, vertex: eA.p1.index)
             }
         }
         
         func pins(pathA: [IntPoint], pathB: [IntPoint]) -> [PinPoint] {
-            
-            let setA = ContactSet(module: pathA.count, contacts: list_A)
-            let setB = ContactSet(module: pathB.count, contacts: list_B)
-           
-            let an = pathA.count
-            let bn = pathB.count
+
+            let nA = pathA.count
+            let nB = pathB.count
             
             var result = [PinPoint]()
 
@@ -184,48 +129,79 @@ extension Collision {
                 switch dot.t {
                 case .simple:
                     let a = pathA[dot.mA.index]
-                    let b = pathA[dot.mB.index]
+                    let b = pathB[dot.mB.index]
                     
                     let isCCW = self.isCCW(a, dot.p, b)
                     type = isCCW ? .out : .into
                 case .complex:
-                    let i0: Int
-                    let i1 = (dot.mA.index + 1) % an
-                    let j0: Int
-                    let j1 = (dot.mB.index + 1) % bn
+                    let iA = dot.mA.index
+                    let forward_A = (iA + 1) % nA
+                    let back_A = (iA - 1 + nA) % nA
+
+                    let iB = dot.mB.index
+                    let forward_B = (iB + 1) % nB
+                    let back_B = (iB - 1 + nB) % nB
+                    
+                    let eA0: Int
+                    let eA1 = iA
+                    
+                    let iA0: Int
+                    let iA1 = forward_A
+                    
+                    let eB0: Int
+                    let eB1 = iB
+                    
+                    let iB0: Int
+                    let iB1 = forward_B
                     
                     if dot.mA.offset == 0 {
-                        i0 = (dot.mA.index + an - 1) % an
+                        eA0 = back_A
+                        iA0 = back_A
                     } else {
-                        i0 = dot.mA.index
+                        eA0 = iA
+                        iA0 = iA
                     }
-                    
+
                     if dot.mB.offset == 0 {
-                        j0 = (dot.mB.index + bn - 1) % bn
+                        eB0 = back_B
+                        iB0 = back_B
                     } else {
-                        j0 = dot.mB.index
+                        eB0 = iB
+                        iB0 = iB
                     }
                     
-                    let a0 = IndexPoint(index: i0, point: pathA[i0])
-                    let a1 = IndexPoint(index: i1, point: pathA[i1])
 
-                    let b0 = IndexPoint(index: j0, point: pathB[j0])
-                    let b1 = IndexPoint(index: j1, point: pathB[j1])
+                    let a0 = pathA[iA0]
+                    let a1 = pathA[iA1]
 
-                    let a0_b0 = setA.isContain(edge: a0.index, vertex: b0.index) || setB.isContain(edge: b0.index, vertex: a0.index)
-                    
-                    let a1_b1 = setA.isContain(edge: a1.index, vertex: b1.index) || setB.isContain(edge: b1.index, vertex: a1.index)
+                    let b0 = pathB[iB0]
+                    let b1 = pathB[iB1]
 
-                    guard !(a0_b0 && a1_b1) else {
-                        assertionFailure("impossible case")
-                        return []
-                    }
+                    let a0_b0 = self.isOverlap(
+                        sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
+                        sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
+                        start: dot.p
+                    )
+                    let a0_b1 = self.isOverlap(
+                        sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
+                        sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
+                        start: dot.p
+                    )
+                    let a1_b0 = self.isOverlap(
+                        sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
+                        sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
+                        start: dot.p
+                    )
+                    let a1_b1 = self.isOverlap(
+                        sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
+                        sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
+                        start: dot.p
+                    )
+ 
+                    let corner = Corner(o: dot.p, a: a0, b: a1)
                     
-                    let corner = Corner(o: dot.p, a: a0.point, b: a1.point)
-                    
-                    if a0_b0 {
-                        let r1 = corner.isBetween(p: b1.point, clockwise: false)
-                        assert(r1 != .onBoarder)
+                    if a0_b0 || a1_b0 {
+                        let r1 = corner.isBetween(p: b1, clockwise: false)
                         let x1 = r1 == .contain
                         
                         if x1 {
@@ -233,9 +209,8 @@ extension Collision {
                         } else {
                             type = .end_out
                         }
-                    } else if a1_b1 {
-                        let r0 = corner.isBetween(p: b0.point, clockwise: false)
-                        assert(r0 != .onBoarder)
+                    } else if a1_b1 || a0_b1 {
+                        let r0 = corner.isBetween(p: b0, clockwise: false)
                         let x0 = r0 == .contain
                         
                         if x0 {
@@ -244,11 +219,8 @@ extension Collision {
                             type = .start_in
                         }
                     } else {
-                        let r0 = corner.isBetween(p: b0.point, clockwise: false)
-                        let r1 = corner.isBetween(p: b1.point, clockwise: false)
-                        
-                        assert(r0 != .onBoarder)
-                        assert(r1 != .onBoarder)
+                        let r0 = corner.isBetween(p: b0, clockwise: false)
+                        let r1 = corner.isBetween(p: b1, clockwise: false)
                         
                         let x0 = r0 == .contain
                         let x1 = r1 == .contain
@@ -279,6 +251,22 @@ extension Collision {
             return m0 < m1
         }
 
+        private func isOverlap(sA: Segment, sB: Segment, start: IntPoint) -> Bool {
+            if setA.isContain(edge: sA.eIndex, vertex: sB.vIndex) {
+                let rect = Rect(a: start, b: sA.end)
+                if rect.isContain(sB.end) {
+                    return true
+                }
+            }
+            if setB.isContain(edge: sB.eIndex, vertex: sA.vIndex) {
+                let rect = Rect(a: start, b: sB.end)
+                if rect.isContain(sA.end) {
+                    return true
+                }
+            }
+            
+            return false
+        }
     }
 }
 
@@ -286,14 +274,4 @@ private extension Rect {
     init(edge: Collision.Edge) {
         self.init(a: edge.start, b: edge.end)
     }
-}
-
-private extension Array where Element == Collision.Contact {
-    
-    mutating func add(_ contact: Collision.Contact) {
-        if isEmpty || last != contact {
-            self.append(contact)
-        }
-    }
-    
 }

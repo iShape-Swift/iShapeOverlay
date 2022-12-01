@@ -14,11 +14,17 @@ extension Collision {
         case complex
     }
     
-    struct Dot {
+    struct Dot: Hashable {
         let mA: MileStone
         let mB: MileStone
         let t: DotType
         let p: IntPoint
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(mA.index)
+            hasher.combine(mA.offset)
+            hasher.combine(t.hashValue)
+        }
         
         init(ed0: Collision.Edge, ed1: Collision.Edge, type: DotType, point: IntPoint) {
             assert(ed0.shapeId != ed1.shapeId)
@@ -38,6 +44,10 @@ extension Collision {
             self.mB = mB
             t = type
             p = point
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.t == rhs.t && lhs.mA == rhs.mA && lhs.mB == rhs.mB
         }
         
     }

@@ -25,7 +25,7 @@ struct MileStone: Equatable, Hashable {
         self.index = index
         self.offset = offset
 #if DEBUG
-        self.off = IntGeom.defGeom.float(int: offset).squareRoot()
+        self.off = IntGeom.defGeom.float(int: Int64(Double(offset).squareRoot()))
 #endif
     }
     
@@ -67,7 +67,7 @@ struct MileStone: Equatable, Hashable {
 extension MileStone: CustomStringConvertible {
     
     public var description: String {
-        return "(\(index), \(off))"
+        "(\(index), \(off))"
     }
     
 }

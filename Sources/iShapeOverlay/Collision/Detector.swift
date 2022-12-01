@@ -34,7 +34,7 @@ extension Collision.Detector {
         var scanList = [Int]()
         scanList.reserveCapacity(16)
 
-        var composition = Collision.Composition()
+        var composition = Collision.Composition(countA: pathA.count, countB: pathB.count)
         
         while !events.isEmpty {
             let event = events.removeLast()

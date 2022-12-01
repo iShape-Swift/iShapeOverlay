@@ -92,8 +92,7 @@ final class ViewModel: ObservableObject {
     func doTask() {
         let detector = Collision.Detector()
         let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
-        debugPrint(pins)
-        
+
         var pinList = [Pin]()
         
         let nb = shapeB.count
@@ -115,10 +114,10 @@ final class ViewModel: ObservableObject {
                 fillColor = .white
             case .false_in:
                 mainColor = .blue
-                fillColor = .gray
+                fillColor = .black
             case .false_out:
                 mainColor = .red
-                fillColor = .gray
+                fillColor = .black
             case .start_in:
                 mainColor = .blue
                 fillColor = .green

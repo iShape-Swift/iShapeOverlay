@@ -46,3 +46,32 @@ extension PinPoint: Equatable {
     }
 }
 
+#if DEBUG
+
+extension PinType: CustomStringConvertible {
+    
+    public var description: String {
+        switch self {
+        case .into:
+            return "into"
+        case .out:
+            return "out"
+        case .false_in:
+            return "false_in"
+        case .false_out:
+            return "false_out"
+        case .start_in:
+            return "start_in"
+        case .start_out:
+            return "start_out"
+        case .end_in:
+            return "end_in"
+        case .end_out:
+            return "end_out"
+        case .null:
+            return "null"
+        }
+    }
+    
+}
+#endif
