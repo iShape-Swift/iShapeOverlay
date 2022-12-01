@@ -91,7 +91,10 @@ extension PolygonView {
                 }
             }
             
-            self.objectWillChange.send()
+            DispatchQueue.main.async { [weak self] in
+                self?.objectWillChange.send()
+            }
+            
         }
         
         func onDrag(index: Int, data: DragGesture.Value) {

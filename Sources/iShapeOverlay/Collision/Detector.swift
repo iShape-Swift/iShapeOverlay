@@ -1,29 +1,41 @@
 //
-//  Fixer+Solve.swift
+//  CrossDetector.swift
 //  
 //
-//  Created by Nail Sharipov on 09.11.2022.
+//  Created by Nail Sharipov on 23.11.2022.
 //
 
 import iGeometry
 
-struct Fixer {
+private typealias Edge = Collision.Edge
+private typealias Dot = Collision.Dot
 
-    @inlinable
-    func solve(path: [IntPoint]) -> [[IntPoint]] {
-        let edges = self.devide(path: path)
+extension Collision {
+    struct Detector {}
+}
 
-        return Linker(edges: edges).join()
+extension Collision.Detector {
+
+    func findPins(pathA: [IntPoint], pathB: [IntPoint]) -> [PinPoint] {
+        let composition = self.composition(pathA: pathA, pathB: pathB)
+        let result = composition.pins(pathA: pathA, pathB: pathB)
+        return result
     }
-    
-    private func devide(path: [IntPoint]) -> [Edge] {
-        var edges = path.edges()
         
+    private func composition(pathA: [IntPoint], pathB: [IntPoint]) -> Collision.Composition {
+        let edgesA = pathA.edges(id: 0)
+        let edgesB = pathB.edges(id: 1)
+        var edges = [Edge]()
+        edges.append(contentsOf: edgesA)
+        edges.append(contentsOf: edgesB)
+
         var events = edges.events
         
         var scanList = [Int]()
         scanList.reserveCapacity(16)
 
+        var composition = Collision.Composition()
+        
         while !events.isEmpty {
             let event = events.removeLast()
 
@@ -39,14 +51,31 @@ struct Fixer {
                 while j < scanList.count {
                     let otherId = scanList[j]
                     let otherEdge = edges[otherId]
+                    
+                    guard otherEdge.shapeId != thisEdge.shapeId else {
+                        j += 1
+                        continue
+                    }
+                    
                     let crossResult = thisEdge.cross(other: otherEdge)
                     
                     switch crossResult.type {
-                    case .not_cross, .end_a0_b0, .end_a0_b1, .end_a1_b0, .end_a1_b1, .same_line:
+                    case .not_cross:
+                        j += 1
+                    case .same_line:
+                        composition.addSameLine(edge0: thisEdge, edge1: otherEdge)
+                        j += 1
+                    case .end_a0_b0, .end_a0_b1, .end_a1_b0, .end_a1_b1:
+                        let cross = crossResult.point
+
+                        composition.addCommon(edge0: thisEdge, edge1: otherEdge, point: cross)
+                        
                         j += 1
                     case .pure:
                         let cross = crossResult.point
 
+                        composition.addPure(edge0: thisEdge, edge1: otherEdge, point: cross)
+                        
                         // devide edges
                         
                         // for this edge
@@ -95,6 +124,8 @@ struct Fixer {
                         j += 1
                     case .end_b0, .end_b1:
                         let cross = crossResult.point
+
+                        composition.addCommon(edge0: thisEdge, edge1: otherEdge, point: cross)
                         
                         // devide this edge
                         
@@ -127,6 +158,8 @@ struct Fixer {
                         j += 1
                     case .end_a0, .end_a1:
                         let cross = crossResult.point
+                        
+                        composition.addCommon(edge0: thisEdge, edge1: otherEdge, point: cross)
                         
                         // devide other(scan) edge
 
@@ -175,22 +208,22 @@ struct Fixer {
             #endif
 
         } // while
-        
-        return edges
+
+        return composition
     }
-    
+
     private struct DivideResult {
-        let leftPart: Fixer.Edge
-        let rightPart: Fixer.Edge
+        let leftPart: Edge
+        let rightPart: Edge
         let removeEvent: SwipeLineEvent
         let addEvent: SwipeLineEvent
     }
     
-    private func devide(edge: Fixer.Edge, id: Int, cross: IntPoint, nextId: Int) -> DivideResult {
+    private func devide(edge: Edge, id: Int, cross: IntPoint, nextId: Int) -> DivideResult {
         let bitPack = cross.bitPack
         
-        let leftPart = Fixer.Edge(start: edge.start, end: cross)
-        let rightPart = Fixer.Edge(start: cross, end: edge.end)
+        let leftPart = Edge(parent: edge, start: edge.start, end: cross)
+        let rightPart = Edge(parent: edge, start: cross, end: edge.end)
         
         let evRemove = SwipeLineEvent(sortValue: bitPack, action: .remove, edgeId: nextId)
         let evAdd = SwipeLineEvent(sortValue: bitPack, action: .add, edgeId: id)
@@ -202,9 +235,40 @@ struct Fixer {
             addEvent: evAdd
         )
     }
+    
 }
 
-private extension Array where Element == Fixer.Edge {
+private extension Array where Element == IntPoint {
+    
+    func edges(id: Int) -> [Edge] {
+        let n = count
+        var i = n - 1
+        var a = IndexPoint(index: i, point: self[i])
+        var result = [Edge]()
+        result.reserveCapacity(n)
+
+        var start = a.point.bitPack
+        i = 0
+        while i < n {
+            let b = IndexPoint(index: i, point: self[i])
+            let end = b.point.bitPack
+            
+            if start > end {
+                result.append(Edge(shapeId: id, start: b.point, end: a.point, p0: a, p1: b))
+            } else if start < end {
+                result.append(Edge(shapeId: id, start: a.point, end: b.point, p0: a, p1: b))
+            } // skip degenerate dots
+
+            start = end
+            a = b
+            i += 1
+        }
+        
+        return result
+    }
+}
+
+private extension Array where Element == Edge {
 
     var events: [SwipeLineEvent] {
         var result = [SwipeLineEvent]()
@@ -231,30 +295,4 @@ private extension Array where Element == Fixer.Edge {
         return result
     }
     
-}
-
-private extension Array where Element == IntPoint {
-    
-    func edges() -> [Fixer.Edge] {
-        var a = self[count - 1]
-        var result = [Fixer.Edge]()
-        result.reserveCapacity(count + 4)
-
-        var start = a.bitPack
-
-        for b in self {
-            let end = b.bitPack
-            
-            if start > end {
-                result.append(Fixer.Edge(start: b, end: a))
-            } else if start < end {
-                result.append(Fixer.Edge(start: a, end: b))
-            } // skip degenerate dots
-
-            start = end
-            a = b
-        }
-        
-        return result
-    }
 }
