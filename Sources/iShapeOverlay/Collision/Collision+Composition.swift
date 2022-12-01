@@ -169,7 +169,6 @@ extension Collision {
                         eB0 = iB
                         iB0 = iB
                     }
-                    
 
                     let a0 = pathA[iA0]
                     let a1 = pathA[iA1]
@@ -200,7 +199,12 @@ extension Collision {
  
                     let corner = Corner(o: dot.p, a: a0, b: a1)
                     
-                    if a0_b0 || a1_b0 {
+                    let b0_a = a0_b0 || a1_b0
+                    let b1_a = a0_b1 || a1_b1
+                    
+                    if b1_a && b0_a {
+                        continue
+                    } else if b0_a {
                         let r1 = corner.isBetween(p: b1, clockwise: false)
                         let x1 = r1 == .contain
                         
@@ -209,7 +213,7 @@ extension Collision {
                         } else {
                             type = .end_out
                         }
-                    } else if a1_b1 || a0_b1 {
+                    } else if b1_a {
                         let r0 = corner.isBetween(p: b0, clockwise: false)
                         let x0 = r0 == .contain
                         

@@ -6,100 +6,32 @@
 //
 
 import iGeometry
+import iShapeOverlay
 import DebugUtil
 import CoreGraphics
 
-struct TestData {
-    
-    let shapeA: [IntPoint]
-    let shapeB: [IntPoint]
-    
-}
-
 final class Test {
 
-    private let index = PersistInt(key: "TestIndex")
+    private let perIndex = PersistInt(key: "TestIndex")
+    
+    init() {
+//        perIndex.value = 0
+    }
+    
+    var index: Int {
+        perIndex.value % Tests.data.count
+    }
     
     var current: TestData {
-        let i = index.value % data.count
-        return data[i]
+        Tests.data[index]
     }
 
     func next() {
-        _ = index.increase(amount: 1, round: data.count)
+        _ = perIndex.increase(amount: 1, round: Tests.data.count)
     }
-    
-    private let data: [TestData] = [
-        TestData (
-            shapeA: [
-                IntPoint(point: CGPoint(x: -100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y: -100)),
-                IntPoint(point: CGPoint(x: -100, y: -100))
-            ],
-            shapeB: [
-                IntPoint(point: CGPoint(x: -50, y:    50)),
-                IntPoint(point: CGPoint(x: -50, y:   -50)),
-                IntPoint(point: CGPoint(x:  50, y:  -50)),
-                IntPoint(point: CGPoint(x:  50, y:   50))
-            ]
-        ),
-        TestData (
-            shapeA: [
-                IntPoint(point: CGPoint(x: -100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y: -100)),
-                IntPoint(point: CGPoint(x: -100, y: -100))
-            ],
-            shapeB: [
-                IntPoint(point: CGPoint(x: -50, y:     0)),
-                IntPoint(point: CGPoint(x: -50, y:   -50)),
-                IntPoint(point: CGPoint(x:  50, y:   -50)),
-                IntPoint(point: CGPoint(x:  50, y:    50))
-            ]
-        ),
-        TestData (
-            shapeA: [
-                IntPoint(point: CGPoint(x: -100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y: -100)),
-                IntPoint(point: CGPoint(x: -100, y: -100))
-            ],
-            shapeB: [
-                IntPoint(point: CGPoint(x: -50, y:     0)),
-                IntPoint(point: CGPoint(x: -50, y:   -50)),
-                IntPoint(point: CGPoint(x:  50, y:   -50)),
-                IntPoint(point: CGPoint(x:  50, y:     0))
-            ]
-        ),
-        TestData (
-            shapeA: [
-                IntPoint(point: CGPoint(x: -100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y: -100)),
-                IntPoint(point: CGPoint(x: -100, y: -100))
-            ],
-            shapeB: [
-                IntPoint(point: CGPoint(x:-200, y:     0)),
-                IntPoint(point: CGPoint(x:-200, y:   -50)),
-                IntPoint(point: CGPoint(x:   0, y:   -50)),
-                IntPoint(point: CGPoint(x:   0, y:     0))
-            ]
-        ),
-        TestData (
-            shapeA: [
-                IntPoint(point: CGPoint(x: -100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y:    0)),
-                IntPoint(point: CGPoint(x:  100, y: -100)),
-                IntPoint(point: CGPoint(x: -100, y: -100))
-            ],
-            shapeB: [
-                IntPoint(point: CGPoint(x:-200, y:   100)),
-                IntPoint(point: CGPoint(x:-200, y:  -100)),
-                IntPoint(point: CGPoint(x: 200, y:  -100)),
-                IntPoint(point: CGPoint(x: 200, y:   100))
-            ]
-        )
-    ]
+
+    func prev() {
+        _ = perIndex.increase(amount: -1, round: Tests.data.count)
+    }
 
 }

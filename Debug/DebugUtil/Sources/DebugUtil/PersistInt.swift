@@ -32,7 +32,7 @@ public final class PersistInt {
     public func increase(amount: Int, round: Int? = nil) -> Int {
         var a = value + amount
         if let r = round {
-            a = a % r
+            a = (a + r) % r
         }
         value = a
         return a

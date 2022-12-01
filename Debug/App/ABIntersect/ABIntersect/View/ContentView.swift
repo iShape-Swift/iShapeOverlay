@@ -24,7 +24,7 @@ struct ContentView: View {
     }
     
     private func content(size: CGSize) -> some View {
-        let coordSystem = CoordSystem(size: size)
+        let coordSystem = viewModel.coordSystem(size: size)
         return ZStack {
             PolygonView(
                 fill: .white.opacity(0.2),
@@ -33,7 +33,7 @@ struct ContentView: View {
                 points: viewModel.shapeA,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,
-                vertextModifier: .init(gridRound: 100000) { points in
+                vertextModifier: .init(gridRound: 10000) { points in
                     viewModel.onModifiedA(points: points)
                 }
             )
@@ -44,7 +44,7 @@ struct ContentView: View {
                 points: viewModel.shapeB,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,
-                vertextModifier: .init(gridRound: 100000) { points in
+                vertextModifier: .init(gridRound: 10000) { points in
                     viewModel.onModifiedB(points: points)
                 }
             )
@@ -72,9 +72,18 @@ struct ContentView: View {
                 }
             }
             VStack() {
-                Button("Next") {
-                    viewModel.onNext()
-                }.padding(.top, 16)
+                Text(viewModel.title).padding(8)
+                HStack() {
+                    Spacer()
+                    Button("Prev") {
+                        viewModel.onPrev()
+                    }
+                    Spacer(minLength: 10)
+                    Button("Next") {
+                        viewModel.onNext()
+                    }
+                    Spacer()
+                }
             }
             .frame(maxHeight: .infinity, alignment: .top)
         }
