@@ -416,10 +416,13 @@ public final class Tests {
                 Point(x: -10, y: 0)
             ].int,
             shapeB: [
-                Point(x: -15, y: -30),
                 Point(x: -15, y: 30),
-                Point(x: 10 - IntGeom.defGeom.float(int: 1), y: 30),
-                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30)
+                Point(x: -15, y: -30),
+//                Point(x: 11, y: -30),
+//                Point(x: 9, y: 30)
+
+                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
+                Point(x: 10 - IntGeom.defGeom.float(int: 1), y:  30)
             ].int
         ),
         // 28
@@ -431,10 +434,10 @@ public final class Tests {
                 Point(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -15, y: -30),
                 Point(x: -15, y: 30),
-                Point(x: 10 - IntGeom.defGeom.float(int: 1), y: 30),
-                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30)
+                Point(x: -15, y: -30),
+                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
+                Point(x: 10 - IntGeom.defGeom.float(int: 1), y: 30)
             ].int
         ),
         // 29

@@ -55,6 +55,20 @@ extension Collision {
             self.p1 = parent.p1
         }
         
+        init(parent: Edge, a: IntPoint, b: IntPoint) {
+            if a.bitPack < b.bitPack {
+                self.start = a
+                self.end = b
+            } else {
+                self.start = b
+                self.end = a
+            }
+            self.shapeId = parent.shapeId
+            self.p0 = parent.p0
+            self.p1 = parent.p1
+        }
+        
+        
         @inlinable
         func cross(other: Collision.Edge) -> CrossResult {
             let a0 = self.start

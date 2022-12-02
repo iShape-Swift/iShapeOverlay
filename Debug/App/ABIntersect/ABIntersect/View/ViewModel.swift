@@ -37,40 +37,20 @@ final class ViewModel: ObservableObject {
         let color: Color
         let points: [IntPoint]
     }
-    
-    private var randomColor: Color {
-        Color(red: Double.random(in: 0...1), green: Double.random(in: 0...1), blue: Double.random(in: 0...1))
-    }
-    
-    private let colors: [Color] = [
-        .red,
-        .blue,
-        .green,
-        .orange,
-        .yellow,
-        .mint,
-        .teal,
-        .cyan,
-        .indigo,
-        .purple,
-        .pink,
-        .brown
-    ]
-    
+
     private let test = Test()
     var title: String { "test \(test.index)" }
+    private (set) var scale: CGFloat = 20
     private (set) var shapeA: [IntPoint] = []
     private (set) var shapeB: [IntPoint] = []
-    private (set) var dots: [IntPoint]?
     private (set) var pins: [Pin]?
-    private (set) var polygons: [Polygon] = []
     
     func coordSystem(size: CGSize) -> CoordSystem {
         let iOffset = IntPoint(x: 0, y: 0)
         let fOffset = IntGeom.defGeom.float(point: iOffset)
         let offset = CGPoint(x: CGFloat(fOffset.x), y: CGFloat(fOffset.y))
 
-        return CoordSystem(offset: offset, size: size, scale: 20)
+        return CoordSystem(offset: offset, size: size, scale: scale)
     }
     
     func onAppear() {
@@ -87,6 +67,16 @@ final class ViewModel: ObservableObject {
         self.load()
     }
     
+    func onScaleUp() {
+        scale *= 2
+        objectWillChange.send()
+    }
+    
+    func onScaleDown() {
+        scale /= 2
+        objectWillChange.send()
+    }
+    
     func load() {
         let data = test.current
         shapeA = data.shapeA
@@ -96,62 +86,62 @@ final class ViewModel: ObservableObject {
     }
     
     func doTask() {
-//        let detector = Collision.Detector()
-//        let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
-//
-//        var pinList = [Pin]()
-//
-//        let nb = shapeB.count
-//
-//        for id in 0..<pins.count {
-//            let pin = pins[id]
-//            let a = shapeB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
-//            let b = shapeB[(pin.mB.index + 1) % nb]
-//
-//            let mainColor: Color
-//            let fillColor: Color
-//
-//            switch pin.type {
-//            case .into:
-//                mainColor = .blue
-//                fillColor = .white
-//            case .out:
-//                mainColor = .red
-//                fillColor = .white
-//            case .false_in:
-//                mainColor = .blue
-//                fillColor = .black
-//            case .false_out:
-//                mainColor = .red
-//                fillColor = .black
-//            case .start_in:
-//                mainColor = .blue
-//                fillColor = .green
-//            case .start_out:
-//                mainColor = .red
-//                fillColor = .green
-//            case .end_in:
-//                mainColor = .blue
-//                fillColor = .yellow
-//            case .end_out:
-//                mainColor = .red
-//                fillColor = .yellow
-//            case .null:
-//                mainColor = .gray
-//                fillColor = .black
-//            }
-//
-//            pinList.append(Pin(
-//                id: id,
-//                a: a,
-//                b: b,
-//                p: pin.p,
-//                mainColor: mainColor,
-//                fillColor: fillColor)
-//            )
-//        }
-//
-//        self.pins = pinList
+        let detector = Collision.Detector()
+        let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
+
+        var pinList = [Pin]()
+
+        let nb = shapeB.count
+
+        for id in 0..<pins.count {
+            let pin = pins[id]
+            let a = shapeB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
+            let b = shapeB[(pin.mB.index + 1) % nb]
+
+            let mainColor: Color
+            let fillColor: Color
+
+            switch pin.type {
+            case .into:
+                mainColor = .blue
+                fillColor = .white
+            case .out:
+                mainColor = .red
+                fillColor = .white
+            case .false_in:
+                mainColor = .blue
+                fillColor = .black
+            case .false_out:
+                mainColor = .red
+                fillColor = .black
+            case .start_in:
+                mainColor = .blue
+                fillColor = .green
+            case .start_out:
+                mainColor = .red
+                fillColor = .green
+            case .end_in:
+                mainColor = .blue
+                fillColor = .yellow
+            case .end_out:
+                mainColor = .red
+                fillColor = .yellow
+            case .null:
+                mainColor = .gray
+                fillColor = .black
+            }
+
+            pinList.append(Pin(
+                id: id,
+                a: a,
+                b: b,
+                p: pin.p,
+                mainColor: mainColor,
+                fillColor: fillColor)
+            )
+        }
+
+        self.pins = pinList
 
     }
     

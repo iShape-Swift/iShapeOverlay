@@ -106,20 +106,19 @@ extension Collision.Detector {
                         
                         // insert events
 
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: thisResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
-                        
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(thisResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        events.insert(otherResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(thisResult.addEvent, at: evIndex)
-                        evIndex += 1
-                        events.insert(otherResult.addEvent, at: evIndex)
+                        let remEvIndex0 = events.lowerBoundary(value: thisResult.removeEvent.sortValue, index: index)
+                        events.insert(thisResult.removeEvent, at: remEvIndex0)
+
+                        let remEvIndex1 = events.lowerBoundary(value: otherResult.removeEvent.sortValue, index: index)
+                        events.insert(otherResult.removeEvent, at: remEvIndex1)
+
+                        let addEvIndex0 = events.upperBoundary(value: thisResult.addEvent.sortValue, index: index)
+                        events.insert(thisResult.addEvent, at: addEvIndex0)
+
+                        let addEvIndex1 = events.upperBoundary(value: otherResult.addEvent.sortValue, index: index)
+                        events.insert(otherResult.addEvent, at: addEvIndex1)
 
                         j += 1
                     case .end_b0, .end_b1:
@@ -142,18 +141,13 @@ extension Collision.Detector {
                         
                         newScanId = thisNewId
                         
-                        // insert events
-
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: thisResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
+                        let remEvIndex = events.lowerBoundary(value: thisResult.removeEvent.sortValue, index: index)
+                        events.insert(thisResult.removeEvent, at: remEvIndex)
                         
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(thisResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(thisResult.addEvent, at: evIndex)
+                        let addEvIndex = events.upperBoundary(value: thisResult.addEvent.sortValue, index: index)
+                        events.insert(thisResult.addEvent, at: addEvIndex)
 
                         j += 1
                     case .end_a0, .end_a1:
@@ -176,16 +170,13 @@ extension Collision.Detector {
                         
                         // insert events
 
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: otherResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
+                        let remEvIndex = events.lowerBoundary(value: otherResult.removeEvent.sortValue, index: index)
+                        events.insert(otherResult.removeEvent, at: remEvIndex)
                         
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(otherResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(otherResult.addEvent, at: evIndex)
+                        let addEvIndex = events.upperBoundary(value: otherResult.addEvent.sortValue, index: index)
+                        events.insert(otherResult.addEvent, at: addEvIndex)
                         
                         j += 1
                     }
@@ -220,13 +211,20 @@ extension Collision.Detector {
     }
     
     private func devide(edge: Edge, id: Int, cross: IntPoint, nextId: Int) -> DivideResult {
-        let bitPack = cross.bitPack
-        
-        let leftPart = Edge(parent: edge, start: edge.start, end: cross)
-        let rightPart = Edge(parent: edge, start: cross, end: edge.end)
-        
-        let evRemove = SwipeLineEvent(sortValue: bitPack, action: .remove, edgeId: nextId)
-        let evAdd = SwipeLineEvent(sortValue: bitPack, action: .add, edgeId: id)
+        let leftPart = Edge(parent: edge, a: edge.start, b: cross)
+        let rightPart = Edge(parent: edge, a: cross, b: edge.end)
+
+#if DEBUG
+        // left
+        let evRemove = SwipeLineEvent(sortValue: leftPart.end.bitPack, action: .remove, edgeId: nextId, point: leftPart.end)
+        // right
+        let evAdd = SwipeLineEvent(sortValue: rightPart.start.bitPack, action: .add, edgeId: id, point: rightPart.start)
+#else
+        // left
+        let evRemove = SwipeLineEvent(sortValue: leftPart.end.bitPack, action: .remove, edgeId: nextId)
+        // right
+        let evAdd = SwipeLineEvent(sortValue: rightPart.start.bitPack, action: .add, edgeId: id)
+#endif
 
         return DivideResult(
             leftPart: leftPart,
@@ -278,8 +276,13 @@ private extension Array where Element == Edge {
         for i in 0..<count {
             let edge = self[i]
             
+#if DEBUG
+            result.append(SwipeLineEvent(sortValue: edge.end.bitPack, action: .remove, edgeId: i, point: edge.end))
+            result.append(SwipeLineEvent(sortValue: edge.start.bitPack, action: .add, edgeId: i, point: edge.start))
+#else
             result.append(SwipeLineEvent(sortValue: edge.end.bitPack, action: .remove, edgeId: i))
             result.append(SwipeLineEvent(sortValue: edge.start.bitPack, action: .add, edgeId: i))
+#endif
         }
      
         result.sort(by: {

@@ -22,7 +22,43 @@ final class Test {
         _ = index.increase(amount: 1, round: data.count)
     }
     
+    init() {
+        index.value = 0
+    }
+    
     private let data: [[IntPoint]] = [
+        [
+            IntPoint(point: CGPoint(x: -150, y:  100)),
+            IntPoint(point: CGPoint(x:  -50, y:  100)),
+            IntPoint(point: CGPoint(x:   50, y: -100)),
+            IntPoint(point: CGPoint(x: -150, y: -100)),
+            IntPoint(point: CGPoint(x:   25, y:  -50)),
+            IntPoint(point: CGPoint(x: -150, y:    0)),
+            IntPoint(point: CGPoint(x:  -25, y:   50))
+        ],
+        [
+            IntPoint(point: CGPoint(x: -150, y:  100)),
+            IntPoint(point: CGPoint(x:   50, y:  100)),
+            IntPoint(point: CGPoint(x:  -50, y: -100)),
+            IntPoint(point: CGPoint(x: -150, y: -100)),
+            IntPoint(point: CGPoint(x:  -25, y:  -50)),
+            IntPoint(point: CGPoint(x: -150, y:    0)),
+            IntPoint(point: CGPoint(x:   25, y:   50))
+        ],
+        [
+            IntPoint(point: CGPoint(x:   50, y:  100)),
+            IntPoint(point: CGPoint(x:  -50, y: -100)),
+            IntPoint(point: CGPoint(x: -125, y: -100)),
+            IntPoint(point: CGPoint(x:   75, y:    0)),
+            IntPoint(point: CGPoint(x: -150, y:    0))
+        ],
+        [
+            IntPoint(point: CGPoint(x: -100, y:   50)),
+            IntPoint(point: CGPoint(x:  150, y:  -75)),
+            IntPoint(point: CGPoint(x:   25, y:  -75)),
+            IntPoint(point: CGPoint(x:   75, y:   25)),
+            IntPoint(point: CGPoint(x: -150, y:  -50))
+        ],
         [
             IntPoint(point: CGPoint(x: -100, y:    0)),
             IntPoint(point: CGPoint(x:    0, y:  100)),

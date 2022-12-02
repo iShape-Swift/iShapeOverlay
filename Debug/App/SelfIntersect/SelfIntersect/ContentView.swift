@@ -33,7 +33,7 @@ struct ContentView: View {
                 points: viewModel.shape,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,
-                vertextModifier: .init(gridRound: 100000) { points in
+                vertextModifier: .init(gridRound: 0) { points in
                     viewModel.onModified(points: points)
                 }
             )

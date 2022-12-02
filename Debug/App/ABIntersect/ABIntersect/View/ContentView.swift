@@ -33,7 +33,7 @@ struct ContentView: View {
                 points: viewModel.shapeA,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,
-                vertextModifier: .init(gridRound: 10000) { points in
+                vertextModifier: .init(gridRound: 0) { points in
                     viewModel.onModifiedA(points: points)
                 }
             )
@@ -44,19 +44,10 @@ struct ContentView: View {
                 points: viewModel.shapeB,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,
-                vertextModifier: .init(gridRound: 10000) { points in
+                vertextModifier: .init(gridRound: 0) { points in
                     viewModel.onModifiedB(points: points)
                 }
             )
-            ForEach(viewModel.polygons) { polygon in
-                PolygonView(
-                    fill: polygon.color,
-                    stroke: .white,
-                    lineWidth: 4,
-                    points: polygon.points,
-                    coordSystem: coordSystem
-                )
-            }
             if let pins = viewModel.pins {
                 ForEach(pins) { pin in
                     PinView(
@@ -78,6 +69,14 @@ struct ContentView: View {
                     Button("Prev") {
                         viewModel.onPrev()
                     }
+                    Spacer(minLength: 10)
+                    Button("-") {
+                        viewModel.onScaleDown()
+                    }.frame(minWidth: 40)
+                    Spacer(minLength: 10)
+                    Button("+") {
+                        viewModel.onScaleUp()
+                    }.frame(minWidth: 40)
                     Spacer(minLength: 10)
                     Button("Next") {
                         viewModel.onNext()

@@ -77,20 +77,19 @@ struct Fixer {
                         
                         // insert events
 
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: thisResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
-                        
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(thisResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        events.insert(otherResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(thisResult.addEvent, at: evIndex)
-                        evIndex += 1
-                        events.insert(otherResult.addEvent, at: evIndex)
+                        let remEvIndex0 = events.lowerBoundary(value: thisResult.removeEvent.sortValue, index: index)
+                        events.insert(thisResult.removeEvent, at: remEvIndex0)
+
+                        let remEvIndex1 = events.lowerBoundary(value: otherResult.removeEvent.sortValue, index: index)
+                        events.insert(otherResult.removeEvent, at: remEvIndex1)
+
+                        let addEvIndex0 = events.upperBoundary(value: thisResult.addEvent.sortValue, index: index)
+                        events.insert(thisResult.addEvent, at: addEvIndex0)
+
+                        let addEvIndex1 = events.upperBoundary(value: otherResult.addEvent.sortValue, index: index)
+                        events.insert(otherResult.addEvent, at: addEvIndex1)
 
                         j += 1
                     case .end_b0, .end_b1:
@@ -113,16 +112,13 @@ struct Fixer {
                         
                         // insert events
 
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: thisResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
+                        let remEvIndex = events.lowerBoundary(value: thisResult.removeEvent.sortValue, index: index)
+                        events.insert(thisResult.removeEvent, at: remEvIndex)
                         
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(thisResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(thisResult.addEvent, at: evIndex)
+                        let addEvIndex = events.upperBoundary(value: thisResult.addEvent.sortValue, index: index)
+                        events.insert(thisResult.addEvent, at: addEvIndex)
 
                         j += 1
                     case .end_a0, .end_a1:
@@ -143,16 +139,13 @@ struct Fixer {
                         
                         // insert events
 
-                        let bitPack = cross.bitPack
+                        let index = events.findIndexAnyResult(value: otherResult.removeEvent.sortValue)
                         
-                        let index = events.findIndexAnyResult(value: bitPack)
+                        let remEvIndex = events.lowerBoundary(value: otherResult.removeEvent.sortValue, index: index)
+                        events.insert(otherResult.removeEvent, at: remEvIndex)
                         
-                        var evIndex = events.lowerBoundary(value: bitPack, index: index)
-                        events.insert(otherResult.removeEvent, at: evIndex)
-                        evIndex += 1
-                        
-                        evIndex = events.upperBoundary(value: bitPack, index: evIndex)
-                        events.insert(otherResult.addEvent, at: evIndex)
+                        let addEvIndex = events.upperBoundary(value: otherResult.addEvent.sortValue, index: index)
+                        events.insert(otherResult.addEvent, at: addEvIndex)
                         
                         j += 1
                     }
@@ -187,14 +180,19 @@ struct Fixer {
     }
     
     private func devide(edge: Fixer.Edge, id: Int, cross: IntPoint, nextId: Int) -> DivideResult {
-        let bitPack = cross.bitPack
-        
         let leftPart = Fixer.Edge(start: edge.start, end: cross)
         let rightPart = Fixer.Edge(start: cross, end: edge.end)
-        
+
+#if DEBUG
+        // left
+        let evRemove = SwipeLineEvent(sortValue: leftPart.end.bitPack, action: .remove, edgeId: nextId, point: leftPart.end)
+        // right
+        let evAdd = SwipeLineEvent(sortValue: rightPart.start.bitPack, action: .add, edgeId: id, point: cross)
+#else
         let evRemove = SwipeLineEvent(sortValue: bitPack, action: .remove, edgeId: nextId)
         let evAdd = SwipeLineEvent(sortValue: bitPack, action: .add, edgeId: id)
-
+#endif
+        
         return DivideResult(
             leftPart: leftPart,
             rightPart: rightPart,
@@ -213,9 +211,15 @@ private extension Array where Element == Fixer.Edge {
         
         for i in 0..<count {
             let edge = self[i]
-            
+
+#if DEBUG
+            result.append(SwipeLineEvent(sortValue: edge.end.bitPack, action: .remove, edgeId: i, point: edge.end))
+            result.append(SwipeLineEvent(sortValue: edge.start.bitPack, action: .add, edgeId: i, point: edge.start))
+#else
             result.append(SwipeLineEvent(sortValue: edge.end.bitPack, action: .remove, edgeId: i))
             result.append(SwipeLineEvent(sortValue: edge.start.bitPack, action: .add, edgeId: i))
+#endif
+
         }
      
         result.sort(by: {

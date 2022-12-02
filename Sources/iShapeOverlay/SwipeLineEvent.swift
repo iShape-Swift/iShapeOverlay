@@ -5,6 +5,10 @@
 //  Created by Nail Sharipov on 24.11.2022.
 //
 
+#if DEBUG
+import iGeometry
+#endif
+
 @usableFromInline
 struct SwipeLineEvent {
 
@@ -17,6 +21,10 @@ struct SwipeLineEvent {
     let sortValue: Int64
     let action: Action
     let edgeId: Int
+    
+    #if DEBUG
+    let point: IntPoint
+    #endif
     
 }
 
@@ -92,7 +100,6 @@ extension Array where Element == SwipeLineEvent {
     @inlinable
     /// Find index of element. If element is not found return index where it must be
     /// - Parameters:
-    ///   - start: from where to start (mostly it's index of a)
     ///   - value: target element
     /// - Returns: index of element
     func findIndexAnyResult(value a: Int64) -> Int {
@@ -124,5 +131,4 @@ extension Array where Element == SwipeLineEvent {
 
         return i
     }
-
 }
