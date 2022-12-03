@@ -14,19 +14,19 @@ struct Navigator {
     init(pins: [PinPoint]) {
         let n = pins.count
 
-        var aList = [IndexStone](repeating: .zero, count: n)
-        var bList = [IndexStone](repeating: .zero, count: n)
+        var aList = [IndexStone](repeating: .empty, count: n)
+        var bList = [IndexStone](repeating: .empty, count: n)
         for i in 0..<n {
             let pin = pins[i]
-            aList[i] = IndexStone(pinId: i, other: i, point: pin.p, type: pin.type, stone: pin.mA)
-            bList[i] = IndexStone(pinId: i, other: 0, point: pin.p, type: pin.type, stone: pin.mB)
+            aList[i] = IndexStone(pinId: i, other: i, pin: pin)
+            bList[i] = IndexStone(pinId: i, other: 0, pin: pin)
         }
         
         aList.sort(by: {
-            if $0.stone == $1.stone {
-                return $0.type.rawValue < $1.type.rawValue
+            if $0.pin.mA == $1.pin.mA {
+                return $0.pin.type.rawValue < $1.pin.type.rawValue
             } else {
-                return $0.stone < $1.stone
+                return $0.pin.mA < $1.pin.mA
             }
         })
         
@@ -36,10 +36,10 @@ struct Navigator {
         }
         
         bList.sort(by: {
-            if $0.stone == $1.stone {
-                return $0.type.rawValue < $1.type.rawValue
+            if $0.pin.mB == $1.pin.mB {
+                return $0.pin.type.rawValue < $1.pin.type.rawValue
             } else {
-                return $0.stone < $1.stone
+                return $0.pin.mB < $1.pin.mB
             }
         })
         

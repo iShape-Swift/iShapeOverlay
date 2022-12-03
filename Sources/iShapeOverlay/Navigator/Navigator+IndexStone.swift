@@ -11,12 +11,10 @@ extension Navigator {
 
     struct IndexStone {
         
-        static let zero = IndexStone(pinId: 0, other: 0, point: .zero, type: .into, stone: .zero)
+        static let empty = IndexStone(pinId: -1, other: -1, pin: .zero)
         
         let pinId: Int
         var other: Int
-        let point: IntPoint
-        let type: PinType
-        let stone: MileStone
+        let pin: PinPoint
     }
 }

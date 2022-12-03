@@ -61,7 +61,7 @@ extension Array where Element == IntPoint {
     }
     
     @inlinable
-    mutating func reverseAppend(a: MileStone, b: MileStone, points: [IntPoint]) {
+    mutating func reverseAppend(m0 a: MileStone, m1 b: MileStone, points: [IntPoint]) {
         let n = points.count
 
         let b0 = b.index

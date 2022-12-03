@@ -8,15 +8,15 @@
 extension Navigator {
 
     mutating func nextIntersect() -> Stone {
-        let n = pathA.count
+        let n = visited.count
         for i in 0..<n {
-            let st = pathA[i]
-            guard !visited[st.pinId] else { continue }
-            let t = st.type
+            let s = pathB[i]
+            guard !visited[s.pinId] else { continue }
+            let t = s.pin.type
             
             if t == .into || t == .end_in || t == .false_out {
-                visited[st.pinId] = true
-                return Stone(a: i, b: st.other, p: .zero, m: st.stone, direction: .ba)
+                visited[s.pinId] = true
+                return Stone(a: s.other, b: i, pin: s.pin, direction: .ba)
             }
         }
         
@@ -26,44 +26,48 @@ extension Navigator {
     mutating func nextIntersect(stone: Stone) -> Stone {
         let n = visited.count
         switch stone.direction {
-        case .ab:
-            var b = 0
-            var s = IndexStone.zero
-            var isNotVisited = true
-            
-            repeat {
-                b = (stone.b + 1) % n
-                s = pathB[b]
-                isNotVisited = !visited[s.pinId]
-                visited[s.pinId] = true
-                
-                assert(s.type != .out || s.type != .start_out || s.type != .false_out)
-            } while (s.type != .end_in || s.type != .into) && isNotVisited
-            
-            if visited[s.pinId] {
-                return .empty
-            } else {
-                return Stone(a: s.other, b: b, p: s.point, m: s.stone, direction: .ba)
-            }
         case .ba:
-            var a = 0
-            var s = IndexStone.zero
-            var isNotVisited = true
-            
+            var b = stone.b
+            var s = IndexStone.empty
+            var isVisited = false
+            var isOut = false
             repeat {
-                a = (stone.a + 1) % n
-                s = pathA[a]
-                isNotVisited = !visited[s.pinId]
+                b = (b + 1) % n
+                s = pathB[b]
+                isVisited = visited[s.pinId]
                 visited[s.pinId] = true
                 
-                assert(s.type != .into || s.type != .start_in || s.type != .false_in)
-            } while (s.type != .end_out || s.type != .out) && isNotVisited
+                isOut = s.pin.type == .end_out || s.pin.type == .out
+                
+                assert(s.pin.type != .into || s.pin.type != .start_in || s.pin.type != .false_in)
+            } while !isOut && !isVisited
             
-            if visited[s.pinId] {
-                return .empty
-            } else {
-                return Stone(a: a, b: s.other, p: s.point, m: s.stone, direction: .ab)
-            }
+            let dir: Direction = isVisited ? .stop : .ab
+            
+            return Stone(a: s.other, b: b, pin: s.pin, direction: dir)
+        case .ab:
+            var a = stone.a
+            var s = IndexStone.empty
+            var isVisited = false
+            var isInto = false
+            
+            repeat {
+                a = (a - 1 + n) % n
+                s = pathA[a]
+                isVisited = visited[s.pinId]
+                visited[s.pinId] = true
+
+                isInto = s.pin.type == .end_in || s.pin.type == .into
+                
+                assert(s.pin.type != .out || s.pin.type != .start_out || s.pin.type != .false_out)
+            } while !isInto && !isVisited
+
+            let dir: Direction = isVisited ? .stop : .ba
+            
+            return Stone(a: a, b: s.other, pin: s.pin, direction: dir)
+        case .stop:
+            assertionFailure("Impossible")
+            return .empty
         }
     }
 
