@@ -192,9 +192,10 @@ extension Collision {
             let cx = x * invert_divider
             let cy = y * invert_divider
             
-            let cross = IntPoint(x: Int64(cx.rounded(.toNearestOrAwayFromZero)), y: Int64(cy.rounded(.toNearestOrAwayFromZero)))
-            
-            return cross
+            let rx = Int64(cx.rounded(.toNearestOrAwayFromZero))
+            let ry = Int64(cy.rounded(.toNearestOrAwayFromZero))
+
+            return IntPoint(x: rx, y: ry)
         }
     }
 }

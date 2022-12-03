@@ -9,6 +9,7 @@ import iGeometry
 
 extension Fixer {
     
+    @usableFromInline
     struct Edge {
         
         let start: IntPoint

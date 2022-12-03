@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/iShape-Swift/iGeometry",
       "state" : {
-        "revision" : "78ba1b1717c21ec1151df66c3e3b8700764b655f",
-        "version" : "1.9.0"
+        "revision" : "aaf251955599c97459b8273bb5151125bbc9f630",
+        "version" : "1.10.0"
       }
     }
   ],

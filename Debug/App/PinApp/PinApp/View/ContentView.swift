@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  ABIntersect
+//  PinApp
 //
-//  Created by Nail Sharipov on 24.11.2022.
+//  Created by Nail Sharipov on 02.12.2022.
 //
 
 import SwiftUI
@@ -48,17 +48,6 @@ struct ContentView: View {
                     viewModel.onModifiedB(points: points)
                 }
             )
-            if let polygons = viewModel.polygons {
-                ForEach(polygons) { polygon in
-                    PolygonView(
-                        fill: .white,
-                        stroke: .clear,
-                        lineWidth: 0,
-                        points: polygon.points,
-                        coordSystem: coordSystem
-                    )
-                }
-            }
             if let pins = viewModel.pins {
                 ForEach(pins) { pin in
                     PinView(

@@ -19,19 +19,19 @@ final class Test {
     }
     
     var index: Int {
-        perIndex.value % IntersectTests.data.count
+        perIndex.value % Tests.data.count
     }
     
     var current: TestData {
-        IntersectTests.data[index]
+        Tests.data[index]
     }
 
     func next() {
-        _ = perIndex.increase(amount: 1, round: IntersectTests.data.count)
+        _ = perIndex.increase(amount: 1, round: Tests.data.count)
     }
 
     func prev() {
-        _ = perIndex.increase(amount: -1, round: IntersectTests.data.count)
+        _ = perIndex.increase(amount: -1, round: Tests.data.count)
     }
 
 }

@@ -9,12 +9,15 @@
 import iGeometry
 #endif
 
+@usableFromInline
 struct MileStone: Equatable, Hashable {
     
     static let zero = MileStone(index: 0)
     static let empty = MileStone(index: -1)
 
+    @usableFromInline
     let index: Int
+    @usableFromInline
     let offset: Int64
     
     #if DEBUG

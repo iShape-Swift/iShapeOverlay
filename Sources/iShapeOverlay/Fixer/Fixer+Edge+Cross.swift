@@ -30,7 +30,6 @@ extension Fixer.Edge {
         
     }
     
-    @inlinable
     func cross(other: Fixer.Edge) -> CrossResult {
         let a0 = self.start
         let a1 = self.end

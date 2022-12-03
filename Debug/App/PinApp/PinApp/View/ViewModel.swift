@@ -44,7 +44,6 @@ final class ViewModel: ObservableObject {
     private (set) var shapeA: [IntPoint] = []
     private (set) var shapeB: [IntPoint] = []
     private (set) var pins: [Pin]?
-    private (set) var polygons: [Polygon]?
     
     func coordSystem(size: CGSize) -> CoordSystem {
         let iOffset = IntPoint(x: 0, y: 0)
@@ -90,9 +89,6 @@ final class ViewModel: ObservableObject {
         let detector = Collision.Detector()
         let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
 
-        let intersector = Intersector()
-        let segments = intersector.intersect(pathA: shapeA, pathB: shapeB, navigator: Navigator(pins: pins))
-        
         var pinList = [Pin]()
 
         let nb = shapeB.count
@@ -130,6 +126,9 @@ final class ViewModel: ObservableObject {
             case .end_out:
                 mainColor = .red
                 fillColor = .yellow
+            case .null:
+                mainColor = .gray
+                fillColor = .black
             }
 
             pinList.append(Pin(
@@ -144,18 +143,6 @@ final class ViewModel: ObservableObject {
 
         self.pins = pinList
 
-        var polygons = [Polygon]()
-        for i in 0..<segments.list.count {
-            let polygon = Polygon(
-                id: i,
-                color: .white,
-                points: segments.list[i].points
-            )
-            
-            polygons.append(polygon)
-        }
-        
-        self.polygons = polygons
     }
     
     func onModifiedA(points: [IntPoint]) {
