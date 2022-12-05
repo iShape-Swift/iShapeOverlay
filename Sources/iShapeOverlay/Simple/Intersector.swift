@@ -20,29 +20,29 @@ struct Intersector {
         var nav = navigator
 
         var s0 = nav.nextIntersect()
-        while s0.direction != .stop {
+        while s0.isNotEmpty {
 
             var points = [IntPoint]()
             
+            let start = s0.pinId
+            
             repeat {
                 let s1 = nav.nextIntersect(stone: s0)
-//                if s0.pin.mA.offset != 0 && s0.pin.mB.offset != 0 {
-                    points.append(s0.pin.p)
-//                }
+                points.append(s0.pin.p)
                 switch s0.direction {
                 case .ab:
                     points.reverseAppend(m0: s0.pin.mA, m1: s1.pin.mA, points: pathA)
                 case .ba:
                     points.directAppend(m0: s0.pin.mB, m1: s1.pin.mB, points: pathB)
-                case .stop:
-                    assertionFailure("Impossible")
                 }
                 
                 s0 = s1
-            } while s0.direction != .stop
+            } while s0.pinId != start
 
             list.append(Path(unsafe: points))
             points.removeAll(keepingCapacity: true)
+
+            s0 = nav.nextIntersect()
         }
         
         return Result(list: list)

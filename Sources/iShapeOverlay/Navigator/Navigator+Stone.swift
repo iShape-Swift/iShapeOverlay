@@ -11,10 +11,13 @@ extension Navigator {
     
     struct Stone {
         
-        static let empty = Stone(a: -1, b: -1, pin: .zero, direction: .stop)
+        static let empty = Stone(a: 0, b: 0, pinId: -1, pin: .zero, direction: .ab)
+        
+        var isNotEmpty: Bool { pinId >= 0 }
         
         let a: Int
         let b: Int
+        let pinId: Int
         let pin: PinPoint
         let direction: Direction
     }

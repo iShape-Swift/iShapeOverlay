@@ -38,7 +38,7 @@ extension Array where Element == IntPoint {
     mutating func directAppend(m0 a: MileStone, m1 b: MileStone, points: [IntPoint]) {
         let n = points.count
 
-        let b0 = b.index + 1
+        let b0 = b.index + (b.offset == 0 ? 0 : 1)
         var i = a.index + 1
         
         if a < b {

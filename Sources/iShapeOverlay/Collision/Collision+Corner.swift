@@ -79,9 +79,11 @@ extension Collision {
             let m0 = (c.y - a.y) * (b.x - a.x)
             let m1 = (b.y - a.y) * (c.x - a.x)
 
-            if m0 < m1 {
+            let d = m1 - m0
+            
+            if d > 0 {
                 return -1
-            } else if m0 > m1 {
+            } else if d < 0 {
                 return 1
             }
             

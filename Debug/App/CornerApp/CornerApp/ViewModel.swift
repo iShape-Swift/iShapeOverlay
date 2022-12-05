@@ -10,68 +10,137 @@ import SwiftUI
 final class ViewModel: ObservableObject {
 
     private (set) var color = Color.gray
-    private (set) var testPoint = CGPoint(x: 200, y: 200)
-    private (set) var dots: [CGPoint] = [
-        CGPoint(x: 100, y: 300),
-        CGPoint(x: 200, y: 100),
-        CGPoint(x: 300, y: 300)
-    ]
-
-    func onAppear() {
+    private (set) var testPoint = CGPoint.zero
+    private (set) var isDrag: Bool = false
+    private (set) var size: CGSize = .zero
+    private (set) var dots: [CGPoint] = [.zero, .zero, .zero]
+    
+    private (set) var start = Angle(degrees: 180)
+    private (set) var end = Angle(degrees: 0)
+    
+    var isClockWise: Bool = false {
+        didSet {
+            self.validate()
+            self.objectWillChange.send()
+        }
+    }
+    
+    func resize(size: CGSize) {
+        guard !isDrag && size != self.size else { return }
+        
+        self.size = size
+        self.testPoint = view(CGPoint(x:    0, y: -100)).round
+        dots[0] =        view(CGPoint(x: -100, y: -100)).round
+        dots[1] =        view(CGPoint(x:    0, y:    0)).round
+        dots[2] =        view(CGPoint(x:  100, y: -100)).round
+        
+        self.updateAngle()
         self.validate()
-        objectWillChange.send()
     }
     
     func onDrag(index: Int, data: DragGesture.Value) {
-        dots[index] = data.location
+        isDrag = true
+        dots[index] = data.location.round
+        print(self.world(dots[index]))
+        
+        self.updateAngle()
         self.validate()
         objectWillChange.send()
     }
     
     func onEndDrag(index: Int, data: DragGesture.Value) {
-        dots[index] = data.location
+        dots[index] = data.location.round
+        print(self.world(dots[index]))
+        self.updateAngle()
         self.validate()
         objectWillChange.send()
     }
 
     func onDrag(data: DragGesture.Value) {
-        testPoint = data.location
+        isDrag = true
+        testPoint = data.location.round
+        
+        print(self.world(testPoint))
+        
+        self.updateAngle()
         self.validate()
         objectWillChange.send()
     }
     
     func onEndDrag(data: DragGesture.Value) {
-        testPoint = data.location
+        testPoint = data.location.round
+        
+        print(self.world(testPoint))
+        
+        self.updateAngle()
         self.validate()
         objectWillChange.send()
     }
     
     private func validate() {
-        let corner = Corner(o: dots[1], a: dots[0], b: dots[2])
-        let result = corner.isBetween(p: testPoint, clockwise: true)
+        let o = self.world(dots[1])
+        let a = self.world(dots[0])
+        let b = self.world(dots[2])
+        
+        let tp = self.world(testPoint)
+        
+        let corner = Corner(o: o, a: a, b: b)
+        let result = corner.isBetween(p: tp, clockWise: isClockWise)
         
         switch result {
         case .contain:
             self.color = .green
         case .absent:
             self.color = .black.opacity(0.5)
-        case .onBoarder:
+        case .onA:
+            self.color = .blue
+        case .onB:
             self.color = .red
+        case .inCenter:
+            self.color = .white
         }
     }
     
-    private func isInCorner(a: CGPoint, o: CGPoint, b: CGPoint, x: CGPoint) -> Bool {
-        let aob = isCCW(a, o, b)
-        let aox = isCCW(a, o, x)
-        let xob = isCCW(x, o, b)
+    private func updateAngle() {
+        let o = dots[1]
+        let a = dots[0]
+        let b = dots[2]
         
-        return aob == aox && aob == xob
+        let ao = a - o
+        let bo = b - o
+        
+        let a0 = atan2(ao.y, ao.x)
+        let a1 = atan2(bo.y, bo.x)
+
+        self.start = Angle(radians: a0)
+        self.end = Angle(radians: a1)
+    }
+
+    private func world(_ p: CGPoint) -> CGPoint {
+        CGPoint(x: p.x - 0.5 * size.width, y: 0.5 * size.height - p.y)
+    }
+
+    private func view(_ p: CGPoint) -> CGPoint {
+        CGPoint(x: p.x + 0.5 * size.width, y: 0.5 * size.height - p.y)
     }
     
-    private func isCCW(_ p0: CGPoint, _ p1: CGPoint, _ p2: CGPoint) -> Bool {
-        let m0 = (p2.y - p0.y) * (p1.x - p0.x)
-        let m1 = (p1.y - p0.y) * (p2.x - p0.x)
-
-        return m0 <= m1
-    }
 }
+
+extension CGPoint: CustomStringConvertible {
+
+    public var description: String {
+        let sx = Double(x).formatted(.number.precision(.fractionLength(1)))
+        let sy = Double(y).formatted(.number.precision(.fractionLength(1)))
+        
+        return "(\(sx), \(sy)"
+    }
+    
+    public var round: CGPoint {
+        CGPoint(
+            x: (x / 5).rounded(.toNearestOrAwayFromZero) * 5,
+            y: (y / 5).rounded(.toNearestOrAwayFromZero) * 5
+        )
+    }
+    
+}
+

@@ -230,13 +230,26 @@ extension Collision {
                         let x1 = r1 == .contain
                         
                         if x0 && x1 {
-                            type = .false_out
+                            let subCorner = Corner(o: dot.p, a: a0, b: b1)
+                            let isB0 = subCorner.isBetween(p: b0)
+                            if isB0 == .contain {
+                                type = .false_out_same
+                            } else {
+                                type = .false_out_back
+                            }
+                            
                         } else if x0 {
                             type = .out
                         } else if x1 {
                             type = .into
                         } else {
-                            type = .false_in
+                            let subCorner = Corner(o: dot.p, a: a0, b: b1)
+                            let isA1 = subCorner.isBetween(p: a1)
+                            if isA1 == .contain {
+                                type = .false_in_same
+                            } else {
+                                type = .false_in_back
+                            }
                         }
                     }
                 }

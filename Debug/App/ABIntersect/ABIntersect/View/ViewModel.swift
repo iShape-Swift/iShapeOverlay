@@ -93,6 +93,8 @@ final class ViewModel: ObservableObject {
         let intersector = Intersector()
         let segments = intersector.intersect(pathA: shapeA, pathB: shapeB, navigator: Navigator(pins: pins))
         
+        print(segments)
+        
         var pinList = [Pin]()
 
         let nb = shapeB.count
@@ -112,10 +114,16 @@ final class ViewModel: ObservableObject {
             case .out:
                 mainColor = .red
                 fillColor = .white
-            case .false_in:
+            case .false_in_same:
+                mainColor = .blue
+                fillColor = .cyan
+            case .false_in_back:
                 mainColor = .blue
                 fillColor = .black
-            case .false_out:
+            case .false_out_same:
+                mainColor = .red
+                fillColor = .cyan
+            case .false_out_back:
                 mainColor = .red
                 fillColor = .black
             case .start_in:

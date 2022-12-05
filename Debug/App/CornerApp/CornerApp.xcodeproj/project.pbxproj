@@ -13,8 +13,8 @@
 		54E671F329376A27005F5B29 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54E671F229376A27005F5B29 /* Preview Assets.xcassets */; };
 		54E671FB29376AE0005F5B29 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E671FA29376AE0005F5B29 /* ViewModel.swift */; };
 		54E671FF2937B082005F5B29 /* VectorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E671FE2937B082005F5B29 /* VectorShape.swift */; };
-		54E672012937B469005F5B29 /* Corner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E672002937B469005F5B29 /* Corner.swift */; };
 		54E672032937C6E8005F5B29 /* IntPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E672022937C6E8005F5B29 /* IntPoint.swift */; };
+		54E9E2A9293DE982004FA92D /* Corner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9E2A8293DE982004FA92D /* Corner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +26,8 @@
 		54E671F429376A27005F5B29 /* CornerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CornerApp.entitlements; sourceTree = "<group>"; };
 		54E671FA29376AE0005F5B29 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		54E671FE2937B082005F5B29 /* VectorShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorShape.swift; sourceTree = "<group>"; };
-		54E672002937B469005F5B29 /* Corner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Corner.swift; sourceTree = "<group>"; };
 		54E672022937C6E8005F5B29 /* IntPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntPoint.swift; sourceTree = "<group>"; };
+		54E9E2A8293DE982004FA92D /* Corner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Corner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +67,8 @@
 				54E671EF29376A27005F5B29 /* Assets.xcassets */,
 				54E671F429376A27005F5B29 /* CornerApp.entitlements */,
 				54E671F129376A27005F5B29 /* Preview Content */,
-				54E672002937B469005F5B29 /* Corner.swift */,
 				54E672022937C6E8005F5B29 /* IntPoint.swift */,
+				54E9E2A8293DE982004FA92D /* Corner.swift */,
 			);
 			path = CornerApp;
 			sourceTree = "<group>";
@@ -153,10 +153,10 @@
 			files = (
 				54E671EE29376A25005F5B29 /* ContentView.swift in Sources */,
 				54E671FF2937B082005F5B29 /* VectorShape.swift in Sources */,
+				54E9E2A9293DE982004FA92D /* Corner.swift in Sources */,
 				54E671FB29376AE0005F5B29 /* ViewModel.swift in Sources */,
 				54E671EC29376A25005F5B29 /* CornerAppApp.swift in Sources */,
 				54E672032937C6E8005F5B29 /* IntPoint.swift in Sources */,
-				54E672012937B469005F5B29 /* Corner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

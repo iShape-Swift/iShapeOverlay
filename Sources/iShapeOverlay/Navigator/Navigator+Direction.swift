@@ -10,6 +10,5 @@ extension Navigator {
     enum Direction {
         case ab
         case ba
-        case stop
     }
 }

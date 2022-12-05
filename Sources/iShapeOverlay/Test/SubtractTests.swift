@@ -273,6 +273,346 @@ public final class SubtractTests {
         // 17
         TestData(
             shapeA: [
+                Point(x: -10.0, y: 5.0),
+                Point(x: 10.0, y: 5.0),
+                Point(x: 10.0, y: -5.0),
+                Point(x: -10.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 10.0),
+                Point(x: -5.0, y: -5.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: 15.0, y: -10.0),
+                Point(x: 15.0, y: 10.0)
+            ].int
+        ),
+        // 18
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 5.0),
+                Point(x: 10.0, y: 5.0),
+                Point(x: 10.0, y: -5.0),
+                Point(x: -10.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 10.0),
+                Point(x: -5.0, y: -5.0),
+                Point(x: 10.0, y: -5.0),
+                Point(x: 10.0, y: 0.0),
+                Point(x: 15.0, y: 0.0),
+                Point(x: 15.0, y: 10.0)
+            ].int
+        ),
+        // 19
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: 10.0, y: 10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 5.0),
+                Point(x: 10.0, y: 0.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: 0.0, y: -10.0),
+                Point(x: 0.0, y: -15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: 15.0, y: 5.0)
+            ].int
+        ),
+        // 20
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 5.0),
+                Point(x: 10.0, y: 5.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 5.0),
+                Point(x: 5.0, y: 5.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: 15.0, y: -5.0),
+                Point(x: 15.0, y: 10.0),
+                Point(x: -15.0, y: 10.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: -5.0, y: -5.0)
+            ].int
+        ),
+        // 21
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: 10.0, y: 10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0)
+            ].int,
+            shapeB: [
+                Point(x: 10.0, y: 0.0),
+                Point(x: 0.0, y: 5.0),
+                Point(x: 0.0, y: -5.0)
+            ].int
+        ),
+        // 22
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: 10.0, y: 10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0)
+            ].int,
+            shapeB: [
+                Point(x: 10.0, y: 10.0),
+                Point(x: 0.0, y: 5.0),
+                Point(x: 5.0, y: 0.0)
+            ].int
+        ),
+        // 23
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: 10.0, y: 10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 5.0),
+                Point(x: 10.0, y: 0.0),
+                Point(x: 10.0, y: -5.0),
+                Point(x: 15.0, y: 5.0)
+            ].int
+        ),
+        // 24
+        TestData(
+            shapeA: [
+                Point(x: -5.0, y: 0.0),
+                Point(x: 5.0, y: 0.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: -5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: -10.0, y: -10.0),
+                Point(x: 0.0, y: -10.0),
+                Point(x: 0.0, y: 5.0),
+                Point(x: 5.0, y: 5.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: 10.0, y: 10.0)
+            ].int
+        ),
+        // 25
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -10.0, y: 10.0),
+                Point(x: -10.0, y: 5.0),
+                Point(x: 5.0, y: 5.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: 10.0, y: 10.0)
+            ].int
+        ),
+        // 26
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 5.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: 15.0, y: -5.0),
+                Point(x: 15.0, y: 5.0)
+            ].int
+        ),
+        // 27
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 5.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: 25.0, y: 0.0),
+                Point(x: 15.0, y: 5.0)
+            ].int
+        ),
+        // 28
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: 15.0, y: -10.0),
+                Point(x: 15.0, y: 5.0)
+            ].int
+        ),
+        // 29
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -10.0, y: 0.0),
+                Point(x: -10.0, y: -10.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: 10.0, y: 0.0)
+            ].int
+        ),
+        // 30
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 15.0),
+                Point(x: 15.0, y: 15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: -15.0, y: -5.0),
+                Point(x: 5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: -5.0, y: 5.0),
+                Point(x: -20.0, y: -10.0),
+                Point(x: 15.0, y: -10.0),
+                Point(x: 18.0, y: 16.5)
+            ].int
+        ),
+        // 31
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 10.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: -10.0, y: 10.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 15.0),
+                Point(x: -5.0, y: 15.0),
+                Point(x: -5.0, y: -10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: 10.0, y: 0.0),
+                Point(x: 0.0, y: 0.0)
+            ].int
+        ),
+        // 32
+        TestData(
+            shapeA: [
+                Point(x: 5.0, y: 10.0),
+                Point(x: 5.0, y: -5.0),
+                Point(x: -2.0, y: 2.0),
+                Point(x: 2.0, y: 6.0),
+                Point(x: -2.0, y: 10.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 15.0),
+                Point(x: -5.0, y: 15.0),
+                Point(x: -5.0, y: -10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: 10.0, y: 0.0),
+                Point(x: 0.0, y: 0.0)
+            ].int
+        ),
+        // 33
+        TestData(
+            shapeA: [
+                Point(x: -10.0, y: -5.0),
+                Point(x: -10.0, y: 15.0),
+                Point(x: -5.0, y: 15.0),
+                Point(x: -5.0, y: -5.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 5.0),
+                Point(x: -20.0, y: 5.0),
+                Point(x: -20.0, y: -15.0),
+                Point(x: 10.0, y: -15.0),
+                Point(x: 10.0, y: 20.0),
+                Point(x: -20.0, y: 20.0),
+                Point(x: -20.0, y: 10.0),
+                Point(x: 5.0, y: 10.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: -15.0, y: -10.0),
+                Point(x: -15.0, y: 0.0),
+                Point(x: 0.0, y: 0.0)
+            ].int
+        ),
+        // 34
+        TestData(
+            shapeA: [
+                Point(x: -18.5, y: -3.5),
+                Point(x: -15.0, y: 10.0),
+                Point(x: -5.0, y: 15.0),
+                Point(x: -10.0, y: 7.0)
+            ].int,
+            shapeB: [
+                Point(x: 0.0, y: 5.0),
+                Point(x: -20.0, y: 5.0),
+                Point(x: -20.0, y: -15.0),
+                Point(x: 10.0, y: -15.0),
+                Point(x: 10.0, y: 20.0),
+                Point(x: -20.0, y: 20.0),
+                Point(x: -20.0, y: 10.0),
+                Point(x: 5.0, y: 10.0),
+                Point(x: 5.0, y: -10.0),
+                Point(x: -15.0, y: -10.0),
+                Point(x: -15.0, y: 0.0),
+                Point(x: 0.0, y: 0.0)
+            ].int
+        ),
+        // 35
+        TestData(
+            shapeA: [
+                Point(x: -5.0, y: 15.0),
+                Point(x: 0.0, y: 15.0),
+                Point(x: 0.0, y: 3.0),
+                Point(x: -5.0, y: 3.0)
+            ].int,
+            shapeB: [
+                Point(x: 5.0, y: 5.0),
+                Point(x: -15.0, y: 5.0),
+                Point(x: -15.0, y: -15.0),
+                Point(x: 15.0, y: -15.0),
+                Point(x: 15.0, y: 20.0),
+                Point(x: -15.0, y: 20.0),
+                Point(x: -15.0, y: 10.0),
+                Point(x: 10.0, y: 10.0),
+                Point(x: 10.0, y: -10.0),
+                Point(x: -10.0, y: -10.0),
+                Point(x: -10.0, y: 0.0),
+                Point(x: 5.0, y: 0.0)
+            ].int
+        ),
+        // 36
+        TestData(
+            shapeA: [
                 Point(x: -7.5, y: 10.0),
                 Point(x: 12.5, y: 10.0),
                 Point(x: 12.5, y: 5.0),
@@ -301,7 +641,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 18
+        // 37
         TestData(
             shapeA: [
                 Point(x: -7.5, y: 2.5),
@@ -332,225 +672,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 19
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: 10.0, y: 10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0)
-            ].int,
-            shapeB: [
-                Point(x: 10.0, y: 0.0),
-                Point(x: 0.0, y: 5.0),
-                Point(x: 0.0, y: -5.0)
-            ].int
-        ),
-        // 20
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: 10.0, y: 10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0)
-            ].int,
-            shapeB: [
-                Point(x: 10.0, y: 10.0),
-                Point(x: 0.0, y: 5.0),
-                Point(x: 5.0, y: 0.0)
-            ].int
-        ),
-        // 21
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: 10.0, y: 10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 5.0),
-                Point(x: 10.0, y: 0.0),
-                Point(x: 10.0, y: -5.0),
-                Point(x: 15.0, y: 5.0)
-            ].int
-        ),
-        // 22
-        TestData(
-            shapeA: [
-                Point(x: -5.0, y: 0.0),
-                Point(x: 5.0, y: 0.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: -5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: -10.0, y: -10.0),
-                Point(x: 0.0, y: -10.0),
-                Point(x: 0.0, y: 5.0),
-                Point(x: 5.0, y: 5.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: 10.0, y: 10.0)
-            ].int
-        ),
-        // 23
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: -10.0, y: 5.0),
-                Point(x: 5.0, y: 5.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: 10.0, y: 10.0)
-            ].int
-        ),
-        // 24
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 5.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: 15.0, y: -5.0),
-                Point(x: 15.0, y: 5.0)
-            ].int
-        ),
-        // 25
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 5.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: 25.0, y: 0.0),
-                Point(x: 15.0, y: 5.0)
-            ].int
-        ),
-        // 26
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: 15.0, y: -10.0),
-                Point(x: 15.0, y: 5.0)
-            ].int
-        ),
-        // 27
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -10.0, y: 0.0),
-                Point(x: -10.0, y: -10.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: 10.0, y: 0.0)
-            ].int
-        ),
-        // 28
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: -5.0),
-                Point(x: -10.0, y: 15.0),
-                Point(x: -5.0, y: 15.0),
-                Point(x: -5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 5.0),
-                Point(x: -20.0, y: 5.0),
-                Point(x: -20.0, y: -15.0),
-                Point(x: 10.0, y: -15.0),
-                Point(x: 10.0, y: 20.0),
-                Point(x: -20.0, y: 20.0),
-                Point(x: -20.0, y: 10.0),
-                Point(x: 5.0, y: 10.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: -15.0, y: -10.0),
-                Point(x: -15.0, y: 0.0),
-                Point(x: 0.0, y: 0.0)
-            ].int
-        ),
-        // 29
-        TestData(
-            shapeA: [
-                Point(x: -18.5, y: -3.5),
-                Point(x: -15.0, y: 10.0),
-                Point(x: -5.0, y: 15.0),
-                Point(x: -10.0, y: 7.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 5.0),
-                Point(x: -20.0, y: 5.0),
-                Point(x: -20.0, y: -15.0),
-                Point(x: 10.0, y: -15.0),
-                Point(x: 10.0, y: 20.0),
-                Point(x: -20.0, y: 20.0),
-                Point(x: -20.0, y: 10.0),
-                Point(x: 5.0, y: 10.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: -15.0, y: -10.0),
-                Point(x: -15.0, y: 0.0),
-                Point(x: 0.0, y: 0.0)
-            ].int
-        ),
-        // 30
-        TestData(
-            shapeA: [
-                Point(x: -5.0, y: 15.0),
-                Point(x: 0.0, y: 15.0),
-                Point(x: 0.0, y: 3.0),
-                Point(x: -5.0, y: 3.0)
-            ].int,
-            shapeB: [
-                Point(x: 5.0, y: 5.0),
-                Point(x: -15.0, y: 5.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: 15.0, y: 20.0),
-                Point(x: -15.0, y: 20.0),
-                Point(x: -15.0, y: 10.0),
-                Point(x: 10.0, y: 10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0),
-                Point(x: -10.0, y: 0.0),
-                Point(x: 5.0, y: 0.0)
-            ].int
-        ),
-        // 31
+        // 38
         TestData(
             shapeA: [
                 Point(x: -10.0, y: 15.0),
@@ -581,7 +703,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 32
+        // 39
         TestData(
             shapeA: [
                 Point(x: -10.0, y: 15.0),
@@ -612,7 +734,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 33
+        // 40
         TestData(
             shapeA: [
                 Point(x: -23.0, y: 20.0),
@@ -643,7 +765,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 34
+        // 41
         TestData(
             shapeA: [
                 Point(x: -23.0, y: 20.0),
@@ -674,7 +796,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 35
+        // 42
         TestData(
             shapeA: [
                 Point(x: -20.0, y: -15.0),
@@ -705,41 +827,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 36
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 10.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: -10.0, y: 10.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 15.0),
-                Point(x: -5.0, y: 15.0),
-                Point(x: -5.0, y: -10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: 10.0, y: 0.0),
-                Point(x: 0.0, y: 0.0)
-            ].int
-        ),
-        // 37
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 10.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: -2.0, y: 2.0),
-                Point(x: 2.0, y: 6.0),
-                Point(x: -2.0, y: 10.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 15.0),
-                Point(x: -5.0, y: 15.0),
-                Point(x: -5.0, y: -10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: 10.0, y: 0.0),
-                Point(x: 0.0, y: 0.0)
-            ].int
-        ),
-        // 38
+        // 43
         TestData(
             shapeA: [
                 Point(x: -5.0, y: 0.0),
@@ -778,24 +866,7 @@ public final class SubtractTests {
                 Point(x: -5.0, y: 0.0)
             ].int
         ),
-        // 39
-        TestData(
-            shapeA: [
-                Point(x: 5.0, y: 15.0),
-                Point(x: 15.0, y: 15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: -15.0, y: -15.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: 5.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 5.0),
-                Point(x: -20.0, y: -10.0),
-                Point(x: 15.0, y: -10.0),
-                Point(x: 18.0, y: 16.5)
-            ].int
-        ),
-        // 40
+        // 44
         TestData(
             shapeA: [
                 Point(x: -10.0, y: 10.0),
@@ -808,77 +879,6 @@ public final class SubtractTests {
                 Point(x: -10.0, y: -10.0),
                 Point(x: 10.0, y: -10.0),
                 Point(x: 10.0, y: 10.0)
-            ].int
-        ),
-        // 41
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 5.0),
-                Point(x: 10.0, y: 5.0),
-                Point(x: 10.0, y: -5.0),
-                Point(x: -10.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 10.0),
-                Point(x: -5.0, y: -5.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: 5.0, y: -10.0),
-                Point(x: 15.0, y: -10.0),
-                Point(x: 15.0, y: 10.0)
-            ].int
-        ),
-        // 42
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 5.0),
-                Point(x: 10.0, y: 5.0),
-                Point(x: 10.0, y: -5.0),
-                Point(x: -10.0, y: -5.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 10.0),
-                Point(x: -5.0, y: -5.0),
-                Point(x: 10.0, y: -5.0),
-                Point(x: 10.0, y: 0.0),
-                Point(x: 15.0, y: 0.0),
-                Point(x: 15.0, y: 10.0)
-            ].int
-        ),
-        // 43
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 10.0),
-                Point(x: 10.0, y: 10.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0)
-            ].int,
-            shapeB: [
-                Point(x: 0.0, y: 5.0),
-                Point(x: 10.0, y: 0.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: 0.0, y: -10.0),
-                Point(x: 0.0, y: -15.0),
-                Point(x: 15.0, y: -15.0),
-                Point(x: 15.0, y: 5.0)
-            ].int
-        ),
-        // 44
-        TestData(
-            shapeA: [
-                Point(x: -10.0, y: 5.0),
-                Point(x: 10.0, y: 5.0),
-                Point(x: 10.0, y: -10.0),
-                Point(x: -10.0, y: -10.0)
-            ].int,
-            shapeB: [
-                Point(x: -5.0, y: 5.0),
-                Point(x: 5.0, y: 5.0),
-                Point(x: 5.0, y: -5.0),
-                Point(x: 15.0, y: -5.0),
-                Point(x: 15.0, y: 10.0),
-                Point(x: -15.0, y: 10.0),
-                Point(x: -15.0, y: -5.0),
-                Point(x: -5.0, y: -5.0)
             ].int
         ),
         // 45
@@ -900,22 +900,6 @@ public final class SubtractTests {
             ].int
         ),
         // 46
-        TestData(
-            shapeA: [
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10),
-                Point(x: -10, y: 5),
-                Point(x: 10, y:  5)
-            ].int,
-            shapeB: [
-                Point(x: -20, y: 15),
-                Point(x: -20, y: 5),
-                Point(x: 20, y: 5),
-                Point(x: 20, y:  15)
-            ].int
-        ),
-        
-        // 47
         TestData(
             shapeA: [
                 IntPoint(x: 20173, y: -7262),
@@ -952,25 +936,22 @@ public final class SubtractTests {
                 IntPoint(x: 31800, y: -22521)
             ].scale(value: 1)
         ),
-        // 48
+        // 47
         TestData(
             shapeA: [
-               IntPoint(x: -950, y: 3300),
-               IntPoint(x: -950, y: 198),
-               IntPoint(x: -9, y: 32),
-               IntPoint(x: 27, y: -11),
-               IntPoint(x: 136, y: -30),
-               IntPoint(x: 136, y: -1700),
-               IntPoint(x: -9400, y: -1700),
-               IntPoint(x: -9400, y: 3300)
+               IntPoint(x: -2000, y:  1000),
+               IntPoint(x:  -109, y:    19),
+               IntPoint(x:     0, y:     0),
+               IntPoint(x:     0, y: -1000),
+               IntPoint(x: -2000, y: -1000),
            ].scale(value: 1),
             shapeB: [
-               IntPoint(x: -1160, y: 8300),
-               IntPoint(x: -1160, y: 198),
-               IntPoint(x: 5577, y: -989),
-               IntPoint(x: 5577, y: 8300)
+               IntPoint(x:     0, y: 3000),
+               IntPoint(x: -1296, y:  228),
+               IntPoint(x:  5441, y: -959)
             ].scale(value: 1)
        )
+
     ]
 
 }

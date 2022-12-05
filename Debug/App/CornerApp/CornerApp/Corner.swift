@@ -2,7 +2,7 @@
 //  Corner.swift
 //  CornerApp
 //
-//  Created by Nail Sharipov on 30.11.2022.
+//  Created by Nail Sharipov on 05.12.2022.
 //
 
 import CoreGraphics
@@ -10,86 +10,97 @@ import CoreGraphics
 struct Corner {
 
     enum Result {
-        case onBoarder
+        case inCenter
+        case onA
+        case onB
         case contain
         case absent
     }
     
     private let o: IntPoint
-    private let a: IntPoint
-    private let b: IntPoint
+    private let ao: IntPoint
+    private let bo: IntPoint
     
-    private let isInnerCornerCW: Bool
+    private let dir: Int
 
     init(o: IntPoint, a: IntPoint, b: IntPoint) {
         self.o = o
-        self.a = a
-        self.b = b
+        ao = a - o
+        bo = b - o
 
-        self.isInnerCornerCW = Corner.isClockWise(a: self.a, b: self.o, c: self.b) == 1
+        dir = ao.crossProduct(point: bo).sign
     }
 
     init(o: CGPoint, a: CGPoint, b: CGPoint) {
         self.init(o: IntPoint(o), a: IntPoint(a), b: IntPoint(b))
     }
     
-    func isBetween(p: CGPoint, clockwise: Bool = false) -> Result {
-        self.isBetween(p: IntPoint(p), clockwise: clockwise)
+    func isBetween(p: CGPoint, clockWise: Bool) -> Result {
+        self.isBetween(p: IntPoint(p), clockWise: clockWise)
     }
     
-    func isBetween(p: IntPoint, clockwise: Bool = false) -> Result {
-        let aop = Corner.isClockWise(a: a, b: o, c: p)
-        let bop = Corner.isClockWise(a: b, b: o, c: p)
-        guard aop != 0 && bop != 0 else {
-            if aop == 0 && bop == 0 {
-                return .onBoarder
+    func isBetween(p: IntPoint, clockWise: Bool) -> Result {
+        let po = p - o
+        
+        let ap = ao.crossProduct(point: po).sign
+        if ap == 0 {
+            if p == o {
+                return .inCenter
             }
-            let dotProduct: Int64
-            if aop == 0 {
-                let ao = a - o
-                let po = p - o
-                dotProduct = ao.x * po.x + ao.y * po.y
-            } else {
-                let bo = b - o
-                let po = p - o
-                dotProduct = bo.x * po.x + bo.y * po.y
+            
+            let dotProd = po.scalarMultiply(point: ao)
+            if dotProd > 0 {
+                return .onA
             }
-            if dotProduct > 0 {
-                return .onBoarder
-            } else if clockwise == self.isInnerCornerCW {
-                return .absent
-            } else {
+        }
+
+        let bp = bo.crossProduct(point: po).sign
+        if bp == 0 {
+            let dotProd = po.scalarMultiply(point: bo)
+            if dotProd > 0 {
+                return .onB
+            }
+        }
+        
+        guard dir != 0 else {
+            let d = clockWise ? -1 : 1
+            let isContain = ap == d && bp != d
+            if isContain {
                 return .contain
+            } else {
+                return .absent
             }
         }
-
-        let isClockWiseAOP = aop == 1
-        let isClockWiseBOP = bop == 1
-
-        var isInner = isClockWiseAOP != isClockWiseBOP && self.isInnerCornerCW == isClockWiseAOP
-
-        if isInnerCornerCW != clockwise {
-            isInner = !isInner
-        }
         
-        if isInner {
-            return .contain
+        let isSmall = ap == dir && bp != dir
+        let isSmallCW = dir == -1
+        if isSmallCW == clockWise {
+            if isSmall {
+                return .contain
+            } else {
+                return .absent
+            }
         } else {
-            return .absent
+            if !isSmall {
+                return .contain
+            } else {
+                return .absent
+            }
         }
     }
 
-    private static func isClockWise(a: IntPoint, b: IntPoint, c: IntPoint) -> Int {
-        let m0 = (c.y - a.y) * (b.x - a.x)
-        let m1 = (b.y - a.y) * (c.x - a.x)
+}
 
-        if m0 < m1 {
-            return -1
-        } else if m0 > m1 {
+private extension Int64 {
+    
+    var sign: Int {
+        if self == 0 {
+            return 0
+        } else if self > 0 {
             return 1
+        } else {
+            return -1
         }
-        
-        return 0
     }
-
+    
 }

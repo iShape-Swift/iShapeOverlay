@@ -51,7 +51,7 @@ struct ContentView: View {
             if let polygons = viewModel.polygons {
                 ForEach(polygons) { polygon in
                     PolygonView(
-                        fill: .white,
+                        fill: .white.opacity(0.6),
                         stroke: .clear,
                         lineWidth: 0,
                         points: polygon.points,

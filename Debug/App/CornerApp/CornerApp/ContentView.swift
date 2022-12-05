@@ -13,21 +13,41 @@ struct ContentView: View {
     var viewModel = ViewModel()
     
     var body: some View {
-        content()
-        .frame(minWidth: 400, minHeight: 400)
-        .onAppear() {
-            viewModel.onAppear()
+        GeometryReader() { proxy in
+            content(size: proxy.size)
         }
+        .frame(width: 400, height: 400)
     }
     
-    private func content() -> some View {
-        ZStack {
-            VectorShape(a: viewModel.dots[0], b: viewModel.dots[1], arrow: 20)
+    private func content(size: CGSize) -> some View {
+        viewModel.resize(size: size)
+        return ZStack {
+            Path() { path in
+                path.move(to: viewModel.dots[1])
+                path.addArc(
+                    center: viewModel.dots[1],
+                    radius: 120,
+                    startAngle: viewModel.start,
+                    endAngle: viewModel.end,
+                    clockwise: !viewModel.isClockWise
+                )
+                path.closeSubpath()
+            }.fill(.white.opacity(0.2))
+            
+            Path() { path in
+                path.move(to: CGPoint(x: 0, y: 0.5 * size.height))
+                path.addLine(to: CGPoint(x: size.width, y: 0.5 * size.height))
+                path.move(to: CGPoint(x: 0.5 * size.width, y: 0))
+                path.addLine(to: CGPoint(x: 0.5 * size.width, y: size.height))
+            }
+            .stroke(style: .init(lineWidth: 1))
+            .foregroundColor(.gray)
+            VectorShape(a: viewModel.dots[1], b: viewModel.dots[0], arrow: 20)
                 .stroke(style: .init(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                .foregroundColor(.gray)
+                .foregroundColor(.blue)
             VectorShape(a: viewModel.dots[1], b: viewModel.dots[2], arrow: 20)
                 .stroke(style: .init(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                .foregroundColor(.gray)
+                .foregroundColor(.red)
             Circle()
                 .fill(viewModel.color)
                 .frame(width: 32, height: 32)
@@ -55,6 +75,11 @@ struct ContentView: View {
                             viewModel.onEndDrag(index: id, data: data)
                         }
                     )
+            }
+            
+            VStack {
+                Toggle("Is Clock Wise", isOn: $viewModel.isClockWise).padding(8)
+                Spacer()
             }
         }
         .padding()
