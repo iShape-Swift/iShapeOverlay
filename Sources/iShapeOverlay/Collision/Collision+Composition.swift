@@ -126,33 +126,42 @@ extension Collision {
                 
                 let type: PinType
                 
+                let iA = dot.mA.index
+                
+                let forward_A = (iA + 1) % nA
+                let back_A = (iA - 1 + nA) % nA
+
+                let iA1 = forward_A
+                let a1 = pathA[iA1]
+                
+                let iB = dot.mB.index
+                let forward_B = (iB + 1) % nB
+                let back_B = (iB - 1 + nB) % nB
+                
+                let iB1 = forward_B
+                let b1 = pathB[iB1]
+                
                 switch dot.t {
                 case .simple:
-                    let a = pathA[dot.mA.index]
-                    let b = pathB[dot.mB.index]
+                    let a0 = pathA[iA]
+                    let b0 = pathB[iB]
                     
-                    let isCCW = self.isCCW(a, dot.p, b)
-                    type = isCCW ? .out : .into
+                    let aa = a1 - a0
+                    let bb = b1 - b0
+                    
+                    let crossProduct = aa.crossProduct(bb)
+                    
+                    type = crossProduct > 0 ? .out : .into
                 case .complex:
-                    let iA = dot.mA.index
-                    let forward_A = (iA + 1) % nA
-                    let back_A = (iA - 1 + nA) % nA
-
-                    let iB = dot.mB.index
-                    let forward_B = (iB + 1) % nB
-                    let back_B = (iB - 1 + nB) % nB
-                    
                     let eA0: Int
                     let eA1 = iA
                     
                     let iA0: Int
-                    let iA1 = forward_A
                     
                     let eB0: Int
                     let eB1 = iB
                     
                     let iB0: Int
-                    let iB1 = forward_B
                     
                     if dot.mA.offset == 0 {
                         eA0 = back_A
@@ -196,8 +205,6 @@ extension Collision {
                         sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
                         start: dot.p
                     )
- 
-                    let corner = Corner(o: dot.p, a: a0, b: a1)
                     
                     let b0_a = a0_b0 || a1_b0
                     let b1_a = a0_b1 || a1_b1
@@ -205,8 +212,10 @@ extension Collision {
                     if b1_a && b0_a {
                         continue
                     } else if b0_a {
-                        let r1 = corner.isBetween(p: b1, clockwise: false)
-                        let x1 = r1 == .contain
+                        let corner = Corner(o: dot.p, a: a0, b: a1)
+                        
+                        let r1 = corner.test(p: b1, clockWise: false)
+                        let x1 = r1 != .outside
                         
                         if x1 {
                             type = .end_in
@@ -214,8 +223,10 @@ extension Collision {
                             type = .end_out
                         }
                     } else if b1_a {
-                        let r0 = corner.isBetween(p: b0, clockwise: false)
-                        let x0 = r0 == .contain
+                        let corner = Corner(o: dot.p, a: a0, b: a1)
+                        
+                        let r0 = corner.test(p: b0, clockWise: false)
+                        let x0 = r0 != .outside
                         
                         if x0 {
                             type = .start_out
@@ -223,16 +234,54 @@ extension Collision {
                             type = .start_in
                         }
                     } else {
-                        let r0 = corner.isBetween(p: b0, clockwise: false)
-                        let r1 = corner.isBetween(p: b1, clockwise: false)
+                        let r0: CornerLocation
+                        let r1: CornerLocation
                         
-                        let x0 = r0 == .contain
-                        let x1 = r1 == .contain
+                        if (dot.mA.offset == 0 || dot.mB.offset == 0) && dot.mA.offset != dot.mB.offset {
+                            let dP = DBPoint(iPoint: dot.p)
+                            let dA0: DBPoint
+                            let dA1: DBPoint
+                            let dB0: DBPoint
+                            let dB1: DBPoint
+
+                            if dot.mA.offset == 0 {
+                                // b0 - b1 is line
+
+                                dA0 = DBPoint(iPoint: a0)
+                                dA1 = DBPoint(iPoint: a1)
+
+                                let db = testPoint(a0: a0, a1: a1, e: dot.p, b0: b0, b1: b1)
+
+                                dB0 = db.p0
+                                dB1 = db.p1
+                            } else {
+                                // a0 - a1 is line
+
+                                dB0 = DBPoint(iPoint: b0)
+                                dB1 = DBPoint(iPoint: b1)
+
+                                let db = testPoint(a0: b0, a1: b1, e: dot.p, b0: a0, b1: a1)
+
+                                dA0 = db.p0
+                                dA1 = db.p1
+                            }
+
+                            let dbCorner = DBCorner(o: dP, a: dA0, b: dA1)
+                            r0 = dbCorner.test(p: dB0, clockWise: false)
+                            r1 = dbCorner.test(p: dB1, clockWise: false)
+                        } else {
+                            let corner = Corner(o: dot.p, a: a0, b: a1)
+                            r0 = corner.test(p: b0, clockWise: false)
+                            r1 = corner.test(p: b1, clockWise: false)
+                        }
+
+                        let x0 = r0 != .outside
+                        let x1 = r1 != .outside
                         
                         if x0 && x1 {
                             let subCorner = Corner(o: dot.p, a: a0, b: b1)
-                            let isB0 = subCorner.isBetween(p: b0)
-                            if isB0 == .contain {
+                            let isB0 = subCorner.test(p: b0, clockWise: false)
+                            if isB0 != .outside {
                                 type = .false_out_same
                             } else {
                                 type = .false_out_back
@@ -244,8 +293,8 @@ extension Collision {
                             type = .into
                         } else {
                             let subCorner = Corner(o: dot.p, a: a0, b: b1)
-                            let isA1 = subCorner.isBetween(p: a1)
-                            if isA1 == .contain {
+                            let isA1 = subCorner.test(p: a1, clockWise: false)
+                            if isA1 != .outside {
                                 type = .false_in_same
                             } else {
                                 type = .false_in_back
@@ -253,19 +302,11 @@ extension Collision {
                         }
                     }
                 }
-                
-                let pin = PinPoint(p: dot.p, type: type, mA: dot.mA, mB: dot.mB)
-                result.append(pin)
+
+                result.append(PinPoint(p: dot.p, type: type, mA: dot.mA, mB: dot.mB))
             }
             
             return result
-        }
-        
-        private func isCCW(_ p0: IntPoint, _ p1: IntPoint, _ p2: IntPoint) -> Bool {
-            let m0 = (p2.y - p0.y) * (p1.x - p0.x)
-            let m1 = (p1.y - p0.y) * (p2.x - p0.x)
-
-            return m0 < m1
         }
 
         private func isOverlap(sA: Segment, sB: Segment, start: IntPoint) -> Bool {
@@ -284,6 +325,63 @@ extension Collision {
             
             return false
         }
+        
+        private struct TwoPoint {
+            let p0: DBPoint
+            let p1: DBPoint
+        }
+        
+        // b0 - b1 is line
+        private func testPoint(a0: IntPoint, a1: IntPoint, e: IntPoint, b0: IntPoint, b1: IntPoint) -> TwoPoint {
+            let bb = b1 - b0
+            let a0e = a0 - e
+            let a1e = a1 - e
+            
+            let dotA0 = bb.dotProduct(a0e)
+            let dotA1 = bb.dotProduct(a1e)
+            
+            let da0: DBPoint
+            let da1: DBPoint
+            
+            if dotA0 > 0 {
+                let db = b1.sqrDistance(point: e)
+                let da = a0.sqrDistance(point: e)
+                if db < da {
+                    da0 = DBPoint(iPoint: b0)
+                } else {
+                    da0 = Line.normalBase(a: b0, b: b1, p: a0)
+                }
+            } else {
+                let db = b0.sqrDistance(point: e)
+                let da = a0.sqrDistance(point: e)
+                if db < da {
+                    da0 = DBPoint(iPoint: b0)
+                } else {
+                    da0 = Line.normalBase(a: b0, b: b1, p: a0)
+                }
+            }
+
+            if dotA1 > 0 {
+                let db = b1.sqrDistance(point: e)
+                let da = a1.sqrDistance(point: e)
+                if db < da {
+                    da1 = DBPoint(iPoint: b1)
+                } else {
+                    da1 = Line.normalBase(a: b0, b: b1, p: a1)
+                }
+            } else {
+                let db = b0.sqrDistance(point: e)
+                let da = a1.sqrDistance(point: e)
+                if db < da {
+                    da1 = DBPoint(iPoint: b1)
+                } else {
+                    da1 = Line.normalBase(a: b0, b: b1, p: a1)
+                }
+            }
+            
+            return .init(p0: da0, p1: da1)
+        }
+
     }
 }
 

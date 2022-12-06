@@ -158,6 +158,44 @@ extension Collision {
             }
         }
         
+        @inlinable
+        func isCross(other: Collision.Edge) -> Bool {
+            let a0 = self.start
+            let a1 = self.end
+            
+            let b0 = other.start
+            let b1 = other.end
+            
+            let d0 = self.isCCW(a: a0, b: b0, c: b1)
+            let d1 = self.isCCW(a: a1, b: b0, c: b1)
+            let d2 = self.isCCW(a: a0, b: a1, c: b0)
+            let d3 = self.isCCW(a: a0, b: a1, c: b1)
+            
+            if d0 == 0 || d1 == 0 || d2 == 0 || d3 == 0 {
+                if d0 == 0 && d1 == 0 && d2 == 0 && d3 == 0 {
+                    return true
+                }
+                
+                if d0 == 0 || d1 == 0 {
+                    if d2 == 0 || d3 == 0 || d2 != d3 {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+                
+                if d0 != d1 {
+                    return true
+                } else {
+                    return false
+                }
+            } else if d0 != d1 && d2 != d3 {
+                return true
+            } else {
+                return false
+            }
+        }
+        
         private func isCCW(a: IntPoint, b: IntPoint, c: IntPoint) -> Int {
             let m0 = (c.y - a.y) * (b.x - a.x)
             let m1 = (b.y - a.y) * (c.x - a.x)

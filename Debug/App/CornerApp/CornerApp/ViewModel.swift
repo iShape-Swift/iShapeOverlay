@@ -85,12 +85,12 @@ final class ViewModel: ObservableObject {
         let tp = self.world(testPoint)
         
         let corner = Corner(o: o, a: a, b: b)
-        let result = corner.isBetween(p: tp, clockWise: isClockWise)
+        let result = corner.test(p: tp, clockWise: isClockWise)
         
         switch result {
-        case .contain:
+        case .inside:
             self.color = .green
-        case .absent:
+        case .outside:
             self.color = .black.opacity(0.5)
         case .onA:
             self.color = .blue

@@ -153,7 +153,7 @@ struct Linker {
             let nc = it.next(map)
             let ba = nb.point - a
             let ca = nc.point - a
-            let crossProduct = ba.crossProduct(point: ca)
+            let crossProduct = ba.crossProduct(ca)
             if crossProduct > 0 {
                 nb = nc
             }

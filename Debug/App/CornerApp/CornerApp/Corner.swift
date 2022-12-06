@@ -13,8 +13,8 @@ struct Corner {
         case inCenter
         case onA
         case onB
-        case contain
-        case absent
+        case inside
+        case outside
     }
     
     private let o: IntPoint
@@ -23,6 +23,7 @@ struct Corner {
     
     private let dir: Int
 
+    @inlinable
     init(o: IntPoint, a: IntPoint, b: IntPoint) {
         self.o = o
         ao = a - o
@@ -31,15 +32,18 @@ struct Corner {
         dir = ao.crossProduct(point: bo).sign
     }
 
+    @inlinable
     init(o: CGPoint, a: CGPoint, b: CGPoint) {
         self.init(o: IntPoint(o), a: IntPoint(a), b: IntPoint(b))
     }
     
-    func isBetween(p: CGPoint, clockWise: Bool) -> Result {
-        self.isBetween(p: IntPoint(p), clockWise: clockWise)
+    @inlinable
+    func test(p: CGPoint, clockWise: Bool) -> Result {
+        self.test(p: IntPoint(p), clockWise: clockWise)
     }
     
-    func isBetween(p: IntPoint, clockWise: Bool) -> Result {
+    @inlinable
+    func test(p: IntPoint, clockWise: Bool) -> Result {
         let po = p - o
         
         let ap = ao.crossProduct(point: po).sign
@@ -66,9 +70,9 @@ struct Corner {
             let d = clockWise ? -1 : 1
             let isContain = ap == d && bp != d
             if isContain {
-                return .contain
+                return .inside
             } else {
-                return .absent
+                return .outside
             }
         }
         
@@ -76,15 +80,15 @@ struct Corner {
         let isSmallCW = dir == -1
         if isSmallCW == clockWise {
             if isSmall {
-                return .contain
+                return .inside
             } else {
-                return .absent
+                return .outside
             }
         } else {
             if !isSmall {
-                return .contain
+                return .inside
             } else {
-                return .absent
+                return .outside
             }
         }
     }

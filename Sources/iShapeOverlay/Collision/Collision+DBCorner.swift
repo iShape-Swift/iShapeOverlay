@@ -1,33 +1,24 @@
 //
-//  Corner.swift
+//  DBCorner.swift
 //  
 //
-//  Created by Nail Sharipov on 30.11.2022.
+//  Created by Nail Sharipov on 06.12.2022.
 //
 
 import iGeometry
 
 extension Collision {
-
-    enum CornerLocation {
-        case inCenter
-        case onA
-        case onB
-        case inside
-        case outside
-    }
-
     
-    struct Corner {
+    struct DBCorner {
         
-        private let o: IntPoint
-        private let ao: IntPoint
-        private let bo: IntPoint
+        private let o: DBPoint
+        private let ao: DBPoint
+        private let bo: DBPoint
         
         private let dir: Int
         
         @inlinable
-        init(o: IntPoint, a: IntPoint, b: IntPoint) {
+        init(o: DBPoint, a: DBPoint, b: DBPoint) {
             self.o = o
             ao = a - o
             bo = b - o
@@ -36,7 +27,7 @@ extension Collision {
         }
 
         @inlinable
-        func test(p: IntPoint, clockWise: Bool) -> CornerLocation {
+        func test(p: DBPoint, clockWise: Bool) -> CornerLocation {
             let po = p - o
             
             let ap = ao.crossProduct(po).sign
@@ -89,7 +80,7 @@ extension Collision {
     }
 }
 
-private extension Int64 {
+private extension Double {
         
     var sign: Int {
         if self == 0 {

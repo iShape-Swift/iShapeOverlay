@@ -32,7 +32,7 @@ struct ContentView: View {
                     clockwise: !viewModel.isClockWise
                 )
                 path.closeSubpath()
-            }.fill(.white.opacity(0.2))
+            }.fill(.yellow.opacity(0.1))
             
             Path() { path in
                 path.move(to: CGPoint(x: 0, y: 0.5 * size.height))
