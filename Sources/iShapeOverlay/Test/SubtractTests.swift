@@ -971,8 +971,22 @@ public final class SubtractTests {
                IntPoint(x:  5441, y: -959),
                IntPoint(x:   667, y: 2515)
             ].scale(value: 1)
+        ),
+        // 49
+        TestData(
+            shapeA: [
+                IntPoint(x:   -73, y:  1931),
+                IntPoint(x:  -109, y:    19),
+                IntPoint(x:     0, y:     0),
+                IntPoint(x:     0, y: -1000),
+                IntPoint(x: -2000, y: -1000),
+           ].scale(value: 1),
+            shapeB: [
+                IntPoint(x:     0, y: 3000),
+                IntPoint(x: -1296, y:  228),
+                IntPoint(x:  5441, y: -959)
+            ].scale(value: 1)
        )
-
     ]
 
 }
