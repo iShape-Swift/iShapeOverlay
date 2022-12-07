@@ -78,6 +78,11 @@ final class ViewModel: ObservableObject {
         objectWillChange.send()
     }
     
+    func update() {
+        self.doTask()
+        objectWillChange.send()
+    }
+    
     func load() {
         let data = test.current
         shapeA = data.shapeA
@@ -88,21 +93,38 @@ final class ViewModel: ObservableObject {
     
     func doTask() {
         let detector = Collision.Detector()
-        let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
+        let result = detector.findPins(pathA: shapeA, pathB: shapeB, fixer: Fixer())
 
+        switch result.pinResult {
+        case .success:
+            self.success(pathA: shapeA, pathB: shapeB, pins: result.pins)
+        case .modified:
+            self.success(
+                pathA: result.pathA.isEmpty ? [] : result.pathA[0],
+                pathB: result.pathB.isEmpty ? [] : result.pathB[0],
+                pins: result.pins
+            )
+        case .conflict:
+            self.pins = nil
+            self.polygons = nil
+        }
+    }
+    
+    private func success(pathA: [IntPoint], pathB: [IntPoint], pins: [PinPoint]) {
         let intersector = Intersector()
-        let segments = intersector.intersect(pathA: shapeA, pathB: shapeB, navigator: Navigator(pins: pins))
+        
+        let segments = intersector.intersect(pathA: pathA, pathB: pathB, navigator: Navigator(pins: pins))
         
         print(segments)
         
         var pinList = [Pin]()
 
-        let nb = shapeB.count
+        let nb = pathB.count
 
         for id in 0..<pins.count {
             let pin = pins[id]
-            let a = shapeB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
-            let b = shapeB[(pin.mB.index + 1) % nb]
+            let a = pathB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
+            let b = pathB[(pin.mB.index + 1) % nb]
 
             let mainColor: Color
             let fillColor: Color
@@ -165,6 +187,7 @@ final class ViewModel: ObservableObject {
         
         self.polygons = polygons
     }
+    
     
     func onModifiedA(points: [IntPoint]) {
         guard shapeA != points else {

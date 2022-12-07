@@ -939,16 +939,37 @@ public final class SubtractTests {
         // 47
         TestData(
             shapeA: [
-               IntPoint(x: -2000, y:  1000),
-               IntPoint(x:  -109, y:    19),
-               IntPoint(x:     0, y:     0),
-               IntPoint(x:     0, y: -1000),
-               IntPoint(x: -2000, y: -1000),
+                IntPoint(x: -2000, y:  1000),
+                IntPoint(x:  -109, y:    19),
+                IntPoint(x:     0, y:     0),
+                IntPoint(x:     0, y: -1000),
+                IntPoint(x: -2000, y: -1000),
+           ].scale(value: 1),
+            shapeB: [
+                IntPoint(x:     0, y: 3000),
+                IntPoint(x: -1296, y:  228),
+                IntPoint(x:  5441, y: -959)
+            ].scale(value: 1)
+       ),
+        // 48
+        TestData(
+            shapeA: [
+                IntPoint(x:  667, y:   2515),
+                IntPoint(x:   668, y:  2517),
+                IntPoint(x:   667, y:  2515),
+                IntPoint(x:  -109, y:    19),
+                IntPoint(x:     0, y: -1000),
+                IntPoint(x: -2000, y: -1000),
+                IntPoint(x: -1095, y:   193),
            ].scale(value: 1),
             shapeB: [
                IntPoint(x:     0, y: 3000),
                IntPoint(x: -1296, y:  228),
-               IntPoint(x:  5441, y: -959)
+               IntPoint(x: -1095, y:  193),
+               IntPoint(x:  -109, y:   19),
+               IntPoint(x:     0, y:    0),
+               IntPoint(x:  5441, y: -959),
+               IntPoint(x:   667, y: 2515)
             ].scale(value: 1)
        )
 

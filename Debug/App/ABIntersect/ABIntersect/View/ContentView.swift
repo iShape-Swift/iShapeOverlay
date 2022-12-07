@@ -76,13 +76,16 @@ struct ContentView: View {
             VStack() {
                 Text(viewModel.title).padding(8)
                 HStack() {
-                    Spacer()
                     Button("Prev") {
                         viewModel.onPrev()
-                    }
+                    }.padding(.leading, 20)
                     Spacer(minLength: 10)
                     Button("-") {
                         viewModel.onScaleDown()
+                    }.frame(minWidth: 40)
+                    Spacer(minLength: 10)
+                    Button("update") {
+                        viewModel.update()
                     }.frame(minWidth: 40)
                     Spacer(minLength: 10)
                     Button("+") {
@@ -91,8 +94,7 @@ struct ContentView: View {
                     Spacer(minLength: 10)
                     Button("Next") {
                         viewModel.onNext()
-                    }
-                    Spacer()
+                    }.padding(.trailing, 20)
                 }
             }
             .frame(maxHeight: .infinity, alignment: .top)

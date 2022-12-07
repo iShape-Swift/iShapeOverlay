@@ -11,15 +11,75 @@ private typealias Edge = Collision.Edge
 private typealias Dot = Collision.Dot
 
 extension Collision {
+    
+    enum PinResult {
+        case success
+        case modified
+        case conflict
+    }
+    
+    struct PinBundle {
+        let pinResult: PinResult
+        let pathA: [[IntPoint]]
+        let pathB: [[IntPoint]]
+        let pins: [PinPoint]
+    }
+    
     struct Detector {}
 }
 
 extension Collision.Detector {
+    
+    func findPins(pathA: [IntPoint], pathB: [IntPoint], fixer: Fixer) -> Collision.PinBundle {
 
-    func findPins(pathA: [IntPoint], pathB: [IntPoint]) -> [PinPoint] {
-        let composition = self.composition(pathA: pathA, pathB: pathB)
-        let result = composition.pins(pathA: pathA, pathB: pathB)
-        return result
+        var pathA = pathA
+        var pathB = pathB
+        var isAnyModified = false
+        var isModified = false
+        
+        var composition = Collision.Composition(countA: 0, countB: 0)
+        
+        repeat {
+            isModified = false
+            composition = self.composition(pathA: pathA, pathB: pathB)
+            let result = composition.eliminateConflictDots(pathA: pathA, pathB: pathB)
+
+            if result.updateA.isModified || result.updateB.isModified {
+                isModified = true
+                isAnyModified = true
+                
+                let listA: [[IntPoint]]
+                let listB: [[IntPoint]]
+
+                if result.updateA.isModified {
+                    listA = fixer.solve(path: result.updateA.path)
+                } else {
+                    listA = [pathA]
+                }
+
+                if result.updateB.isModified {
+                    listB = fixer.solve(path: result.updateB.path, clockWise: false)
+                } else {
+                    listB = [pathB]
+                }
+                
+                if listA.count == 1 && listB.count == 1 {
+                    pathA = listA[0]
+                    pathB = listB[0]
+                } else if listA.isEmpty || listB.isEmpty {
+                    return Collision.PinBundle(pinResult: .modified, pathA: listA, pathB: listB, pins: [])
+                } else {
+                    return Collision.PinBundle(pinResult: .conflict, pathA: listA, pathB: listB, pins: [])
+                }
+            }
+        } while isModified
+        
+        let pins = composition.pins(pathA: pathA, pathB: pathB)
+        
+        let pinResult: Collision.PinResult = isAnyModified ? .modified : .success
+        
+        return Collision.PinBundle(pinResult: pinResult, pathA: [pathA], pathB: [pathB], pins: pins)
+        
     }
         
     private func composition(pathA: [IntPoint], pathB: [IntPoint]) -> Collision.Composition {

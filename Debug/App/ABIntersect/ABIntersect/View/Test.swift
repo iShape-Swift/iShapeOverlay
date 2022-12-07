@@ -15,7 +15,7 @@ final class Test {
     private let perIndex = PersistInt(key: "TestIndex")
     
     init() {
-//        perIndex.value = 0
+        perIndex.value = 0
     }
     
     var index: Int {

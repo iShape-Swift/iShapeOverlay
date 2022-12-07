@@ -10,10 +10,17 @@ import iGeometry
 struct Fixer {
 
     @inlinable
-    func solve(path: [IntPoint]) -> [[IntPoint]] {
+    func solve(path: [IntPoint], clockWise: Bool = true) -> [[IntPoint]] {
         let edges = self.devide(path: path)
 
-        return Linker(edges: edges).join()
+        var list = Linker(edges: edges).join()
+        if !clockWise {
+            for i in 0..<list.count {
+                list[i].reverse()
+            }
+        }
+
+        return list
     }
     
     private func devide(path: [IntPoint]) -> [Edge] {

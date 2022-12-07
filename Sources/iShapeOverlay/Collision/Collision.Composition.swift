@@ -20,7 +20,7 @@ extension Collision {
         private var setA: ContactSet
         private var setB: ContactSet
 
-        private var dots = Set<Dot>()
+        private (set) var dots = Set<Dot>()
         
         init(countA: Int, countB: Int) {
             setA = ContactSet(module: countA)
@@ -157,11 +157,11 @@ extension Collision {
                     let eA1 = iA
                     
                     let iA0: Int
+                    let iB0: Int
                     
                     let eB0: Int
                     let eB1 = iB
-                    
-                    let iB0: Int
+
                     
                     if dot.mA.offset == 0 {
                         eA0 = back_A
@@ -178,7 +178,7 @@ extension Collision {
                         eB0 = iB
                         iB0 = iB
                     }
-
+                    
                     let a0 = pathA[iA0]
                     let a1 = pathA[iA1]
 
@@ -237,43 +237,9 @@ extension Collision {
                         let r0: CornerLocation
                         let r1: CornerLocation
                         
-                        if (dot.mA.offset == 0 || dot.mB.offset == 0) && dot.mA.offset != dot.mB.offset {
-                            let dP = DBPoint(iPoint: dot.p)
-                            let dA0: DBPoint
-                            let dA1: DBPoint
-                            let dB0: DBPoint
-                            let dB1: DBPoint
-
-                            if dot.mA.offset == 0 {
-                                // b0 - b1 is line
-
-                                dA0 = DBPoint(iPoint: a0)
-                                dA1 = DBPoint(iPoint: a1)
-
-                                let db = testPoint(a0: a0, a1: a1, e: dot.p, b0: b0, b1: b1)
-
-                                dB0 = db.p0
-                                dB1 = db.p1
-                            } else {
-                                // a0 - a1 is line
-
-                                dB0 = DBPoint(iPoint: b0)
-                                dB1 = DBPoint(iPoint: b1)
-
-                                let db = testPoint(a0: b0, a1: b1, e: dot.p, b0: a0, b1: a1)
-
-                                dA0 = db.p0
-                                dA1 = db.p1
-                            }
-
-                            let dbCorner = DBCorner(o: dP, a: dA0, b: dA1)
-                            r0 = dbCorner.test(p: dB0, clockWise: false)
-                            r1 = dbCorner.test(p: dB1, clockWise: false)
-                        } else {
-                            let corner = Corner(o: dot.p, a: a0, b: a1)
-                            r0 = corner.test(p: b0, clockWise: false)
-                            r1 = corner.test(p: b1, clockWise: false)
-                        }
+                        let corner = Corner(o: dot.p, a: a0, b: a1)
+                        r0 = corner.test(p: b0, clockWise: false)
+                        r1 = corner.test(p: b1, clockWise: false)
 
                         let x0 = r0 != .outside
                         let x1 = r1 != .outside
@@ -325,63 +291,6 @@ extension Collision {
             
             return false
         }
-        
-        private struct TwoPoint {
-            let p0: DBPoint
-            let p1: DBPoint
-        }
-        
-        // b0 - b1 is line
-        private func testPoint(a0: IntPoint, a1: IntPoint, e: IntPoint, b0: IntPoint, b1: IntPoint) -> TwoPoint {
-            let bb = b1 - b0
-            let a0e = a0 - e
-            let a1e = a1 - e
-            
-            let dotA0 = bb.dotProduct(a0e)
-            let dotA1 = bb.dotProduct(a1e)
-            
-            let da0: DBPoint
-            let da1: DBPoint
-            
-            if dotA0 > 0 {
-                let db = b1.sqrDistance(point: e)
-                let da = a0.sqrDistance(point: e)
-                if db < da {
-                    da0 = DBPoint(iPoint: b0)
-                } else {
-                    da0 = Line.normalBase(a: b0, b: b1, p: a0)
-                }
-            } else {
-                let db = b0.sqrDistance(point: e)
-                let da = a0.sqrDistance(point: e)
-                if db < da {
-                    da0 = DBPoint(iPoint: b0)
-                } else {
-                    da0 = Line.normalBase(a: b0, b: b1, p: a0)
-                }
-            }
-
-            if dotA1 > 0 {
-                let db = b1.sqrDistance(point: e)
-                let da = a1.sqrDistance(point: e)
-                if db < da {
-                    da1 = DBPoint(iPoint: b1)
-                } else {
-                    da1 = Line.normalBase(a: b0, b: b1, p: a1)
-                }
-            } else {
-                let db = b0.sqrDistance(point: e)
-                let da = a1.sqrDistance(point: e)
-                if db < da {
-                    da1 = DBPoint(iPoint: b1)
-                } else {
-                    da1 = Line.normalBase(a: b0, b: b1, p: a1)
-                }
-            }
-            
-            return .init(p0: da0, p1: da1)
-        }
-
     }
 }
 
