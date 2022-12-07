@@ -22,19 +22,19 @@ enum PinType: Int {
 
 struct PinPoint {
     
-    static let zero = PinPoint(p: .zero, type: .into, mA: .zero, mB: .zero)
+    static let zero = PinPoint(p: .zero, type: .into, a: .zero, b: .zero)
     
     let p: IntPoint
     let type: PinType
-    let mA: MileStone
-    let mB: MileStone
+    let a: Int
+    let b: Int
     
     @inlinable
-    init(p: IntPoint, type: PinType, mA: MileStone, mB: MileStone) {
+    init(p: IntPoint, type: PinType, a: Int, b: Int) {
         self.p = p
         self.type = type
-        self.mA = mA
-        self.mB = mB
+        self.a = a
+        self.b = b
     }
     
 }
@@ -43,7 +43,7 @@ extension PinPoint: Equatable {
 
     @inlinable
     static func == (lhs: PinPoint, rhs: PinPoint) -> Bool {
-        lhs.mA == rhs.mA && lhs.mB == rhs.mB
+        lhs.a == rhs.a && lhs.b == rhs.b
     }
 }
 

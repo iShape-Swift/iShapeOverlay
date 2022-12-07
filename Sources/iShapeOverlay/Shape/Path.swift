@@ -32,7 +32,7 @@ public struct Path {
         
         let fixer = Fixer()
 
-        let list = fixer.solve(path: points)
+        let list = fixer.solve(path: points, removeSameLine: true)
         
         guard list.isEmpty else {
             throw PathError.empty

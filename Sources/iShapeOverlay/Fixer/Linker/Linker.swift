@@ -35,9 +35,11 @@ struct Linker {
     typealias Edge = Fixer.Edge
 
     private let map: NodeMap
+    let removeSameLine: Bool
     
     @inlinable
-    init(edges: [Edge]) {
+    init(edges: [Edge], removeSameLine: Bool) {
+        self.removeSameLine = removeSameLine
         let n = 2 * edges.count
         
         var ends = [EdgeEnd]()
@@ -132,7 +134,11 @@ struct Linker {
             if path.isContain(nc) {
                 let points = path.slice(node: nc)
                 if !points.isEmpty {
-                    regions.append(points)
+                    if removeSameLine {
+                        regions.append(points.removeSameLinePoints())
+                    } else {
+                        regions.append(points)
+                    }
                 }
             }
             path.add(nc)
@@ -205,6 +211,29 @@ private extension DBPoint {
         let cross = self.crossProduct(v)
         let sign: Double = cross > 0 ? 1 : -1
         return sign * (1 - cos)
+    }
+
+}
+
+private extension Array where Element == IntPoint {
+    
+    func removeSameLinePoints() -> [IntPoint] {
+        let n = self.count
+        guard n > 2 else { return self }
+        var result = [IntPoint]()
+        result.reserveCapacity(n)
+        
+        var a = self[n - 2]
+        var b = self[n - 1]
+        for c in self {
+            if !IntPoint.isSameLine(a: a, b: b, c: c) {
+                result.append(b)
+            }
+            a = b
+            b = c
+        }
+        
+        return result
     }
 
 }

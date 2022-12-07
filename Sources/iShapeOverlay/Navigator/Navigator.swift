@@ -23,10 +23,10 @@ struct Navigator {
         }
         
         aList.sort(by: {
-            if $0.pin.mA == $1.pin.mA {
+            if $0.pin.a == $1.pin.a {
                 return $0.pin.type.rawValue < $1.pin.type.rawValue
             } else {
-                return $0.pin.mA < $1.pin.mA
+                return $0.pin.a < $1.pin.a
             }
         })
         
@@ -36,10 +36,10 @@ struct Navigator {
         }
         
         bList.sort(by: {
-            if $0.pin.mB == $1.pin.mB {
+            if $0.pin.b == $1.pin.b {
                 return $0.pin.type.rawValue < $1.pin.type.rawValue
             } else {
-                return $0.pin.mB < $1.pin.mB
+                return $0.pin.b < $1.pin.b
             }
         })
         

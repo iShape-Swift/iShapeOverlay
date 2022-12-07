@@ -131,145 +131,113 @@ extension Collision {
                 let forward_A = (iA + 1) % nA
                 let back_A = (iA - 1 + nA) % nA
 
-                let iA1 = forward_A
-                let a1 = pathA[iA1]
-                
                 let iB = dot.mB.index
                 let forward_B = (iB + 1) % nB
                 let back_B = (iB - 1 + nB) % nB
+
+                let eA0 = back_A
+                let eA1 = iA
                 
+                let iA0 = back_A
+                let iA1 = forward_A
+                
+                let iB0 = back_B
                 let iB1 = forward_B
-                let b1 = pathB[iB1]
+                let eB1 = iB
+            
+                let eB0 = back_B
                 
-                switch dot.t {
-                case .simple:
-                    let a0 = pathA[iA]
-                    let b0 = pathB[iB]
-                    
-                    let aa = a1 - a0
-                    let bb = b1 - b0
-                    
-                    let crossProduct = aa.crossProduct(bb)
-                    
-                    type = crossProduct > 0 ? .out : .into
-                case .complex:
-                    let eA0: Int
-                    let eA1 = iA
-                    
-                    let iA0: Int
-                    let iB0: Int
-                    
-                    let eB0: Int
-                    let eB1 = iB
 
+                let a0 = pathA[iA0]
+                let a1 = pathA[iA1]
+
+                let b0 = pathB[iB0]
+                let b1 = pathB[iB1]
+
+                let a0_b0 = self.isOverlap(
+                    sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
+                    sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
+                    start: dot.p
+                )
+                let a0_b1 = self.isOverlap(
+                    sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
+                    sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
+                    start: dot.p
+                )
+                let a1_b0 = self.isOverlap(
+                    sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
+                    sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
+                    start: dot.p
+                )
+                let a1_b1 = self.isOverlap(
+                    sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
+                    sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
+                    start: dot.p
+                )
+                
+                let b0_a = a0_b0 || a1_b0
+                let b1_a = a0_b1 || a1_b1
+                
+                if b1_a && b0_a {
+                    continue
+                } else if b0_a {
+                    let corner = Corner(o: dot.p, a: a0, b: a1)
                     
-                    if dot.mA.offset == 0 {
-                        eA0 = back_A
-                        iA0 = back_A
+                    let r1 = corner.test(p: b1, clockWise: false)
+                    let x1 = r1 != .outside
+                    
+                    if x1 {
+                        type = .end_in
                     } else {
-                        eA0 = iA
-                        iA0 = iA
+                        type = .end_out
                     }
-
-                    if dot.mB.offset == 0 {
-                        eB0 = back_B
-                        iB0 = back_B
+                } else if b1_a {
+                    let corner = Corner(o: dot.p, a: a0, b: a1)
+                    
+                    let r0 = corner.test(p: b0, clockWise: false)
+                    let x0 = r0 != .outside
+                    
+                    if x0 {
+                        type = .start_out
                     } else {
-                        eB0 = iB
-                        iB0 = iB
+                        type = .start_in
                     }
+                } else {
+                    let r0: CornerLocation
+                    let r1: CornerLocation
                     
-                    let a0 = pathA[iA0]
-                    let a1 = pathA[iA1]
+                    let corner = Corner(o: dot.p, a: a0, b: a1)
+                    r0 = corner.test(p: b0, clockWise: false)
+                    r1 = corner.test(p: b1, clockWise: false)
 
-                    let b0 = pathB[iB0]
-                    let b1 = pathB[iB1]
-
-                    let a0_b0 = self.isOverlap(
-                        sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
-                        sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
-                        start: dot.p
-                    )
-                    let a0_b1 = self.isOverlap(
-                        sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
-                        sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
-                        start: dot.p
-                    )
-                    let a1_b0 = self.isOverlap(
-                        sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
-                        sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
-                        start: dot.p
-                    )
-                    let a1_b1 = self.isOverlap(
-                        sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
-                        sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
-                        start: dot.p
-                    )
+                    let x0 = r0 != .outside
+                    let x1 = r1 != .outside
                     
-                    let b0_a = a0_b0 || a1_b0
-                    let b1_a = a0_b1 || a1_b1
-                    
-                    if b1_a && b0_a {
-                        continue
-                    } else if b0_a {
-                        let corner = Corner(o: dot.p, a: a0, b: a1)
-                        
-                        let r1 = corner.test(p: b1, clockWise: false)
-                        let x1 = r1 != .outside
-                        
-                        if x1 {
-                            type = .end_in
+                    if x0 && x1 {
+                        let subCorner = Corner(o: dot.p, a: a0, b: b1)
+                        let isB0 = subCorner.test(p: b0, clockWise: false)
+                        if isB0 != .outside {
+                            type = .false_out_same
                         } else {
-                            type = .end_out
+                            type = .false_out_back
                         }
-                    } else if b1_a {
-                        let corner = Corner(o: dot.p, a: a0, b: a1)
                         
-                        let r0 = corner.test(p: b0, clockWise: false)
-                        let x0 = r0 != .outside
-                        
-                        if x0 {
-                            type = .start_out
-                        } else {
-                            type = .start_in
-                        }
+                    } else if x0 {
+                        type = .out
+                    } else if x1 {
+                        type = .into
                     } else {
-                        let r0: CornerLocation
-                        let r1: CornerLocation
-                        
-                        let corner = Corner(o: dot.p, a: a0, b: a1)
-                        r0 = corner.test(p: b0, clockWise: false)
-                        r1 = corner.test(p: b1, clockWise: false)
-
-                        let x0 = r0 != .outside
-                        let x1 = r1 != .outside
-                        
-                        if x0 && x1 {
-                            let subCorner = Corner(o: dot.p, a: a0, b: b1)
-                            let isB0 = subCorner.test(p: b0, clockWise: false)
-                            if isB0 != .outside {
-                                type = .false_out_same
-                            } else {
-                                type = .false_out_back
-                            }
-                            
-                        } else if x0 {
-                            type = .out
-                        } else if x1 {
-                            type = .into
+                        let subCorner = Corner(o: dot.p, a: a0, b: b1)
+                        let isA1 = subCorner.test(p: a1, clockWise: false)
+                        if isA1 != .outside {
+                            type = .false_in_same
                         } else {
-                            let subCorner = Corner(o: dot.p, a: a0, b: b1)
-                            let isA1 = subCorner.test(p: a1, clockWise: false)
-                            if isA1 != .outside {
-                                type = .false_in_same
-                            } else {
-                                type = .false_in_back
-                            }
+                            type = .false_in_back
                         }
                     }
                 }
 
-                result.append(PinPoint(p: dot.p, type: type, mA: dot.mA, mB: dot.mB))
+                result.append(PinPoint(p: dot.p, type: type, a: dot.mA.index, b: dot.mB.index))
             }
             
             return result

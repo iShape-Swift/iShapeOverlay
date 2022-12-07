@@ -53,9 +53,9 @@ extension Linker {
             let count = n - start
             if count > 2 {
                 if start != 0 {
-                    result = Array(points[start..<n]).removeSameLinePoints()
+                    result = Array(points[start..<n])
                 } else {
-                    result = points.removeSameLinePoints()
+                    result = points
                 }
             } else {
                 result = []
@@ -63,31 +63,8 @@ extension Linker {
             
             points.removeLast(count)
             indices.removeLast(count)
-            
+
             return result
         }
     }
-}
-
-private extension Array where Element == IntPoint {
-    
-    func removeSameLinePoints() -> [IntPoint] {
-        let n = self.count
-        guard n > 2 else { return self }
-        var result = [IntPoint]()
-        result.reserveCapacity(n)
-        
-        var a = self[n - 2]
-        var b = self[n - 1]
-        for c in self {
-            if !IntPoint.isSameLine(a: a, b: b, c: c) {
-                result.append(b)
-            }
-            a = b
-            b = c
-        }
-        
-        return result
-    }
-
 }

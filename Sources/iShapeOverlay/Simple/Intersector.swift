@@ -31,9 +31,9 @@ struct Intersector {
                 points.append(s0.pin.p)
                 switch s0.direction {
                 case .ab:
-                    points.reverseAppend(m0: s0.pin.mA, m1: s1.pin.mA, points: pathA)
+                    points.reverseAppend(a: s0.pin.a, b: s1.pin.a, points: pathA)
                 case .ba:
-                    points.directAppend(m0: s0.pin.mB, m1: s1.pin.mB, points: pathB)
+                    points.directAppend(a: s0.pin.b, b: s1.pin.b, points: pathB)
                 }
                 
                 s0 = s1

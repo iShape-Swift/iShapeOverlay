@@ -41,7 +41,7 @@ final class ViewModel: ObservableObject {
     func onDrag(index: Int, data: DragGesture.Value) {
         isDrag = true
         dots[index] = data.location.round
-        print(self.world(dots[index]))
+//        print(self.world(dots[index]))
         
         self.updateAngle()
         self.validate()
@@ -50,7 +50,7 @@ final class ViewModel: ObservableObject {
     
     func onEndDrag(index: Int, data: DragGesture.Value) {
         dots[index] = data.location.round
-        print(self.world(dots[index]))
+//        print(self.world(dots[index]))
         self.updateAngle()
         self.validate()
         objectWillChange.send()
@@ -60,7 +60,7 @@ final class ViewModel: ObservableObject {
         isDrag = true
         testPoint = data.location.round
         
-        print(self.world(testPoint))
+//        print(self.world(testPoint))
         
         self.updateAngle()
         self.validate()
@@ -70,7 +70,7 @@ final class ViewModel: ObservableObject {
     func onEndDrag(data: DragGesture.Value) {
         testPoint = data.location.round
         
-        print(self.world(testPoint))
+//        print(self.world(testPoint))
         
         self.updateAngle()
         self.validate()

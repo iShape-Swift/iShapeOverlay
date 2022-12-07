@@ -115,7 +115,7 @@ final class ViewModel: ObservableObject {
         
         let segments = intersector.intersect(pathA: pathA, pathB: pathB, navigator: Navigator(pins: pins))
         
-        print(segments)
+//        print(segments)
         
         var pinList = [Pin]()
 
@@ -123,8 +123,8 @@ final class ViewModel: ObservableObject {
 
         for id in 0..<pins.count {
             let pin = pins[id]
-            let a = pathB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
-            let b = pathB[(pin.mB.index + 1) % nb]
+            let a = pathB[(pin.b - 1 + nb) % nb]
+            let b = pathB[(pin.b + 1) % nb]
 
             let mainColor: Color
             let fillColor: Color

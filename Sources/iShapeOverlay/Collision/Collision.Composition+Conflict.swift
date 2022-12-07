@@ -32,10 +32,6 @@ extension Collision.Composition {
         var countB = 0
         
         for dot in dots {
-            guard dot.mA.offset == 0 || dot.mB.offset == 0 else {
-                continue
-            }
-            
             if dot.mA.offset != 0 {
                 let op = OrderPoint(point: dot.p, order: dot.mA.offset)
                 if var array = mapA[dot.mA.index] {
@@ -61,7 +57,8 @@ extension Collision.Composition {
         let updateA: PathUpdate
         
         if countA > 0 {
-            updateA = self.updatePath(path: pathA, map: mapA, count: countA)
+            let newA = self.updatePath(path: pathA, map: mapA, count: countA)
+            updateA = .init(isModified: true, path: newA)
         } else {
             updateA = .init(isModified: false, path: [])
         }
@@ -69,7 +66,8 @@ extension Collision.Composition {
         let updateB: PathUpdate
         
         if countB > 0 {
-            updateB = self.updatePath(path: pathB, map: mapB, count: countB)
+            let newB = self.updatePath(path: pathB, map: mapB, count: countB)
+            updateB = .init(isModified: true, path: newB)
         } else {
             updateB = .init(isModified: false, path: [])
         }
@@ -80,49 +78,24 @@ extension Collision.Composition {
         )
     }
     
-    private func updatePath(path: [IntPoint], map: [Int: [OrderPoint]], count: Int) -> PathUpdate {
+    private func updatePath(path: [IntPoint], map: [Int: [OrderPoint]], count: Int) -> [IntPoint] {
         var result = [IntPoint]()
         result.reserveCapacity(count)
         
         let n = path.count
-        var anyUpdate = false
         
         for i in 0..<n {
             let p = path[i]
             result.append(p)
             if var items = map[i] {
-                
-                var isSameLine = true
-                let a = path[i]
-                let b = path[(i + 1) % n]
-                
-                let ba = b - a
-                
+                items.sort(by: { $0.order < $1.order })
                 for item in items {
-                    let c = item.point
-                    let ca = c - a
-                    let res = ba.x * ca.y - ca.x * ba.y
-                    if res != 0 {
-                        isSameLine = false
-                        break
-                    }
-                }
-                
-                if !isSameLine {
-                    anyUpdate = true
-                    items.sort(by: { $0.order < $1.order })
-                    for item in items {
-                        result.append(item.point)
-                    }
+                    result.append(item.point)
                 }
             }
         }
         
-        if anyUpdate {
-            return PathUpdate(isModified: true, path: result)
-        } else {
-            return PathUpdate(isModified: false, path: [])
-        }
+        return result
     }
     
     private func isSameLine(ba: IntPoint, a: IntPoint, c: IntPoint) -> Bool {

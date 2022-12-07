@@ -35,11 +35,11 @@ extension Array where Element == IntPoint {
     }
     
     @inlinable
-    mutating func directAppend(m0 a: MileStone, m1 b: MileStone, points: [IntPoint]) {
+    mutating func directAppend(a: Int, b: Int, points: [IntPoint]) {
         let n = points.count
 
-        let b0 = b.index + (b.offset == 0 ? 0 : 1)
-        var i = a.index + 1
+        let b0 = b
+        var i = a + 1
         
         if a < b {
             while i < b0 {
@@ -61,11 +61,11 @@ extension Array where Element == IntPoint {
     }
     
     @inlinable
-    mutating func reverseAppend(m0 a: MileStone, m1 b: MileStone, points: [IntPoint]) {
+    mutating func reverseAppend(a: Int, b: Int, points: [IntPoint]) {
         let n = points.count
 
-        let b0 = b.index
-        var i = a.offset != 0 ? a.index : a.index - 1
+        let b0 = b
+        var i = a
         
         if a > b {
             while i > b0 {

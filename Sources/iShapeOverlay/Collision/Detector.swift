@@ -38,7 +38,7 @@ extension Collision.Detector {
         var isModified = false
         
         var composition = Collision.Composition(countA: 0, countB: 0)
-        
+       
         repeat {
             isModified = false
             composition = self.composition(pathA: pathA, pathB: pathB)
@@ -52,13 +52,13 @@ extension Collision.Detector {
                 let listB: [[IntPoint]]
 
                 if result.updateA.isModified {
-                    listA = fixer.solve(path: result.updateA.path)
+                    listA = fixer.solve(path: result.updateA.path, removeSameLine: false)
                 } else {
                     listA = [pathA]
                 }
 
                 if result.updateB.isModified {
-                    listB = fixer.solve(path: result.updateB.path, clockWise: false)
+                    listB = fixer.solve(path: result.updateB.path, clockWise: false, removeSameLine: false)
                 } else {
                     listB = [pathB]
                 }
