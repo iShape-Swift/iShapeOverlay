@@ -37,7 +37,7 @@ final class ViewModel: ObservableObject {
         let color: Color
         let points: [IntPoint]
     }
-
+    
     private let test = Test()
     var title: String { "test \(test.index)" }
     private (set) var scale: CGFloat = 20
@@ -87,17 +87,23 @@ final class ViewModel: ObservableObject {
         let data = test.current
         shapeA = data.shapeA
         shapeB = data.shapeB
+        
         self.doTask()
         objectWillChange.send()
     }
     
     func doTask() {
         let detector = Collision.Detector()
-        let result = detector.findPins(pathA: shapeA, pathB: shapeB, fixer: Fixer())
+
+        let fixer = Fixer()
+        let pathA = fixer.solve(path: shapeA, removeSameLine: true).first ?? []
+        let pathB = fixer.solve(path: shapeB, clockWise: false, removeSameLine: true).first ?? []
+
+        let result = detector.findPins(pathA: pathA, pathB: pathB, fixer: fixer)
 
         switch result.pinResult {
         case .success:
-            self.success(pathA: shapeA, pathB: shapeB, pins: result.pins)
+            self.success(pathA: pathA, pathB: pathB, pins: result.pins)
         case .modified:
             self.success(
                 pathA: result.pathA.isEmpty ? [] : result.pathA[0],
@@ -105,6 +111,9 @@ final class ViewModel: ObservableObject {
                 pins: result.pins
             )
         case .conflict:
+            self.pins = nil
+            self.polygons = nil
+        case .badPolygons:
             self.pins = nil
             self.polygons = nil
         }
@@ -148,10 +157,10 @@ final class ViewModel: ObservableObject {
             case .false_out_back:
                 mainColor = .red
                 fillColor = .black
-            case .start_in:
+            case .start_in_same, .start_in_back:
                 mainColor = .blue
                 fillColor = .green
-            case .start_out:
+            case .start_out_same, .start_out_back:
                 mainColor = .red
                 fillColor = .green
             case .end_in:
@@ -193,6 +202,7 @@ final class ViewModel: ObservableObject {
         guard shapeA != points else {
             return
         }
+
         shapeA = points
         self.doTask()
         objectWillChange.send()

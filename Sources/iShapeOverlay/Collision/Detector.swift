@@ -15,6 +15,7 @@ extension Collision {
     enum PinResult {
         case success
         case modified
+        case badPolygons
         case conflict
     }
     
@@ -31,7 +32,11 @@ extension Collision {
 extension Collision.Detector {
     
     func findPins(pathA: [IntPoint], pathB: [IntPoint], fixer: Fixer) -> Collision.PinBundle {
-
+        guard pathA.count > 2 && pathB.count > 2 else {
+            
+            return .init(pinResult: .badPolygons, pathA: [], pathB: [], pins: [])
+        }
+        
         var pathA = pathA
         var pathB = pathB
         var isAnyModified = false

@@ -26,12 +26,12 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="2.9746954"
-     inkscape:cx="80.344361"
-     inkscape:cy="120.85271"
-     inkscape:window-width="1738"
-     inkscape:window-height="1207"
-     inkscape:window-x="930"
-     inkscape:window-y="42"
+     inkscape:cx="210.94597"
+     inkscape:cy="135.13989"
+     inkscape:window-width="1874"
+     inkscape:window-height="1338"
+     inkscape:window-x="83"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
@@ -495,14 +495,14 @@
       <text
          xml:space="preserve"
          style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#0055d4;stroke-width:0.264583"
-         x="8.0333176"
+         x="10.149982"
          y="3.7315979"
          id="text1104-7"><tspan
            sodipodi:role="line"
            id="tspan1102-9"
            style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
-           x="8.0333176"
-           y="3.7315979">start_in</tspan></text>
+           x="10.149982"
+           y="3.7315979">start_in_common</tspan></text>
     </g>
     <g
        id="g422"
@@ -715,14 +715,19 @@
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#ff2a2a;stroke-width:0.264583"
-       x="39.901741"
+       x="44.664246"
        y="53.99567"
        id="text1530"><tspan
          sodipodi:role="line"
          id="tspan1528"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
-         x="39.901741"
-         y="53.99567">start_out</tspan></text>
+         x="44.664246"
+         y="53.99567">start_out_common</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
+         x="44.664246"
+         y="55.75956"
+         id="tspan688" /></text>
     <g
        id="g1667"
        transform="translate(37.030059,62.283226)"
@@ -1406,5 +1411,36 @@
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
          x="98.11013"
          y="80.983192">false_out_same</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#ff2a2a;stroke-width:0.264583"
+       x="44.664246"
+       y="80.454025"
+       id="text695"><tspan
+         sodipodi:role="line"
+         id="tspan690"
+         style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
+         x="44.664246"
+         y="80.454025">start_out_reverse</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
+         x="44.664246"
+         y="82.217911"
+         id="tspan693" /></text>
+    <g
+       id="g701"
+       transform="translate(31.760977,24.288751)">
+      <text
+         xml:space="preserve"
+         style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#0055d4;stroke-width:0.264583"
+         x="10.149982"
+         y="3.7315979"
+         id="text699"><tspan
+           sodipodi:role="line"
+           id="tspan697"
+           style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
+           x="10.149982"
+           y="3.7315979">start_in_reverse</tspan></text>
+    </g>
   </g>
 </svg>

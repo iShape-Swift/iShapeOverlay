@@ -22,26 +22,14 @@ struct Navigator {
             bList[i] = IndexStone(pinId: i, other: 0, pin: pin)
         }
         
-        aList.sort(by: {
-            if $0.pin.a == $1.pin.a {
-                return $0.pin.type.rawValue < $1.pin.type.rawValue
-            } else {
-                return $0.pin.a < $1.pin.a
-            }
-        })
+        aList.sort(by: { $0.pin.a < $1.pin.a })
         
         for i in 0..<n {
             let b = aList[i].other
             bList[b].other = i
         }
         
-        bList.sort(by: {
-            if $0.pin.b == $1.pin.b {
-                return $0.pin.type.rawValue < $1.pin.type.rawValue
-            } else {
-                return $0.pin.b < $1.pin.b
-            }
-        })
+        bList.sort(by: { $0.pin.b < $1.pin.b })
         
         for i in 0..<n {
             let a = bList[i].other

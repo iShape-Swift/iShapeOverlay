@@ -198,9 +198,17 @@ extension Collision {
                     let x0 = r0 != .outside
                     
                     if x0 {
-                        type = .start_out
+                        if a1_b1 {
+                            type = .start_out_same
+                        } else {
+                            type = .start_out_back
+                        }
                     } else {
-                        type = .start_in
+                        if a1_b1 {
+                            type = .start_in_same
+                        } else {
+                            type = .start_in_back
+                        }
                     }
                 } else {
                     let r0: CornerLocation

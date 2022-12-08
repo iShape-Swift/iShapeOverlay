@@ -7,17 +7,19 @@
 
 import iGeometry
 
-enum PinType: Int {
-    case into           = 0
-    case start_in       = 1
-    case end_in         = 2
-    case false_in_same  = 3
-    case false_in_back  = 4
-    case out            = 5
-    case start_out      = 6
-    case end_out        = 7
-    case false_out_same = 8
-    case false_out_back = 9
+enum PinType {
+    case into
+    case start_in_same
+    case start_in_back
+    case end_in
+    case false_in_same
+    case false_in_back
+    case out
+    case start_out_same
+    case start_out_back
+    case end_out
+    case false_out_same
+    case false_out_back
 }
 
 struct PinPoint {
@@ -65,10 +67,14 @@ extension PinType: CustomStringConvertible {
             return "false_out_same"
         case .false_out_back:
             return "false_out_back"
-        case .start_in:
-            return "start_in"
-        case .start_out:
-            return "start_out"
+        case .start_in_same:
+            return "start_in_same"
+        case .start_in_back:
+            return "start_in_back"
+        case .start_out_same:
+            return "start_out_same"
+        case .start_out_back:
+            return "start_out_back"
         case .end_in:
             return "end_in"
         case .end_out:

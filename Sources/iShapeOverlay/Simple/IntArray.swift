@@ -65,7 +65,7 @@ extension Array where Element == IntPoint {
         let n = points.count
 
         let b0 = b
-        var i = a
+        var i = (a - 1 + n) % n
         
         if a > b {
             while i > b0 {

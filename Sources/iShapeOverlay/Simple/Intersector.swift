@@ -27,7 +27,7 @@ struct Intersector {
             let start = s0.pinId
             
             repeat {
-                let s1 = nav.nextIntersect(stone: s0)
+                let s1 = nav.nextIntersect(stone: s0, endId: start)
                 points.append(s0.pin.p)
                 switch s0.direction {
                 case .ab:

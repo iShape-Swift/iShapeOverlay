@@ -17,7 +17,7 @@ extension Navigator {
             if t == .into || t == .end_in || t == .false_out_back {
                 visited[s.pinId] = true
                 return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .ba)
-            } else if t == .start_out || t == .out {
+            } else if t == .start_out_same || t == .start_out_back || t == .out {
                 visited[s.pinId] = true
                 return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .ab)
             }
@@ -26,7 +26,7 @@ extension Navigator {
         return .empty
     }
     
-    mutating func nextIntersect(stone: Stone) -> Stone {
+    mutating func nextIntersect(stone: Stone, endId: Int) -> Stone {
         let n = visited.count
         switch stone.direction {
         case .ba:
@@ -40,10 +40,10 @@ extension Navigator {
                 
                 let t = s.pin.type
                 
-                isOut = t == .start_out || t == .out || t == .false_out_same
+                isOut = t == .end_out || t == .out || t == .start_out_same || t == .start_out_back || t == .false_out_same
                 
-                assert(t != .into || t != .start_in || t != .false_in_same || t != .false_in_back)
-            } while !isOut && stone.pinId != s.pinId
+                assert(t != .into || t != .start_in_same || t != .false_in_same || t != .false_in_back)
+            } while !isOut && stone.pinId != s.pinId && endId != s.pinId
             
             return Stone(a: s.other, b: b, pinId: s.pinId, pin: s.pin, direction: .ab)
         case .ab:
@@ -60,7 +60,7 @@ extension Navigator {
                 
                 isInto = t == .end_in || t == .into || t == .false_out_same
                 
-                assert(t != .out || t != .start_out || t != .false_out_same  || t != .false_out_back)
+                assert(t != .out || t != .start_out_same || t != .false_out_same  || t != .false_out_back)
             } while !isInto && stone.pinId != s.pinId
             
             return Stone(a: a, b: s.other, pinId: s.pinId, pin: s.pin, direction: .ba)

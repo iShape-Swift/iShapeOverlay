@@ -954,7 +954,7 @@ public final class SubtractTests {
         // 48
         TestData(
             shapeA: [
-                IntPoint(x:  667, y:   2515),
+                IntPoint(x:   667, y:  2515),
                 IntPoint(x:   668, y:  2517),
                 IntPoint(x:   667, y:  2515),
                 IntPoint(x:  -109, y:    19),
