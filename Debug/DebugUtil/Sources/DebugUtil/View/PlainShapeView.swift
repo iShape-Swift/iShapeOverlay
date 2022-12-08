@@ -4,7 +4,7 @@
 //
 //  Created by Nail Sharipov on 15.09.2022.
 //
-
+/*
 import SwiftUI
 import iGeometry
 
@@ -60,3 +60,4 @@ public struct PlainShapeView: View {
         return view
     }
 }
+*/

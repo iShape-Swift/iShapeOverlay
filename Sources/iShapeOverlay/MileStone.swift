@@ -7,6 +7,7 @@
 
 #if DEBUG
 import iGeometry
+import CoreGraphics
 #endif
 
 @usableFromInline
@@ -21,7 +22,7 @@ struct MileStone: Equatable, Hashable {
     let offset: Int64
     
     #if DEBUG
-    let off: Float
+    let off: CGFloat
     #endif
     
     init(index: Int, offset: Int64 = 0) {

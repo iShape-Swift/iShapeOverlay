@@ -7,486 +7,487 @@
 #if DEBUG
 
 import iGeometry
+import CoreGraphics
 
 public final class PinTests {
     
     public static let data: [TestData] = [
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: 5, y: 10),
-                Point(x: -5, y: 10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 5, y: 10),
+                CGPoint(x: -5, y: 10)
             ].int
         ),
         // 1
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: -10, y: 5),
-                Point(x: -10, y: -5)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: -10, y: 5),
+                CGPoint(x: -10, y: -5)
             ].int
         ),
         // 2
         TestData(
                 shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: -5, y: -10),
-                Point(x: 5, y: -10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: -5, y: -10),
+                CGPoint(x: 5, y: -10)
             ].int
         ),
         // 3
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: 10, y: -5),
-                Point(x: 10, y: 5)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 10, y: -5),
+                CGPoint(x: 10, y: 5)
             ].int
         ),
         // 4
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: 10, y: 10),
-                Point(x: -10, y: 10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: -10, y: 10)
             ].int
         ),
         // 5
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: -10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: -10)
             ].int
         ),
         // 6
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: -10, y: -10),
-                Point(x: 10, y: -10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 10, y: -10)
             ].int
         ),
         // 7
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 10)
             ].int
         ),
         // 8
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 10, y: 5),
-                Point(x: 10, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: 5)
+                CGPoint(x: 10, y: 5),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: 5)
             ].int
         ),
         // 9
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -5, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: -10),
-                Point(x: -5, y: -10)
+                CGPoint(x: -5, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: -5, y: -10)
             ].int
         ),
         // 10
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -10, y: -5),
-                Point(x: -10, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: -5)
+                CGPoint(x: -10, y: -5),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: -5)
             ].int
         ),
         // 11
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 5, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 10),
-                Point(x: 5, y: 10)
+                CGPoint(x: 5, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 5, y: 10)
             ].int
         ),
         // 12
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 10, y: 0),
-                Point(x: 10, y: 10),
-                Point(x: 0, y: 10)
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 0, y: 10)
             ].int
         ),
         // 13
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: 0)
+                CGPoint(x: 0, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: 0)
             ].int
         ),
         // 14
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -10, y: 0),
-                Point(x: -10, y: -10),
-                Point(x: 0, y: -10)
+                CGPoint(x: -10, y: 0),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 0, y: -10)
             ].int
         ),
         // 15
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 0)
+                CGPoint(x: 0, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 0)
             ].int
         ),
         // 16
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 0)
+                CGPoint(x: 0, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 0)
             ].int
         ),
         // 17
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -10, y: 0),
-                Point(x: -10, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 10),
-                Point(x: 0, y: 10)
+                CGPoint(x: -10, y: 0),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 0, y: 10)
             ].int
         ),
         // 18
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: -10),
-                Point(x: 10, y: -10),
-                Point(x: 10, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: 0)
+                CGPoint(x: 0, y: -10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: 0)
             ].int
         ),
         // 19
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 10, y: 0),
-                Point(x: 10, y: 10),
-                Point(x: -10, y: 10),
-                Point(x: -10, y: -10),
-                Point(x: 0, y: -10)
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -10, y: -10),
+                CGPoint(x: 0, y: -10)
             ].int
         ),
         // 20
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -5, y: 10),
-                Point(x: -5, y: 20),
-                Point(x: -15, y: 20),
-                Point(x: -15, y: 10)
+                CGPoint(x: -5, y: 10),
+                CGPoint(x: -5, y: 20),
+                CGPoint(x: -15, y: 20),
+                CGPoint(x: -15, y: 10)
             ].int
         ),
         // 21
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -5, y: 0),
-                Point(x: -5, y: 10),
-                Point(x: -15, y: 10),
-                Point(x: -15, y: 0)
+                CGPoint(x: -5, y: 0),
+                CGPoint(x: -5, y: 10),
+                CGPoint(x: -15, y: 10),
+                CGPoint(x: -15, y: 0)
             ].int
         ),
         // 22
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 15, y: 10),
-                Point(x: 15, y: 20),
-                Point(x: 5, y: 20),
-                Point(x: 5, y: 10)
+                CGPoint(x: 15, y: 10),
+                CGPoint(x: 15, y: 20),
+                CGPoint(x: 5, y: 20),
+                CGPoint(x: 5, y: 10)
             ].int
         ),
         // 23
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 15, y: 0),
-                Point(x: 15, y: 10),
-                Point(x: 5, y: 10),
-                Point(x: 5, y: 0)
+                CGPoint(x: 15, y: 0),
+                CGPoint(x: 15, y: 10),
+                CGPoint(x: 5, y: 10),
+                CGPoint(x: 5, y: 0)
             ].int
         ),
         // 24
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 10, y: 10),
-                Point(x: 10, y: 20),
-                Point(x: -10, y: 20),
-                Point(x: -10, y: 10)
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: 20),
+                CGPoint(x: -10, y: 20),
+                CGPoint(x: -10, y: 10)
             ].int
         ),
         // 25
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 5, y: -10),
-                Point(x: 5, y: 10),
-                Point(x: -5, y: 10),
-                Point(x: -5, y: -10)
+                CGPoint(x: 5, y: -10),
+                CGPoint(x: 5, y: 10),
+                CGPoint(x: -5, y: 10),
+                CGPoint(x: -5, y: -10)
             ].int
         ),
         // 26
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -10, y: 0),
-                Point(x: -10, y: 10),
-                Point(x: -20, y: 10),
-                Point(x: -20, y: 0)
+                CGPoint(x: -10, y: 0),
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: -20, y: 10),
+                CGPoint(x: -20, y: 0)
             ].int
         ),
         // 27
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: 0),
-                Point(x: -10, y: 0)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: -10, y: 0)
             ].int,
             shapeB: [
-                Point(x: -15, y: 30),
-                Point(x: -15, y: -30),
-//                Point(x: 11, y: -30),
-//                Point(x: 9, y: 30)
+                CGPoint(x: -15, y: 30),
+                CGPoint(x: -15, y: -30),
+//                CGPoint(x: 11, y: -30),
+//                CGPoint(x: 9, y: 30)
 
-                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
-                Point(x: 10 - IntGeom.defGeom.float(int: 1), y:  30)
+                CGPoint(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
+                CGPoint(x: 10 - IntGeom.defGeom.float(int: 1), y:  30)
             ].int
         ),
         // 28
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -15, y: 30),
-                Point(x: -15, y: -30),
-                Point(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
-                Point(x: 10 - IntGeom.defGeom.float(int: 1), y: 30)
+                CGPoint(x: -15, y: 30),
+                CGPoint(x: -15, y: -30),
+                CGPoint(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
+                CGPoint(x: 10 - IntGeom.defGeom.float(int: 1), y: 30)
             ].int
         ),
         // 29
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 20, y: -5),
-                Point(x: 20, y: 5),
-                Point(x: 10, y: 5),
-                Point(x: 10, y: 0),
-                Point(x: 10, y: -5)
+                CGPoint(x: 20, y: -5),
+                CGPoint(x: 20, y: 5),
+                CGPoint(x: 10, y: 5),
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: -5)
             ].int
         ),
         // 30
         TestData(
             shapeA: [
-                Point(x: 20, y: -5),
-                Point(x: 20, y: 5),
-                Point(x: 10, y: 5),
-                Point(x: 10, y: 0),
-                Point(x: 10, y: -5)
+                CGPoint(x: 20, y: -5),
+                CGPoint(x: 20, y: 5),
+                CGPoint(x: 10, y: 5),
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: -5)
             ].int,
             shapeB: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int
         ),
         // 31
         TestData(
             shapeA: [
-                Point(x: 20, y: -5),
-                Point(x: 20, y: 5),
-                Point(x: 10, y: 5),
-                Point(x: 10, y: 0),
-                Point(x: 10, y: -5)
+                CGPoint(x: 20, y: -5),
+                CGPoint(x: 20, y: 5),
+                CGPoint(x: 10, y: 5),
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: -5)
             ].int,
             shapeB: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: 0),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: 0),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int
         ),
         // 32

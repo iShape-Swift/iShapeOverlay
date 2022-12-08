@@ -12,7 +12,6 @@ extension Collision {
     private struct Segment {
         let eIndex: Int
         let vIndex: Int
-        let end: IntPoint
     }
     
     struct Composition {
@@ -127,52 +126,28 @@ extension Collision {
                 let type: PinType
                 
                 let iA = dot.mA.index
-                
-                let forward_A = (iA + 1) % nA
-                let back_A = (iA - 1 + nA) % nA
+                let iA1 = (iA + 1) % nA
+                let iA0 = (iA - 1 + nA) % nA
 
                 let iB = dot.mB.index
-                let forward_B = (iB + 1) % nB
-                let back_B = (iB - 1 + nB) % nB
-
-                let eA0 = back_A
-                let eA1 = iA
-                
-                let iA0 = back_A
-                let iA1 = forward_A
-                
-                let iB0 = back_B
-                let iB1 = forward_B
-                let eB1 = iB
-            
-                let eB0 = back_B
-                
-
-                let a0 = pathA[iA0]
-                let a1 = pathA[iA1]
-
-                let b0 = pathB[iB0]
-                let b1 = pathB[iB1]
+                let iB1 = (iB + 1) % nB
+                let iB0 = (iB - 1 + nB) % nB
 
                 let a0_b0 = self.isOverlap(
-                    sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
-                    sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
-                    start: dot.p
+                    sA: .init(eIndex: iA0, vIndex: iA0),
+                    sB: .init(eIndex: iB0, vIndex: iB0)
                 )
                 let a0_b1 = self.isOverlap(
-                    sA: .init(eIndex: eA0, vIndex: iA0, end: a0),
-                    sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
-                    start: dot.p
+                    sA: .init(eIndex: iA0, vIndex: iA0),
+                    sB: .init(eIndex: iB, vIndex: iB1)
                 )
                 let a1_b0 = self.isOverlap(
-                    sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
-                    sB: .init(eIndex: eB0, vIndex: iB0, end: b0),
-                    start: dot.p
+                    sA: .init(eIndex: iA, vIndex: iA1),
+                    sB: .init(eIndex: iB0, vIndex: iB0)
                 )
                 let a1_b1 = self.isOverlap(
-                    sA: .init(eIndex: eA1, vIndex: iA1, end: a1),
-                    sB: .init(eIndex: eB1, vIndex: iB1, end: b1),
-                    start: dot.p
+                    sA: .init(eIndex: iA, vIndex: iA1),
+                    sB: .init(eIndex: iB, vIndex: iB1)
                 )
                 
                 let b0_a = a0_b0 || a1_b0
@@ -180,7 +155,15 @@ extension Collision {
                 
                 if b1_a && b0_a {
                     continue
-                } else if b0_a {
+                }
+                
+                let a0 = pathA[iA0]
+                let a1 = pathA[iA1]
+
+                let b0 = pathB[iB0]
+                let b1 = pathB[iB1]
+                
+                if b0_a {
                     let corner = Corner(o: dot.p, a: a0, b: a1)
                     
                     let r1 = corner.test(p: b1, clockWise: false)
@@ -251,18 +234,12 @@ extension Collision {
             return result
         }
 
-        private func isOverlap(sA: Segment, sB: Segment, start: IntPoint) -> Bool {
+        private func isOverlap(sA: Segment, sB: Segment) -> Bool {
             if setA.isContain(edge: sA.eIndex, vertex: sB.vIndex) {
-                let rect = Rect(a: start, b: sA.end)
-                if rect.isContain(sB.end) {
-                    return true
-                }
+                return true
             }
             if setB.isContain(edge: sB.eIndex, vertex: sA.vIndex) {
-                let rect = Rect(a: start, b: sB.end)
-                if rect.isContain(sA.end) {
-                    return true
-                }
+                return true
             }
             
             return false

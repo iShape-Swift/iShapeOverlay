@@ -1,5 +1,5 @@
 //
-//  Path.swift
+//  IntPath.swift
 //  
 //
 //  Created by Nail Sharipov on 03.12.2022.
@@ -12,7 +12,7 @@ public enum PathError: Error {
     case empty
 }
 
-public struct Path {
+public struct IntPath {
 
     @inlinable
     public var isClockWise: Bool {
@@ -64,6 +64,9 @@ public struct Path {
     }
     
     init(unsafe: [IntPoint]) {
+        #if DEBUG
+        assert(Set(unsafe).count == unsafe.count)
+        #endif
         self.points = unsafe
         self.area = unsafe.area
     }
@@ -83,7 +86,7 @@ public struct Path {
     }
     
     @inlinable
-    public func inverted() -> Path {
+    public func inverted() -> IntPath {
         var path = self
         path.invert()
         return path

@@ -10,36 +10,11 @@ import iGeometry
 extension Array where Element == IntPoint {
     
     @inlinable
-    mutating func append(a: MileStone, b: MileStone, points: [IntPoint]) {
-        let a0 = a.index + 1
-        let b0 = b.index + (b.offset == 0 ? 0 : 1)
-        let n = points.count
-        if a0 <= b0 {
-            var i = a0
-            while i < b0 {
-                self.append(points[i])
-                i += 1
-            }
-        } else {
-            var i = a0
-            while i < n {
-                self.append(points[i])
-                i += 1
-            }
-            i = 0
-            while i < b0 {
-                self.append(points[i])
-                i += 1
-            }
-        }
-    }
-    
-    @inlinable
     mutating func directAppend(a: Int, b: Int, points: [IntPoint]) {
         let n = points.count
 
         let b0 = b
-        var i = a + 1
+        var i = a
         
         if a < b {
             while i < b0 {
@@ -65,7 +40,7 @@ extension Array where Element == IntPoint {
         let n = points.count
 
         let b0 = b
-        var i = (a - 1 + n) % n
+        var i = a
         
         if a > b {
             while i > b0 {
@@ -86,21 +61,6 @@ extension Array where Element == IntPoint {
         }
     }
 
-    @inlinable
-    func anyDirect(a: MileStone, b: MileStone, pa: IntPoint, pb: IntPoint) -> IntPoint {
-        if a < b {
-            if a.index < b.index {
-                return self[a.index + 1]
-            } else {
-                let x = (pa.x + pb.x) / 2
-                let y = (pa.y + pb.y) / 2
-                return IntPoint(x: x, y: y)
-            }
-        } else {
-            return self[0]
-        }
-    }
-    
 //    func isAnyInsideDirect(a: MileStone, b: MileStone, pa: IntPoint, pb: IntPoint, points: [IntPoint]) -> Bool {
 //        let anyPoint = points.anyDirect(a: a, b: b, pa: pa, pb: pb)
 //        return self.isContain(point: anyPoint)

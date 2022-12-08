@@ -23,7 +23,6 @@ extension Collision {
         func hash(into hasher: inout Hasher) {
             hasher.combine(mA.index)
             hasher.combine(mA.offset)
-            hasher.combine(t.hashValue)
         }
         
         init(ed0: Collision.Edge, ed1: Collision.Edge, type: DotType, point: IntPoint) {

@@ -109,7 +109,7 @@ extension PolygonView {
             let pos = ver + CGPoint(x: dx, y: dy)
             let world = coordSystem.convertToWorld(point: pos)
             
-            let p = IntGeom.defGeom.int(point: Point(x: Float(world.x), y: Float(world.y)))
+            let p = IntGeom.defGeom.int(point: world)
 
             if let modifier = self.vertextModifier, modifier.gridRound != 0 {
                 let r = modifier.gridRound
@@ -136,7 +136,7 @@ extension PolygonView {
             let pos = ver + CGPoint(x: dx, y: dy)
             let world = coordSystem.convertToWorld(point: pos)
             
-            let p = IntGeom.defGeom.int(point: Point(x: Float(world.x), y: Float(world.y)))
+            let p = IntGeom.defGeom.int(point: world)
 
             if let modifier = self.vertextModifier, modifier.gridRound != 0 {
                 let r = modifier.gridRound

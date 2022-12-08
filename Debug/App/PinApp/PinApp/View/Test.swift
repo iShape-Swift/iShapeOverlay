@@ -19,19 +19,19 @@ final class Test {
     }
     
     var index: Int {
-        perIndex.value % Tests.data.count
+        perIndex.value % PinTests.data.count
     }
     
     var current: TestData {
-        Tests.data[index]
+        PinTests.data[index]
     }
 
     func next() {
-        _ = perIndex.increase(amount: 1, round: Tests.data.count)
+        _ = perIndex.increase(amount: 1, round: PinTests.data.count)
     }
 
     func prev() {
-        _ = perIndex.increase(amount: -1, round: Tests.data.count)
+        _ = perIndex.increase(amount: -1, round: PinTests.data.count)
     }
 
 }

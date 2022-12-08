@@ -30,6 +30,7 @@
 		54CE6289293A6E9D00CBF970 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		54CE628C293A6EBA00CBF970 /* DebugUtil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DebugUtil; path = ../../DebugUtil; sourceTree = "<group>"; };
 		54CE628D293A6EC700CBF970 /* iShapeOverlay */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = iShapeOverlay; path = ../../..; sourceTree = "<group>"; };
+		54EAE60529420E9E00018EB2 /* iGeometry */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = iGeometry; path = ../../../../iGeometry; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 			children = (
 				54CE628C293A6EBA00CBF970 /* DebugUtil */,
 				54CE628D293A6EC700CBF970 /* iShapeOverlay */,
+				54EAE60529420E9E00018EB2 /* iGeometry */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

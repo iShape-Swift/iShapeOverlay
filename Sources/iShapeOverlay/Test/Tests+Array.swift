@@ -8,6 +8,7 @@
 #if DEBUG
 
 import iGeometry
+import CoreGraphics
 
 extension Array where Element == IntPoint {
 
@@ -20,20 +21,20 @@ extension Array where Element == IntPoint {
         return result
     }
     
-    func points(scale: Int64 = 1) -> [Point] {
-        var result = [Point](repeating: .zero, count: self.count)
+    func points(scale: Int64 = 1) -> [CGPoint] {
+        var result = [CGPoint](repeating: .zero, count: self.count)
         let geom = IntGeom.defGeom
         for i in 0..<self.count {
             let p = self[i]
             let x = geom.float(int: p.x * scale)
             let y = geom.float(int: p.y * scale)
-            result[i] = Point(x: x, y: y)
+            result[i] = CGPoint(x: x, y: y)
         }
         return result
     }
 }
 
-extension Array where Element == Point {
+extension Array where Element == CGPoint {
     var int: [IntPoint] {
         IntGeom.defGeom.int(points: self)
     }

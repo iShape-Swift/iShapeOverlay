@@ -10,25 +10,24 @@ import iGeometry
 struct Intersector {
     
     struct Result {
-        let list: [Path]
+        let list: [IntPath]
     }
     
     func intersect(pathA: [IntPoint], pathB: [IntPoint], navigator: Navigator) -> Result {
 
-        var list = [Path]()
+        var list = [IntPath]()
         
         var nav = navigator
 
         var s0 = nav.nextIntersect()
-        while s0.isNotEmpty {
+        var points = [IntPoint]()
 
-            var points = [IntPoint]()
+        while s0.isNotEmpty {
             
             let start = s0.pinId
             
             repeat {
                 let s1 = nav.nextIntersect(stone: s0, endId: start)
-                points.append(s0.pin.p)
                 switch s0.direction {
                 case .ab:
                     points.reverseAppend(a: s0.pin.a, b: s1.pin.a, points: pathA)
@@ -38,8 +37,8 @@ struct Intersector {
                 
                 s0 = s1
             } while s0.pinId != start
-
-            list.append(Path(unsafe: points))
+            
+            list.append(IntPath(unsafe: points))
             points.removeAll(keepingCapacity: true)
 
             s0 = nav.nextIntersect()

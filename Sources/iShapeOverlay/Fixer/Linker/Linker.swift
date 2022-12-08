@@ -226,7 +226,7 @@ private extension Array where Element == IntPoint {
         var a = self[n - 2]
         var b = self[n - 1]
         for c in self {
-            if !IntPoint.isSameLine(a: a, b: b, c: c) {
+            if !ABLine(a: a, b: b).isSameLine(point: c) {
                 result.append(b)
             }
             a = b

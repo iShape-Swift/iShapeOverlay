@@ -27,9 +27,9 @@ extension IntPoint: Decodable {
 
 public extension IntPoint {
 
-    init(point: CGPoint) {
-        let x = IntGeom.defGeom.int(float: Float(point.x))
-        let y = IntGeom.defGeom.int(float: Float(point.y))
+    init(point: CGPoint, geom: IntGeom = IntGeom.defGeom) {
+        let x = geom.int(float: CGFloat(point.x))
+        let y = geom.int(float: CGFloat(point.y))
         self.init(x: x, y: y)
     }
     

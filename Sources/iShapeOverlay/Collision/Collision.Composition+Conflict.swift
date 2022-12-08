@@ -98,10 +98,4 @@ extension Collision.Composition {
         return result
     }
     
-    private func isSameLine(ba: IntPoint, a: IntPoint, c: IntPoint) -> Bool {
-        let ca = c - a
-        let res = ba.x * ca.y - ca.x * ba.y
-        return res == 0
-    }
-    
 }

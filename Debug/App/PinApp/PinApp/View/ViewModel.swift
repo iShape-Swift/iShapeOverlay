@@ -87,16 +87,39 @@ final class ViewModel: ObservableObject {
     
     func doTask() {
         let detector = Collision.Detector()
-        let pins = detector.findPins(pathA: shapeA, pathB: shapeB)
+        
+        let fixer = Fixer()
+        let pathA = fixer.solve(path: shapeA, removeSameLine: true).first ?? []
+        let pathB = fixer.solve(path: shapeB, clockWise: false, removeSameLine: true).first ?? []
 
+        let result = detector.findPins(pathA: pathA, pathB: pathB, fixer: fixer)
+
+        switch result.pinResult {
+        case .success:
+            self.success(pathA: pathA, pathB: pathB, pins: result.pins)
+        case .modified:
+            self.success(
+                pathA: result.pathA.isEmpty ? [] : result.pathA[0],
+                pathB: result.pathB.isEmpty ? [] : result.pathB[0],
+                pins: result.pins
+            )
+        case .conflict:
+            self.pins = nil
+        case .badPolygons:
+            self.pins = nil
+        }
+    }
+    
+    private func success(pathA: [IntPoint], pathB: [IntPoint], pins: [PinPoint]) {
+       
         var pinList = [Pin]()
 
-        let nb = shapeB.count
+        let nb = pathB.count
 
         for id in 0..<pins.count {
             let pin = pins[id]
-            let a = shapeB[pin.mB.offset == 0 ? (pin.mB.index - 1 + nb) % nb : pin.mB.index]
-            let b = shapeB[(pin.mB.index + 1) % nb]
+            let a = pathB[(pin.b - 1 + nb) % nb]
+            let b = pathB[(pin.b + 1) % nb]
 
             let mainColor: Color
             let fillColor: Color
@@ -108,16 +131,22 @@ final class ViewModel: ObservableObject {
             case .out:
                 mainColor = .red
                 fillColor = .white
-            case .false_in:
+            case .false_in_same:
+                mainColor = .blue
+                fillColor = .cyan
+            case .false_in_back:
                 mainColor = .blue
                 fillColor = .black
-            case .false_out:
+            case .false_out_same:
+                mainColor = .red
+                fillColor = .cyan
+            case .false_out_back:
                 mainColor = .red
                 fillColor = .black
-            case .start_in:
+            case .start_in_same, .start_in_back:
                 mainColor = .blue
                 fillColor = .green
-            case .start_out:
+            case .start_out_same, .start_out_back:
                 mainColor = .red
                 fillColor = .green
             case .end_in:
@@ -126,9 +155,6 @@ final class ViewModel: ObservableObject {
             case .end_out:
                 mainColor = .red
                 fillColor = .yellow
-            case .null:
-                mainColor = .gray
-                fillColor = .black
             }
 
             pinList.append(Pin(
@@ -142,7 +168,6 @@ final class ViewModel: ObservableObject {
         }
 
         self.pins = pinList
-
     }
     
     func onModifiedA(points: [IntPoint]) {

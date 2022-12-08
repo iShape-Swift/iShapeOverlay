@@ -8,49 +8,50 @@
 #if DEBUG
 
 import iGeometry
+import CoreGraphics
 
 public final class IntersectTests {
     
     public static let data: [TestData] = [
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -5, y: 15),
-                Point(x: -5, y:-15),
-                Point(x:  5, y:-15),
-                Point(x:  5, y: 15)
+                CGPoint(x: -5, y: 15),
+                CGPoint(x: -5, y:-15),
+                CGPoint(x:  5, y:-15),
+                CGPoint(x:  5, y: 15)
             ].int
         ),
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: -5, y: 15),
-                Point(x: -5, y:  0),
-                Point(x:  5, y:  0),
-                Point(x:  5, y: 15)
+                CGPoint(x: -5, y: 15),
+                CGPoint(x: -5, y:  0),
+                CGPoint(x:  5, y:  0),
+                CGPoint(x:  5, y: 15)
             ].int
         ),
         TestData(
             shapeA: [
-                Point(x: -10, y: 10),
-                Point(x: 10, y: 10),
-                Point(x: 10, y: -10),
-                Point(x: -10, y: -10)
+                CGPoint(x: -10, y: 10),
+                CGPoint(x: 10, y: 10),
+                CGPoint(x: 10, y: -10),
+                CGPoint(x: -10, y: -10)
             ].int,
             shapeB: [
-                Point(x: 0, y: 0),
-                Point(x: 5, y: 10),
-                Point(x: -5, y: 10)
+                CGPoint(x: 0, y: 0),
+                CGPoint(x: 5, y: 10),
+                CGPoint(x: -5, y: 10)
             ].int
         )
     ]
