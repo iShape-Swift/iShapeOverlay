@@ -64,7 +64,7 @@ extension Collision {
                 mA = MileStone(index: eA.p1.index)
                 setB.put(edge: eB.p0.index, vertex: eA.p1.index)
             } else {
-                mA = MileStone(index: eA.p0.index, offset: point.sqrDistance(point: eA.p0.point))
+                mA = MileStone(index: eA.p0.index, offset: point.sqrDistance( eA.p0.point))
             }
             
             if b0 {
@@ -77,7 +77,7 @@ extension Collision {
                 mB = MileStone(index: eB.p1.index)
                 setA.put(edge: eA.p0.index, vertex: eB.p1.index)
             } else {
-                mB = MileStone(index: eB.p0.index, offset: point.sqrDistance(point: eB.p0.point))
+                mB = MileStone(index: eB.p0.index, offset: point.sqrDistance( eB.p0.point))
             }
             
             dots.insert(Dot(mA: mA, mB: mB, type: .complex, point: point))
@@ -170,9 +170,17 @@ extension Collision {
                     let x1 = r1 != .outside
                     
                     if x1 {
-                        type = .end_in
+                        if a0_b0 {
+                            type = .end_in_same
+                        } else {
+                            type = .end_in_back
+                        }
                     } else {
-                        type = .end_out
+                        if a0_b0 {
+                            type = .end_out_same
+                        } else {
+                            type = .end_out_back
+                        }
                     }
                 } else if b1_a {
                     let corner = Corner(o: dot.p, a: a0, b: a1)

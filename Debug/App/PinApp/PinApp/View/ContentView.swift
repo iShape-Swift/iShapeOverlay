@@ -26,9 +26,9 @@ struct ContentView: View {
     private func content(size: CGSize) -> some View {
         let coordSystem = viewModel.coordSystem(size: size)
         return ZStack {
-            PolygonView(
+            VectorPolygonView(
                 fill: .white.opacity(0.2),
-                stroke: .white.opacity(0.4),
+                stroke: .white,
                 lineWidth: 2,
                 points: viewModel.shapeA,
                 indexBuilder: .init(color: .orange, radius: 12),
@@ -37,10 +37,10 @@ struct ContentView: View {
                     viewModel.onModifiedA(points: points)
                 }
             )
-            PolygonView(
+            VectorPolygonView(
                 fill: .black.opacity(0.2),
-                stroke: .black.opacity(0.4),
-                lineWidth: 2,
+                stroke: .black,
+                lineWidth: 4,
                 points: viewModel.shapeB,
                 indexBuilder: .init(color: .orange, radius: 12),
                 coordSystem: coordSystem,

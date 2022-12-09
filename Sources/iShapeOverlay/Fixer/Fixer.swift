@@ -8,19 +8,30 @@
 import iGeometry
 
 struct Fixer {
-
+    
     @inlinable
-    func solve(path: [IntPoint], clockWise: Bool = true, removeSameLine: Bool) -> [[IntPoint]] {
+    func solve(path: [IntPoint], clockWise: Bool = true, removeSameLine: Bool = true) -> [[IntPoint]] {
         let edges = self.devide(path: path)
 
-        var list = Linker(edges: edges, removeSameLine: removeSameLine).join()
-        if !clockWise {
-            for i in 0..<list.count {
-                list[i].reverse()
+        let list = Linker(edges: edges).join()
+        
+        var result = [[IntPoint]]()
+        result.reserveCapacity(list.count)
+        
+        for var points in list {
+            if removeSameLine {
+                points.removeSameLinePoints()
+            }
+            
+            if !points.isEmpty {
+                if !clockWise {
+                    points.reverse()
+                }
+                result.append(points)
             }
         }
 
-        return list
+        return result
     }
     
     private func devide(path: [IntPoint]) -> [Edge] {

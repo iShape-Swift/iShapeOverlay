@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iGeometry
+import CoreGraphics
 
 public struct VectorView: View {
  
@@ -76,14 +77,5 @@ struct VectorShape: SwiftUI.Shape {
             path.move(to: b)
             path.addLine(to: a)
         }
-    }
-}
-
-private extension CGPoint {
-    
-    init(radius: CGFloat, angle: CGFloat) {
-        let x = radius * cos(angle)
-        let y = radius * sin(angle)
-        self.init(x: x, y: y)
     }
 }

@@ -14,12 +14,9 @@ extension Navigator {
             guard !visited[s.pinId] else { continue }
             let t = s.pin.type
             
-            if t == .into || t == .end_in || t == .false_out_back {
+            if t == .into || t == .end_in_same || t == .end_in_back || t == .false_out_same || t == .false_out_back {
                 visited[s.pinId] = true
                 return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .ba)
-            } else if t == .start_out_same || t == .start_out_back || t == .out {
-                visited[s.pinId] = true
-                return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .ab)
             }
         }
         
@@ -40,7 +37,7 @@ extension Navigator {
                 
                 let t = s.pin.type
                 
-                isOut = t == .end_out || t == .out || t == .start_out_same || t == .start_out_back || t == .false_out_same
+                isOut = t == .end_out_back || t == .end_out_same || t == .out || t == .start_out_same || t == .start_out_back || t == .false_out_same
                 
                 assert(t != .into || t != .start_in_same || t != .false_in_same || t != .false_in_back)
             } while !isOut && stone.pinId != s.pinId && endId != s.pinId
@@ -58,7 +55,7 @@ extension Navigator {
                 
                 let t = s.pin.type
                 
-                isInto = t == .end_in || t == .into || t == .false_out_same
+                isInto = t == .end_in_back || t == .end_in_same || t == .into || t == .false_out_same
                 
                 assert(t != .out || t != .start_out_same || t != .false_out_same  || t != .false_out_back)
             } while !isInto && stone.pinId != s.pinId

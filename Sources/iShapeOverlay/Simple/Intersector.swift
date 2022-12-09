@@ -21,6 +21,7 @@ struct Intersector {
 
         var s0 = nav.nextIntersect()
         var points = [IntPoint]()
+        let fixer = Fixer()
 
         while s0.isNotEmpty {
             
@@ -38,7 +39,11 @@ struct Intersector {
                 s0 = s1
             } while s0.pinId != start
             
-            list.append(IntPath(unsafe: points))
+            let regions = fixer.solve(path: points, clockWise: true)
+            for region in regions {
+                list.append(IntPath(unsafe: region))
+            }
+
             points.removeAll(keepingCapacity: true)
 
             s0 = nav.nextIntersect()

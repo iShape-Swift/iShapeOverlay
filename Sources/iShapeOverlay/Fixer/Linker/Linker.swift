@@ -6,6 +6,7 @@
 //
 
 import iGeometry
+import CoreGraphics
 
 private struct RegionResult {
     let region: [IntPoint]
@@ -35,11 +36,9 @@ struct Linker {
     typealias Edge = Fixer.Edge
 
     private let map: NodeMap
-    let removeSameLine: Bool
     
     @inlinable
-    init(edges: [Edge], removeSameLine: Bool) {
-        self.removeSameLine = removeSameLine
+    init(edges: [Edge]) {
         let n = 2 * edges.count
         
         var ends = [EdgeEnd]()
@@ -134,11 +133,7 @@ struct Linker {
             if path.isContain(nc) {
                 let points = path.slice(node: nc)
                 if !points.isEmpty {
-                    if removeSameLine {
-                        regions.append(points.removeSameLinePoints())
-                    } else {
-                        regions.append(points)
-                    }
+                    regions.append(points)
                 }
             }
             path.add(nc)
@@ -175,12 +170,12 @@ struct Linker {
         }
         
         let b = nb.point
-        let ba = DBPoint(x: Double(b.x - na.point.x), y: Double(b.y - na.point.y)).normal
+        let ba = CGPoint(x: CGFloat(b.x - na.point.x), y: CGFloat(b.y - na.point.y)).normal
         
         var it = NodeIterator(nb)
         
         var nx = nb
-        var max: Double = -3.0
+        var max: CGFloat = -3.0
         
         while it.hasNext {
             let nc = it.next(map)
@@ -189,7 +184,7 @@ struct Linker {
             }
 
             let c = nc.point
-            let bc = DBPoint(x: Double(c.x - b.x), y: Double(c.y - b.y))
+            let bc = CGPoint(x: CGFloat(c.x - b.x), y: CGFloat(c.y - b.y))
             
             let value = ba.clockWiseSortValue(bc)
             if value > max {
@@ -203,37 +198,14 @@ struct Linker {
     
 }
 
-private extension DBPoint {
+private extension CGPoint {
 
-    func clockWiseSortValue(_ a: DBPoint) -> Double {
+    func clockWiseSortValue(_ a: CGPoint) -> Double {
         let v = a.normal
         let cos = self.dotProduct(v)
         let cross = self.crossProduct(v)
-        let sign: Double = cross > 0 ? 1 : -1
+        let sign: CGFloat = cross > 0 ? 1 : -1
         return sign * (1 - cos)
-    }
-
-}
-
-private extension Array where Element == IntPoint {
-    
-    func removeSameLinePoints() -> [IntPoint] {
-        let n = self.count
-        guard n > 2 else { return self }
-        var result = [IntPoint]()
-        result.reserveCapacity(n)
-        
-        var a = self[n - 2]
-        var b = self[n - 1]
-        for c in self {
-            if !ABLine(a: a, b: b).isSameLine(point: c) {
-                result.append(b)
-            }
-            a = b
-            b = c
-        }
-        
-        return result
     }
 
 }

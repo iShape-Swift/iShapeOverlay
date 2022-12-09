@@ -96,10 +96,10 @@ final class ViewModel: ObservableObject {
         let detector = Collision.Detector()
 
         let fixer = Fixer()
-        let pathA = fixer.solve(path: shapeA, removeSameLine: true).first ?? []
-        let pathB = fixer.solve(path: shapeB, clockWise: false, removeSameLine: true).first ?? []
+        let pathA = fixer.solve(path: shapeA).first ?? []
+        let pathB = fixer.solve(path: shapeB, clockWise: false).first ?? []
 
-        let result = detector.findPins(pathA: pathA, pathB: pathB, fixer: fixer)
+        let result = detector.findPins(pathA: pathA, pathB: pathB, shapeCleaner: .def)
 
         switch result.pinResult {
         case .success:
@@ -163,10 +163,10 @@ final class ViewModel: ObservableObject {
             case .start_out_same, .start_out_back:
                 mainColor = .red
                 fillColor = .green
-            case .end_in:
+            case .end_in_same, .end_in_back:
                 mainColor = .blue
                 fillColor = .yellow
-            case .end_out:
+            case .end_out_same, .end_out_back:
                 mainColor = .red
                 fillColor = .yellow
             }

@@ -28,11 +28,11 @@ extension Collision {
         init(ed0: Collision.Edge, ed1: Collision.Edge, type: DotType, point: IntPoint) {
             assert(ed0.shapeId != ed1.shapeId)
             if ed0.shapeId == 0 {
-                mA = MileStone(index: ed0.p0.index, offset: point.sqrDistance(point: ed0.p0.point))
-                mB = MileStone(index: ed1.p0.index, offset: point.sqrDistance(point: ed1.p0.point))
+                mA = MileStone(index: ed0.p0.index, offset: point.sqrDistance(ed0.p0.point))
+                mB = MileStone(index: ed1.p0.index, offset: point.sqrDistance(ed1.p0.point))
             } else {
-                mA = MileStone(index: ed1.p0.index, offset: point.sqrDistance(point: ed1.p0.point))
-                mB = MileStone(index: ed0.p0.index, offset: point.sqrDistance(point: ed0.p0.point))
+                mA = MileStone(index: ed1.p0.index, offset: point.sqrDistance(ed1.p0.point))
+                mB = MileStone(index: ed0.p0.index, offset: point.sqrDistance(ed0.p0.point))
             }
             t = type
             p = point

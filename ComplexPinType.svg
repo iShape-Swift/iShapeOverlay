@@ -26,11 +26,11 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="2.9746954"
-     inkscape:cx="210.94597"
-     inkscape:cy="135.13989"
-     inkscape:window-width="1874"
-     inkscape:window-height="1338"
-     inkscape:window-x="83"
+     inkscape:cx="216.99701"
+     inkscape:cy="184.38863"
+     inkscape:window-width="1460"
+     inkscape:window-height="1345"
+     inkscape:window-x="123"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
@@ -393,14 +393,14 @@
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#ff2a2a;stroke-width:0.264583"
-       x="66.889267"
+       x="68.476768"
        y="53.99567"
        id="text3774"><tspan
          sodipodi:role="line"
          id="tspan3772"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
-         x="66.889267"
-         y="53.99567">end_out</tspan></text>
+         x="68.476768"
+         y="53.99567">end_out_same</tspan></text>
     <g
        id="g24874"
        transform="translate(25.135417)">
@@ -502,7 +502,7 @@
            id="tspan1102-9"
            style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
            x="10.149982"
-           y="3.7315979">start_in_common</tspan></text>
+           y="3.7315979">start_in_same</tspan></text>
     </g>
     <g
        id="g422"
@@ -601,14 +601,14 @@
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#0055d4;stroke-width:0.264583"
-       x="66.252647"
+       x="68.898483"
        y="1.5620055"
        id="text639"><tspan
          sodipodi:role="line"
          id="tspan637"
          style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
-         x="66.252647"
-         y="1.5620055">end_in</tspan></text>
+         x="68.898483"
+         y="1.5620055">end_in_same</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#0055d4;stroke-width:0.264583"
@@ -722,7 +722,7 @@
          id="tspan1528"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
          x="44.664246"
-         y="53.99567">start_out_common</tspan><tspan
+         y="53.99567">start_out_same</tspan><tspan
          sodipodi:role="line"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
          x="44.664246"
@@ -1421,7 +1421,7 @@
          id="tspan690"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
          x="44.664246"
-         y="80.454025">start_out_reverse</tspan><tspan
+         y="80.454025">start_out_back</tspan><tspan
          sodipodi:role="line"
          style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
          x="44.664246"
@@ -1440,7 +1440,29 @@
            id="tspan697"
            style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
            x="10.149982"
-           y="3.7315979">start_in_reverse</tspan></text>
+           y="3.7315979">start_in_back</tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#0055d4;stroke-width:0.264583"
+       x="67.310982"
+       y="28.020344"
+       id="text972"><tspan
+         sodipodi:role="line"
+         id="tspan970"
+         style="font-size:1.41111px;fill:#0055d4;stroke-width:0.264583"
+         x="67.310982"
+         y="28.020344">end_in_back</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;word-spacing:0px;direction:rtl;fill:#ff2a2a;stroke-width:0.264583"
+       x="68.476768"
+       y="80.454025"
+       id="text976"><tspan
+         sodipodi:role="line"
+         id="tspan974"
+         style="font-size:1.41111px;fill:#ff2a2a;stroke-width:0.264583"
+         x="68.476768"
+         y="80.454025">end_out_back</tspan></text>
   </g>
 </svg>

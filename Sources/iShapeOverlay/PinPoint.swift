@@ -11,13 +11,15 @@ enum PinType {
     case into
     case start_in_same
     case start_in_back
-    case end_in
+    case end_in_same
+    case end_in_back
     case false_in_same
     case false_in_back
     case out
     case start_out_same
     case start_out_back
-    case end_out
+    case end_out_same
+    case end_out_back
     case false_out_same
     case false_out_back
 }
@@ -75,10 +77,14 @@ extension PinType: CustomStringConvertible {
             return "start_out_same"
         case .start_out_back:
             return "start_out_back"
-        case .end_in:
-            return "end_in"
-        case .end_out:
-            return "end_out"
+        case .end_in_same:
+            return "end_in_same"
+        case .end_in_back:
+            return "end_in_back"
+        case .end_out_same:
+            return "end_out_same"
+        case .end_out_back:
+            return "end_out_back"
         }
     }
     

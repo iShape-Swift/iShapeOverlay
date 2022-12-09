@@ -31,11 +31,12 @@ extension Collision {
 
 extension Collision.Detector {
     
-    func findPins(pathA: [IntPoint], pathB: [IntPoint], fixer: Fixer) -> Collision.PinBundle {
+    func findPins(pathA: [IntPoint], pathB: [IntPoint], shapeCleaner: ShapeCleaner) -> Collision.PinBundle {
         guard pathA.count > 2 && pathB.count > 2 else {
-            
             return .init(pinResult: .badPolygons, pathA: [], pathB: [], pins: [])
         }
+        
+        let fixer = Fixer()
         
         var pathA = pathA
         var pathB = pathB
@@ -57,13 +58,15 @@ extension Collision.Detector {
                 let listB: [[IntPoint]]
 
                 if result.updateA.isModified {
-                    listA = fixer.solve(path: result.updateA.path, removeSameLine: false)
+                    let list = fixer.solve(path: result.updateA.path, removeSameLine: false)
+                    listA = shapeCleaner.clean(list: list)
                 } else {
                     listA = [pathA]
                 }
 
                 if result.updateB.isModified {
-                    listB = fixer.solve(path: result.updateB.path, clockWise: false, removeSameLine: false)
+                    let list = fixer.solve(path: result.updateB.path, clockWise: false, removeSameLine: false)
+                    listB = shapeCleaner.clean(list: list)
                 } else {
                     listB = [pathB]
                 }

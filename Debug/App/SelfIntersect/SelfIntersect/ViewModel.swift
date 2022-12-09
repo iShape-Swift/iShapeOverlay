@@ -67,7 +67,7 @@ final class ViewModel: ObservableObject {
     
     func doTask() {
         let fixer = Fixer()
-        let result = fixer.solve(path: shape)
+        let result = fixer.solve(path: shape, removeSameLine: true)
 
         var polygons = [Polygon]()
         var dots = [IntPoint]()

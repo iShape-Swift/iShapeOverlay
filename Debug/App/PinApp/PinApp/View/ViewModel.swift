@@ -149,10 +149,10 @@ final class ViewModel: ObservableObject {
             case .start_out_same, .start_out_back:
                 mainColor = .red
                 fillColor = .green
-            case .end_in:
+            case .end_in_same, .end_in_back:
                 mainColor = .blue
                 fillColor = .yellow
-            case .end_out:
+            case .end_out_same, .end_out_back:
                 mainColor = .red
                 fillColor = .yellow
             }
