@@ -58,14 +58,14 @@ extension Collision.Detector {
                 let listB: [[IntPoint]]
 
                 if result.updateA.isModified {
-                    let list = fixer.solve(path: result.updateA.path, removeSameLine: false)
+                    let list = fixer.solve(path: result.updateA.path, strategy: .spikes)
                     listA = shapeCleaner.clean(list: list)
                 } else {
                     listA = [pathA]
                 }
 
                 if result.updateB.isModified {
-                    let list = fixer.solve(path: result.updateB.path, clockWise: false, removeSameLine: false)
+                    let list = fixer.solve(path: result.updateB.path, clockWise: false, strategy: .spikes)
                     listB = shapeCleaner.clean(list: list)
                 } else {
                     listB = [pathB]

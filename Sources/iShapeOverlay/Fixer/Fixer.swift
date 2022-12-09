@@ -9,8 +9,14 @@ import iGeometry
 
 struct Fixer {
     
+    enum Strategy {
+        case sameLine
+        case spikes
+    }
+    
+    
     @inlinable
-    func solve(path: [IntPoint], clockWise: Bool = true, removeSameLine: Bool = true) -> [[IntPoint]] {
+    func solve(path: [IntPoint], clockWise: Bool = true, strategy: Strategy = .sameLine) -> [[IntPoint]] {
         let edges = self.devide(path: path)
 
         let list = Linker(edges: edges).join()
@@ -19,8 +25,11 @@ struct Fixer {
         result.reserveCapacity(list.count)
         
         for var points in list {
-            if removeSameLine {
+            switch strategy {
+            case .sameLine:
                 points.removeSameLinePoints()
+            case .spikes:
+                points.removeSpikes()
             }
             
             if !points.isEmpty {

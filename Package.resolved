@@ -2,10 +2,10 @@
   "pins" : [
     {
       "identity" : "igeometry",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/iShape-Swift/iGeometry",
+      "kind" : "localSourceControl",
+      "location" : "/Users/nailsharipov/Projects/Triangulation/iGeometry",
       "state" : {
-        "revision" : "7f7c9f19fcd4423c1c3f8edea0038bd92c425f68",
+        "revision" : "57762d67b477c1bb298d5e93dbb67769a2fc4c0d",
         "version" : "2.0.0"
       }
     }

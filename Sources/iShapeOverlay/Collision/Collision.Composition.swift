@@ -64,7 +64,7 @@ extension Collision {
                 mA = MileStone(index: eA.p1.index)
                 setB.put(edge: eB.p0.index, vertex: eA.p1.index)
             } else {
-                mA = MileStone(index: eA.p0.index, offset: point.sqrDistance( eA.p0.point))
+                mA = MileStone(index: eA.p0.index, offset: point.sqrDistance(eA.p0.point))
             }
             
             if b0 {
@@ -77,7 +77,7 @@ extension Collision {
                 mB = MileStone(index: eB.p1.index)
                 setA.put(edge: eA.p0.index, vertex: eB.p1.index)
             } else {
-                mB = MileStone(index: eB.p0.index, offset: point.sqrDistance( eB.p0.point))
+                mB = MileStone(index: eB.p0.index, offset: point.sqrDistance(eB.p0.point))
             }
             
             dots.insert(Dot(mA: mA, mB: mB, type: .complex, point: point))

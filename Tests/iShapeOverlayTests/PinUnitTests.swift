@@ -46,6 +46,148 @@ final class PinUnitTests: XCTestCase {
         Result(pins:[
             Pin(CGPoint(x:-10, y: 10), .end_in_back),
             Pin(CGPoint(x: 10, y: 10), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y: 10), .start_out_back),
+            Pin(CGPoint(x:-10, y:-10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y:-10), .start_out_back),
+            Pin(CGPoint(x: 10, y:-10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y:-10), .start_out_back),
+            Pin(CGPoint(x: 10, y: 10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y:  5), .end_in_back),
+            Pin(CGPoint(x: 10, y:  5), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: -5, y:-10), .end_in_back),
+            Pin(CGPoint(x: -5, y: 10), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y: -5), .start_out_back),
+            Pin(CGPoint(x: 10, y: -5), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  5, y:-10), .start_out_back),
+            Pin(CGPoint(x:  5, y: 10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0, y: 10), .end_in_back),
+            Pin(CGPoint(x: 10, y:  0), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y:  0), .end_in_back),
+            Pin(CGPoint(x:  0, y: 10), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y:  0), .start_out_back),
+            Pin(CGPoint(x:  0, y:-10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0, y:-10), .start_out_back),
+            Pin(CGPoint(x: 10, y:  0), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0, y: 10), .start_out_back),
+            Pin(CGPoint(x: 10, y:  0), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0, y: 10), .end_in_back),
+            Pin(CGPoint(x:-10, y:  0), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0, y:-10), .start_out_back),
+            Pin(CGPoint(x:-10, y:  0), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y:  0), .start_out_back),
+            Pin(CGPoint(x:  0, y:-10), .end_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: -5, y: 10), .end_out_same),
+            Pin(CGPoint(x:-10, y: 10), .start_in_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y:  0), .into),
+            Pin(CGPoint(x:-10, y: 10), .end_out_back),
+            Pin(CGPoint(x: -5, y: 10), .start_out_back),
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  5, y: 10), .start_in_same),
+            Pin(CGPoint(x: 10, y: 10), .end_out_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  5, y: 10), .end_in_back),
+            Pin(CGPoint(x: 10, y: 10), .start_in_back),
+            Pin(CGPoint(x: 10, y:  0), .out),
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y: 10), .end_out_same),
+            Pin(CGPoint(x:-10, y: 10), .start_in_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  5, y: 10), .start_out_back),
+            Pin(CGPoint(x: -5, y:-10), .start_out_back),
+            Pin(CGPoint(x: -5, y: 10), .end_in_back),
+            Pin(CGPoint(x:  5, y:-10), .end_in_back),
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y: 10), .end_out_same),
+            Pin(CGPoint(x:-10, y:  0), .start_in_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y: 10), .end_out_back),
+            Pin(CGPoint(x: 10, y:  0), .start_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y: 10), .false_in_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y:  5), .start_in_same),
+            Pin(CGPoint(x: 10, y: -5), .end_out_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y:  5), .end_in_back),
+            Pin(CGPoint(x: 10, y: -5), .start_out_back),
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 10, y:  5), .end_in_back),
+            Pin(CGPoint(x: 10, y: -5), .start_out_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:  0.464, y: 0.2159), .out),
+            Pin(CGPoint(x:  0.441, y:   0.22), .false_out_same),
+            Pin(CGPoint(x: 0.0097, y:    1.0), .into)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x:-10, y: -5), .out),
+            Pin(CGPoint(x:-10, y:  5), .into),
+            Pin(CGPoint(x:-15, y: -5), .into),
+            Pin(CGPoint(x: 15, y: -5), .end_out_same),
+            Pin(CGPoint(x:-15, y:  5), .out),
+            Pin(CGPoint(x: 10, y: -5), .start_in_same),
+            Pin(CGPoint(x: 10, y:  5), .end_out_same),
+            Pin(CGPoint(x: 15, y:  5), .start_in_same)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: 20, y: 10), .false_out_back),
+            Pin(CGPoint(x: 10, y:-10), .end_in_back),
+            Pin(CGPoint(x:  0, y:  0), .out),
+            Pin(CGPoint(x:  0, y:-10), .start_in_back)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: -0.018000000000000002, y: -6.424), .end_out_same),
+            Pin(CGPoint(x: -0.018000000000000002, y:  0.134), .start_out_same),
+            Pin(CGPoint(x:  4.4692, y:  5.6719), .into)
+        ]),
+        Result(pins:[
+            Pin(CGPoint(x: -0.9956, y: 1.0188000000000001), .start_in_back),
+            Pin(CGPoint(x: -0.9955, y: 1.0188000000000001), .end_in_back),
+            Pin(CGPoint(x: -0.7692, y: 1.6615), .out)
         ])
     ]
     
@@ -70,6 +212,134 @@ final class PinUnitTests: XCTestCase {
         run(index: 4)
     }
     
+    func test_05() throws {
+        run(index: 5)
+    }
+    
+    func test_06() throws {
+        run(index: 6)
+    }
+    
+    func test_07() throws {
+        run(index: 7)
+    }
+    
+    func test_08() throws {
+        run(index: 8)
+    }
+    
+    func test_09() throws {
+        run(index: 9)
+    }
+    
+    func test_10() throws {
+        run(index: 10)
+    }
+    
+    func test_11() throws {
+        run(index: 11)
+    }
+    
+    func test_12() throws {
+        run(index: 12)
+    }
+    
+    func test_13() throws {
+        run(index: 13)
+    }
+    
+    func test_14() throws {
+        run(index: 14)
+    }
+    
+    func test_15() throws {
+        run(index: 15)
+    }
+    
+    func test_16() throws {
+        run(index: 16)
+    }
+    
+    func test_17() throws {
+        run(index: 17)
+    }
+    
+    func test_18() throws {
+        run(index: 18)
+    }
+    
+    func test_19() throws {
+        run(index: 19)
+    }
+    
+    func test_20() throws {
+        run(index: 20)
+    }
+    
+    func test_21() throws {
+        run(index: 21)
+    }
+
+    func test_22() throws {
+        run(index: 22)
+    }
+    
+    func test_23() throws {
+        run(index: 23)
+    }
+
+    func test_24() throws {
+        run(index: 24)
+    }
+    
+    func test_25() throws {
+        run(index: 25)
+    }
+
+    func test_26() throws {
+        run(index: 26)
+    }
+    
+    func test_27() throws {
+        run(index: 27)
+    }
+    
+    func test_28() throws {
+        run(index: 28)
+    }
+    
+    func test_29() throws {
+        run(index: 29)
+    }
+    
+    func test_30() throws {
+        run(index: 30)
+    }
+    
+    func test_31() throws {
+        run(index: 31)
+    }
+    
+    func test_32() throws {
+        run(index: 32)
+    }
+    
+    func test_33() throws {
+        run(index: 33)
+    }
+    
+    func test_34() throws {
+        run(index: 34)
+    }
+    
+    func test_35() throws {
+        run(index: 35)
+    }
+    
+    func test_36() throws {
+        run(index: 36)
+    }
+    
     private func run(index: Int) {
         let data = PinTests.data[index]
         
@@ -81,7 +351,7 @@ final class PinUnitTests: XCTestCase {
                 let result = detector.findPins(
                     pathA: pathA.shift(offset: i),
                     pathB: data.shapeB.shift(offset: j),
-                    fixer: fixer
+                    shapeCleaner: .def
                 )
                 
                 let origin = Set(result.pins.map({ Pin($0) }))
