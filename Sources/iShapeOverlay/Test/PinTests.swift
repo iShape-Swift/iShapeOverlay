@@ -419,9 +419,6 @@ public final class PinTests {
             shapeB: [
                 CGPoint(x: -15, y: 30),
                 CGPoint(x: -15, y: -30),
-//                CGPoint(x: 11, y: -30),
-//                CGPoint(x: 9, y: 30)
-
                 CGPoint(x: 10 + IntGeom.defGeom.float(int: 1), y: -30),
                 CGPoint(x: 10 - IntGeom.defGeom.float(int: 1), y:  30)
             ].int

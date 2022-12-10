@@ -406,18 +406,3 @@ extension Pin: Hashable {
     }
     
 }
-
-extension Array where Element == IntPoint {
-    
-    func shift(offset: Int) -> [IntPoint] {
-        guard offset != 0 else { return self }
-        var array = [IntPoint]()
-        let n = count
-        array.reserveCapacity(n)
-        for i in 0..<n {
-            array.append(self[(i + offset) % n])
-        }
-        return array
-    }
-    
-}
