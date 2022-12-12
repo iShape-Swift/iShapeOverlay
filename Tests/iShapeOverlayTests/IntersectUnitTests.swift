@@ -12,7 +12,7 @@ import iGeometry
 
 final class IntersectUnitTests: XCTestCase {
     
-    private let intersector = Intersector()
+    private let intersector = SimpleSolver()
     private let detector = Collision.Detector()
     private let fixer = Fixer()
     
