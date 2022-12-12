@@ -44,6 +44,21 @@ extension Array where Element == IntPoint {
         
         return false
     }
+    
+    var prettyPrint: String {
+        guard !self.isEmpty else { return "" }
+        var result = String()
+        for i in 0..<count {
+            let ip = self[i]
+            let p = IntGeom.defGeom.float(point: ip)
+            result.append("CGPoint(\(p.x), \(p.y))")
+            if i != count - 1 {
+                result.append(", ")
+            }
+        }
+        return result
+    }
+    
 }
 
 extension Array where Element == IntPath {
@@ -67,7 +82,7 @@ extension IntPath: Equatable {
     
     public static func == (lhs: IntPath, rhs: IntPath) -> Bool {
         let a = abs(lhs.area - rhs.area)
-        guard a < 1024 else { return false }
+        guard a < 2_000 else { return false }
         return lhs.points.isSame(rhs.points)
     }
 

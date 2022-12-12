@@ -12,7 +12,7 @@ import iGeometry
 
 final class IntersectUnitTests: XCTestCase {
     
-    private let intersector = SimpleSolver()
+    private let solver = SimpleSolver()
     private let detector = Collision.Detector()
     private let fixer = Fixer()
     
@@ -746,7 +746,7 @@ final class IntersectUnitTests: XCTestCase {
 
                 XCTAssertEqual(bundle.pinResult, target.pinResult)
                 
-                let result = intersector.intersect(
+                let result = solver.intersect(
                     pathA: bundle.pathA[0],
                     pathB: bundle.pathB[0],
                     navigator: Navigator(pins: bundle.pins)

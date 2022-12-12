@@ -19,11 +19,9 @@ public struct IntPath {
         area > 0
     }
 
-    @usableFromInline
-    internal var area: Int64
-    
-    @usableFromInline
-    internal var points: [IntPoint]
+    public var area: Int64
+
+    public var points: [IntPoint]
     
     public init(points: [IntPoint]) throws {
         guard points.count > 2 else {
