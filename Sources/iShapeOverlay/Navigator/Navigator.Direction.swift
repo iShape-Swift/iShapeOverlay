@@ -8,7 +8,7 @@
 extension Navigator {
     
     enum Direction {
-        case ab
-        case ba
+        case pathA
+        case pathB
     }
 }

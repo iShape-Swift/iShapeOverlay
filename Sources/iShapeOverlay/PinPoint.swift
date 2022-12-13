@@ -7,21 +7,22 @@
 
 import iGeometry
 
-enum PinType {
-    case into
-    case start_in_same
-    case start_in_back
-    case end_in_same
-    case end_in_back
-    case false_in_same
-    case false_in_back
-    case out
-    case start_out_same
-    case start_out_back
-    case end_out_same
-    case end_out_back
-    case false_out_same
-    case false_out_back
+@usableFromInline
+enum PinType: Int {
+    case into               = 0
+    case start_in_same      = 1
+    case start_in_back      = 2
+    case end_in_same        = 3
+    case end_in_back        = 4
+    case false_in_same      = 5
+    case false_in_back      = 6
+    case out                = 7
+    case start_out_same     = 8
+    case start_out_back     = 9
+    case end_out_same       = 10
+    case end_out_back       = 11
+    case false_out_same     = 12
+    case false_out_back     = 13
 }
 
 struct PinPoint {
@@ -90,3 +91,28 @@ extension PinType: CustomStringConvertible {
     
 }
 #endif
+
+extension PinType {
+    
+    @inlinable
+    var bit: Int {
+        1 << rawValue
+    }
+}
+
+extension Int {
+    
+    @inlinable
+    func isContain(_ pinType: PinType) -> Bool {
+        let bit = pinType.bit
+        return self & bit == bit
+    }
+}
+
+extension Array where Element == PinType {
+    
+    @inlinable
+    var mask: Int {
+        self.reduce(0, { $0 | $1.bit })
+    }
+}

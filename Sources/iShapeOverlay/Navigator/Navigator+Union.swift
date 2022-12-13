@@ -1,66 +1,73 @@
 //
-//  Navigator.swift
+//  Union.swift
 //  
 //
-//  Created by Nail Sharipov on 03.12.2022.
+//  Created by Nail Sharipov on 13.12.2022.
 //
 
 extension Navigator {
-
-    mutating func nextIntersect() -> Stone {
+    
+    mutating func nextUnion() -> Stone {
+        
+        let aMask = [.out, .end_out_back, .end_out_same, .start_out_back, .false_out_back].mask
+        
         let n = visited.count
         for i in 0..<n {
             let s = pathB[i]
             guard !visited[s.pinId] else { continue }
             let t = s.pin.type
             
-            if t == .into || t == .end_in_same || t == .end_in_back || t == .false_out_same || t == .false_out_back {
+            if aMask.isContain(t) {
                 visited[s.pinId] = true
-                return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .ba)
+                return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .pathA)
             }
         }
         
         return .empty
     }
     
-    mutating func nextIntersect(stone: Stone, endId: Int) -> Stone {
+    mutating func nextUnion(stone: Stone, endId: Int) -> Stone {
         let n = visited.count
+        
+        let aMask = [.out, .end_out_back, .end_out_same, .false_out_back].mask
+        let bMask = [.into, .end_in_same, .start_in_back, .start_in_same].mask
+        
         switch stone.direction {
-        case .ba:
+        case .pathB:
             var b = stone.b
             var s = IndexStone.empty
             var isOut = false
             repeat {
-                b = (b + 1) % n
+                b = (b - 1 + n) % n
                 s = pathB[b]
                 visited[s.pinId] = true
                 
                 let t = s.pin.type
                 
-                isOut = t == .end_out_back || t == .end_out_same || t == .out || t == .start_out_same || t == .start_out_back || t == .false_out_same
+                isOut = aMask.isContain(t)
                 
                 assert(t != .into || t != .start_in_same || t != .false_in_same || t != .false_in_back)
             } while !isOut && stone.pinId != s.pinId && endId != s.pinId
             
-            return Stone(a: s.other, b: b, pinId: s.pinId, pin: s.pin, direction: .ab)
-        case .ab:
+            return Stone(a: s.other, b: b, pinId: s.pinId, pin: s.pin, direction: .pathA)
+        case .pathA:
             var a = stone.a
             var s = IndexStone.empty
             var isInto = false
             
             repeat {
-                a = (a - 1 + n) % n
+                a = (a + 1) % n
                 s = pathA[a]
                 visited[s.pinId] = true
                 
                 let t = s.pin.type
                 
-                isInto = t == .end_in_back || t == .end_in_same || t == .into || t == .false_out_same
+                isInto = bMask.isContain(t)
                 
                 assert(t != .out || t != .start_out_same || t != .false_out_same  || t != .false_out_back)
-            } while !isInto && stone.pinId != s.pinId
+            } while !isInto && stone.pinId != s.pinId && endId != s.pinId
             
-            return Stone(a: a, b: s.other, pinId: s.pinId, pin: s.pin, direction: .ba)
+            return Stone(a: a, b: s.other, pinId: s.pinId, pin: s.pin, direction: .pathB)
         }
     }
 

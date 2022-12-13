@@ -1,13 +1,13 @@
 //
-//  Navigator+Difference.swift
+//  Navigator+Intersect.swift
 //  
 //
-//  Created by Nail Sharipov on 12.12.2022.
+//  Created by Nail Sharipov on 03.12.2022.
 //
 
 extension Navigator {
 
-    mutating func nextDifference() -> Stone {
+    mutating func nextIntersect() -> Stone {
         
         let bMask = [.into, .end_in_same, .end_in_back, .false_out_same, .false_out_back].mask
         
@@ -26,10 +26,10 @@ extension Navigator {
         return .empty
     }
     
-    mutating func nextDifference(stone: Stone, endId: Int) -> Stone {
+    mutating func nextIntersect(stone: Stone, endId: Int) -> Stone {
         let n = visited.count
         
-        let aMask = [.out, .end_out_back, .end_out_same, .start_out_same, .start_out_back].mask
+        let aMask = [.out, .end_out_back, .end_out_same, .start_out_same, .start_out_back, .false_out_same].mask
         let bMask = [.into, .end_in_back, .end_in_same, .false_out_same].mask
         
         switch stone.direction {
@@ -56,7 +56,7 @@ extension Navigator {
             var isInto = false
             
             repeat {
-                a = (a + 1) % n
+                a = (a - 1 + n) % n
                 s = pathA[a]
                 visited[s.pinId] = true
                 
