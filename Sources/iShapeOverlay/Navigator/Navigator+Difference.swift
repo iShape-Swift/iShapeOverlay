@@ -8,7 +8,7 @@
 extension Navigator {
 
     mutating func nextDifference() -> Stone {
-        
+
         let bMask = [.into, .end_in_same, .end_in_back, .false_out_same, .false_out_back].mask
         
         let n = visited.count
@@ -29,7 +29,7 @@ extension Navigator {
     mutating func nextDifference(stone: Stone, endId: Int) -> Stone {
         let n = visited.count
         
-        let aMask = [.out, .end_out_back, .end_out_same, .start_out_same, .start_out_back].mask
+        let aMask = [.out, .end_out_back, .end_out_same, .start_out_same, .start_out_back, .false_out_back].mask
         let bMask = [.into, .end_in_back, .end_in_same, .false_out_same].mask
         
         switch stone.direction {
@@ -40,13 +40,15 @@ extension Navigator {
             repeat {
                 b = (b + 1) % n
                 s = pathB[b]
-                visited[s.pinId] = true
                 
                 let t = s.pin.type
+
+                if t != .false_out_back {
+                    visited[s.pinId] = true
+                }
                 
                 isOut = aMask.isContain(t)
-                
-                assert(t != .into || t != .start_in_same || t != .false_in_same || t != .false_in_back)
+
             } while !isOut && stone.pinId != s.pinId && endId != s.pinId
             
             return Stone(a: s.other, b: b, pinId: s.pinId, pin: s.pin, direction: .pathA)
@@ -63,8 +65,7 @@ extension Navigator {
                 let t = s.pin.type
                 
                 isInto = bMask.isContain(t)
-                
-                assert(t != .out || t != .start_out_same || t != .false_out_same  || t != .false_out_back)
+
             } while !isInto && stone.pinId != s.pinId && endId != s.pinId
             
             return Stone(a: a, b: s.other, pinId: s.pinId, pin: s.pin, direction: .pathB)

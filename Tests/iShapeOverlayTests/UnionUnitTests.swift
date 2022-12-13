@@ -1,8 +1,8 @@
 //
-//  IntersectUnitTests.swift
+//  UnionUnitTests.swift
 //  
 //
-//  Created by Nail Sharipov on 09.12.2022.
+//  Created by Nail Sharipov on 13.12.2022.
 //
 
 import XCTest
@@ -10,7 +10,7 @@ import iGeometry
 @testable import iShapeOverlay
 
 
-final class IntersectUnitTests: XCTestCase {
+final class UnionUnitTests: XCTestCase {
     
     private let solver = SimpleSolver()
     private let detector = Collision.Detector()
@@ -746,7 +746,7 @@ final class IntersectUnitTests: XCTestCase {
 
                 XCTAssertEqual(bundle.pinResult, target.pinResult)
                 
-                let result = solver.intersect(
+                let result = solver.union(
                     pathA: bundle.pathA[0],
                     pathB: bundle.pathB[0],
                     navigator: Navigator(pins: bundle.pins)

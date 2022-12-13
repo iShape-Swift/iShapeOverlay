@@ -105,7 +105,10 @@ final class DifferenceUnitTests: XCTestCase {
             pinResult: .modified,
             regions: [[
                 IntPath(unsafe: [
-                    CGPoint(10.0, 0.0), CGPoint(0.0, 0.0), CGPoint(0.0, 10.0)
+                    CGPoint(10.0, -10.0), CGPoint(-10.0, -10.0), CGPoint(-10.0, 10.0), CGPoint(0.0, 10.0), CGPoint(0.0, 0.0), CGPoint(10.0, 0.0)
+                ].int),
+                IntPath(unsafe: [
+                    CGPoint(10.0, 0.0), CGPoint(0.0, 10.0), CGPoint(10.0, 10.0)
                 ].int)
             ]]
         ),
@@ -126,7 +129,10 @@ final class DifferenceUnitTests: XCTestCase {
             pinResult: .modified,
             regions: [[
                 IntPath(unsafe: [
-                    CGPoint(0.0, -10.0), CGPoint(-5.0, 5.0), CGPoint(10.0, 10.0)
+                    CGPoint(0.0, -10.0), CGPoint(-10.0, -10.0), CGPoint(-10.0, 10.0), CGPoint(10.0, 10.0), CGPoint(-5.0, 5.0)
+                ].int),
+                IntPath(unsafe: [
+                    CGPoint(10.0, -10.0), CGPoint(0.0, -10.0), CGPoint(10.0, 10.0)
                 ].int)
             ]]
         ),
@@ -780,7 +786,6 @@ final class DifferenceUnitTests: XCTestCase {
                             let item = result.list[i]
                             debugPrint("\(i): \(item.points.prettyPrint)")
                         }
-                        return
                     } else {
                         isAnySame = true
                         break
