@@ -45,7 +45,8 @@ final class ViewModel: ObservableObject {
     private (set) var shapeA: [IntPoint] = []
     private (set) var shapeB: [IntPoint] = []
     private (set) var pins: [Pin]?
-    private (set) var polygons: [Polygon]?
+    private (set) var polygon: Polygon?
+    private (set) var holes: [Polygon]?
     
     func coordSystem(size: CGSize) -> CoordSystem {
         let iOffset = IntPoint(x: 0, y: 0)
@@ -102,6 +103,10 @@ final class ViewModel: ObservableObject {
 
         let result = detector.findPins(pathA: pathA, pathB: pathB, shapeCleaner: .def)
 
+        self.pins = nil
+        self.holes = nil
+        self.polygon = nil
+        
         switch result.pinResult {
         case .success:
             self.success(pathA: pathA, pathB: pathB, pins: result.pins)
@@ -111,12 +116,8 @@ final class ViewModel: ObservableObject {
                 pathB: result.pathB.isEmpty ? [] : result.pathB[0],
                 pins: result.pins
             )
-        case .conflict:
-            self.pins = nil
-            self.polygons = nil
-        case .badPolygons:
-            self.pins = nil
-            self.polygons = nil
+        case .conflict, .badPolygons:
+            break
         }
     }
     
@@ -125,7 +126,7 @@ final class ViewModel: ObservableObject {
         
         let segments = solver.union(pathA: pathA, pathB: pathB, navigator: Navigator(pins: pins))
         
-//        print(segments)
+        print(segments)
         
         var pinList = [Pin]()
 
@@ -184,18 +185,25 @@ final class ViewModel: ObservableObject {
 
         self.pins = pinList
 
-        var polygons = [Polygon]()
+        var holes = [Polygon]()
         for i in 0..<segments.list.count {
-            let polygon = Polygon(
-                id: i,
-                color: .white,
-                points: segments.list[i].points
-            )
-            
-            polygons.append(polygon)
+            let path = segments.list[i]
+            if path.area > 0 {
+                polygon = Polygon(
+                    id: i,
+                    color: .white.opacity(0.8),
+                    points: path.points
+                )
+            } else {
+                holes.append(Polygon(
+                    id: i,
+                    color: .red.opacity(0.8),
+                    points: path.points
+                ))
+            }
         }
         
-        self.polygons = polygons
+        self.holes = holes.isEmpty ? nil : holes
     }
     
     

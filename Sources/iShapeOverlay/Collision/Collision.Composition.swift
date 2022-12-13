@@ -227,11 +227,11 @@ extension Collision {
                         type = .into
                     } else {
                         let subCorner = Corner(o: dot.p, a: a0, b: b1)
-                        let isA1 = subCorner.test(p: a1, clockWise: false)
+                        let isA1 = subCorner.test(p: b0, clockWise: false)
                         if isA1 != .outside {
-                            type = .false_in_same
-                        } else {
                             type = .false_in_back
+                        } else {
+                            type = .false_in_same
                         }
                     }
                 }

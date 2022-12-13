@@ -10,6 +10,7 @@ extension Navigator {
     mutating func nextUnion() -> Stone {
         
         let aMask = [.out, .end_out_back, .end_out_same, .start_out_back, .false_out_back].mask
+        let bMask = [.into].mask
         
         let n = visited.count
         for i in 0..<n {
@@ -21,6 +22,11 @@ extension Navigator {
                 visited[s.pinId] = true
                 return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .pathA)
             }
+            
+            if bMask.isContain(t) {
+                visited[s.pinId] = true
+                return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .pathB)
+            }
         }
         
         return .empty
@@ -29,8 +35,8 @@ extension Navigator {
     mutating func nextUnion(stone: Stone, endId: Int) -> Stone {
         let n = visited.count
         
-        let aMask = [.out, .end_out_back, .end_out_same, .false_out_back].mask
-        let bMask = [.into, .end_in_same, .start_in_back, .start_in_same].mask
+        let aMask = [.out, .end_out_back, .end_out_same, .false_out_back, .false_in_same].mask
+        let bMask = [.into, .end_in_same, .start_in_back, .start_in_same, .false_in_same].mask
         
         switch stone.direction {
         case .pathB:

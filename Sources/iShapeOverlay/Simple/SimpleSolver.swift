@@ -128,6 +128,22 @@ struct SimpleSolver {
             s0 = nav.nextUnion()
         }
         
+        if list.count > 1 {
+            var maxArea: Int64 = 0
+            for path in list {
+                if path.area > maxArea {
+                    maxArea = path.area
+                }
+            }
+            
+            for i in 0..<list.count {
+                if list[i].area < maxArea {
+                    list[i].invert()
+                }
+            }
+        }
+        
+        
         return Result(list: list)
     }
     

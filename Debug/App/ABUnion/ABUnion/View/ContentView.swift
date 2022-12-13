@@ -48,10 +48,20 @@ struct ContentView: View {
                     viewModel.onModifiedB(points: points)
                 }
             )
-            if let polygons = viewModel.polygons {
-                ForEach(polygons) { polygon in
+            if let polygon = viewModel.polygon {
+                PolygonView(
+                    fill: polygon.color,
+                    stroke: .clear,
+                    lineWidth: 0,
+                    points: polygon.points,
+                    coordSystem: coordSystem
+                )
+            }
+
+            if let holes = viewModel.holes {
+                ForEach(holes) { polygon in
                     PolygonView(
-                        fill: .red.opacity(0.9),
+                        fill: polygon.color,
                         stroke: .clear,
                         lineWidth: 0,
                         points: polygon.points,
