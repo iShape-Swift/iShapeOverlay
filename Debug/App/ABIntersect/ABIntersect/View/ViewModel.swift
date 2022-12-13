@@ -120,9 +120,9 @@ final class ViewModel: ObservableObject {
     }
     
     private func success(pathA: [IntPoint], pathB: [IntPoint], pins: [PinPoint]) {
-        let intersector = Intersector()
+        let solver = SimpleSolver()
         
-        let segments = intersector.intersect(pathA: pathA, pathB: pathB, navigator: Navigator(pins: pins))
+        let segments = solver.intersect(pathA: pathA, pathB: pathB, navigator: Navigator(pins: pins))
         
 //        print(segments)
         

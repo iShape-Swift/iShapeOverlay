@@ -24,6 +24,8 @@ public struct ShapeCleaner {
             let absArea = abs(points.area)
             if absArea >= minArea {
                 result.append(points)
+            } else {
+                debugPrint("path: \(points) - cleaned")
             }
         }
         return result

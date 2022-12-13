@@ -8,14 +8,21 @@
 extension Navigator {
 
     mutating func nextIntersect() -> Stone {
+
+        let aMask = [.out].mask
         
-        let bMask = [.into, .end_in_same, .end_in_back, .false_out_same, .false_out_back].mask
+        let bMask = [.into, .end_in_same, .end_in_back, .false_out_same, .false_out_back, ].mask
         
         let n = visited.count
         for i in 0..<n {
             let s = pathB[i]
             guard !visited[s.pinId] else { continue }
             let t = s.pin.type
+
+            if aMask.isContain(t) {
+                visited[s.pinId] = true
+                return Stone(a: s.other, b: i, pinId: s.pinId, pin: s.pin, direction: .pathA)
+            }
             
             if bMask.isContain(t) {
                 visited[s.pinId] = true

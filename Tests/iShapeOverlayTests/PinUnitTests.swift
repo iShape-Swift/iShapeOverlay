@@ -27,142 +27,176 @@ final class PinUnitTests: XCTestCase {
     }
     
     private let results: [Result] = [
+        // 0
         Result(pins:[
             Pin(CGPoint(x: -5, y: 10), .end_in_back),
             Pin(CGPoint(x:  5, y: 10), .start_out_back)
         ]),
+        // 1
         Result(pins:[
             Pin(CGPoint(x: -10, y: -5), .end_in_back),
             Pin(CGPoint(x: -10, y:  5), .start_out_back)
         ]),
+        // 2
         Result(pins:[
             Pin(CGPoint(x: -5, y: -10), .start_out_back),
             Pin(CGPoint(x:  5, y: -10), .end_in_back)
         ]),
+        // 3
         Result(pins:[
             Pin(CGPoint(x: 10, y: -5), .start_out_back),
             Pin(CGPoint(x: 10, y:  5), .end_in_back)
         ]),
+        // 4
         Result(pins:[
             Pin(CGPoint(x:-10, y: 10), .end_in_back),
             Pin(CGPoint(x: 10, y: 10), .start_out_back)
         ]),
+        // 5
         Result(pins:[
             Pin(CGPoint(x:-10, y: 10), .start_out_back),
             Pin(CGPoint(x:-10, y:-10), .end_in_back)
         ]),
+        // 6
         Result(pins:[
             Pin(CGPoint(x:-10, y:-10), .start_out_back),
             Pin(CGPoint(x: 10, y:-10), .end_in_back)
         ]),
+        // 7
         Result(pins:[
             Pin(CGPoint(x: 10, y:-10), .start_out_back),
             Pin(CGPoint(x: 10, y: 10), .end_in_back)
         ]),
+        // 8
         Result(pins:[
             Pin(CGPoint(x:-10, y:  5), .end_in_back),
             Pin(CGPoint(x: 10, y:  5), .start_out_back)
         ]),
+        // 9
         Result(pins:[
             Pin(CGPoint(x: -5, y:-10), .end_in_back),
             Pin(CGPoint(x: -5, y: 10), .start_out_back)
         ]),
+        // 10
         Result(pins:[
             Pin(CGPoint(x:-10, y: -5), .start_out_back),
             Pin(CGPoint(x: 10, y: -5), .end_in_back)
         ]),
+        // 11
         Result(pins:[
             Pin(CGPoint(x:  5, y:-10), .start_out_back),
             Pin(CGPoint(x:  5, y: 10), .end_in_back)
         ]),
+        // 12
         Result(pins:[
             Pin(CGPoint(x:  0, y: 10), .end_in_back),
             Pin(CGPoint(x: 10, y:  0), .start_out_back)
         ]),
+        // 13
         Result(pins:[
             Pin(CGPoint(x:-10, y:  0), .end_in_back),
             Pin(CGPoint(x:  0, y: 10), .start_out_back)
         ]),
+        // 14
         Result(pins:[
             Pin(CGPoint(x:-10, y:  0), .start_out_back),
             Pin(CGPoint(x:  0, y:-10), .end_in_back)
         ]),
+        // 15
         Result(pins:[
             Pin(CGPoint(x:  0, y:-10), .start_out_back),
             Pin(CGPoint(x: 10, y:  0), .end_in_back)
         ]),
+        // 16
         Result(pins:[
             Pin(CGPoint(x:  0, y: 10), .start_out_back),
             Pin(CGPoint(x: 10, y:  0), .end_in_back)
         ]),
+        // 17
         Result(pins:[
             Pin(CGPoint(x:  0, y: 10), .end_in_back),
             Pin(CGPoint(x:-10, y:  0), .start_out_back)
         ]),
+        // 18
         Result(pins:[
             Pin(CGPoint(x:  0, y:-10), .start_out_back),
             Pin(CGPoint(x:-10, y:  0), .end_in_back)
         ]),
+        // 19
         Result(pins:[
             Pin(CGPoint(x: 10, y:  0), .start_out_back),
             Pin(CGPoint(x:  0, y:-10), .end_in_back)
         ]),
+        // 20
         Result(pins:[
             Pin(CGPoint(x: -5, y: 10), .end_out_same),
             Pin(CGPoint(x:-10, y: 10), .start_in_same)
         ]),
+        // 21
         Result(pins:[
             Pin(CGPoint(x:-10, y:  0), .into),
             Pin(CGPoint(x:-10, y: 10), .end_out_back),
             Pin(CGPoint(x: -5, y: 10), .start_out_back),
         ]),
+        // 22
         Result(pins:[
             Pin(CGPoint(x:  5, y: 10), .start_in_same),
             Pin(CGPoint(x: 10, y: 10), .end_out_same)
         ]),
+        // 23
         Result(pins:[
             Pin(CGPoint(x:  5, y: 10), .end_in_back),
             Pin(CGPoint(x: 10, y: 10), .start_in_back),
             Pin(CGPoint(x: 10, y:  0), .out),
         ]),
+        // 24
         Result(pins:[
             Pin(CGPoint(x: 10, y: 10), .end_out_same),
             Pin(CGPoint(x:-10, y: 10), .start_in_same)
         ]),
+        // 25
         Result(pins:[
             Pin(CGPoint(x:  5, y: 10), .start_out_back),
             Pin(CGPoint(x: -5, y:-10), .start_out_back),
             Pin(CGPoint(x: -5, y: 10), .end_in_back),
             Pin(CGPoint(x:  5, y:-10), .end_in_back),
         ]),
+        // 26
         Result(pins:[
             Pin(CGPoint(x:-10, y: 10), .end_out_same),
             Pin(CGPoint(x:-10, y:  0), .start_in_same)
         ]),
+        // 27
         Result(pins:[
             Pin(CGPoint(x: 10, y: 10), .end_out_back),
             Pin(CGPoint(x: 10, y:  0), .start_in_back)
         ]),
+        // 28
         Result(pins:[
-            Pin(CGPoint(x: 10, y: 10), .false_in_same)
+            Pin(CGPoint(x: 10, y: 10), .false_in_back)
         ]),
+        // 29
         Result(pins:[
             Pin(CGPoint(x: 10, y:  5), .start_in_same),
             Pin(CGPoint(x: 10, y: -5), .end_out_same)
         ]),
+        // 30
         Result(pins:[
             Pin(CGPoint(x: 10, y:  5), .end_in_back),
             Pin(CGPoint(x: 10, y: -5), .start_out_back),
         ]),
+        // 31
         Result(pins:[
             Pin(CGPoint(x: 10, y:  5), .end_in_back),
             Pin(CGPoint(x: 10, y: -5), .start_out_back)
         ]),
+        // 32
         Result(pins:[
             Pin(CGPoint(x:  0.464, y: 0.2159), .out),
             Pin(CGPoint(x:  0.441, y:   0.22), .false_out_same),
             Pin(CGPoint(x: 0.0097, y:    1.0), .into)
         ]),
+        // 33
         Result(pins:[
             Pin(CGPoint(x:-10, y: -5), .out),
             Pin(CGPoint(x:-10, y:  5), .into),
@@ -173,17 +207,20 @@ final class PinUnitTests: XCTestCase {
             Pin(CGPoint(x: 10, y:  5), .end_out_same),
             Pin(CGPoint(x: 15, y:  5), .start_in_same)
         ]),
+        // 34
         Result(pins:[
             Pin(CGPoint(x: 20, y: 10), .false_out_back),
             Pin(CGPoint(x: 10, y:-10), .end_in_back),
             Pin(CGPoint(x:  0, y:  0), .out),
             Pin(CGPoint(x:  0, y:-10), .start_in_back)
         ]),
+        // 35
         Result(pins:[
             Pin(CGPoint(x: -0.018000000000000002, y: -6.424), .end_out_same),
             Pin(CGPoint(x: -0.018000000000000002, y:  0.134), .start_out_same),
             Pin(CGPoint(x:  4.4692, y:  5.6719), .into)
         ]),
+        // 36
         Result(pins:[
             Pin(CGPoint(x: -0.9956, y: 1.0188000000000001), .start_in_back),
             Pin(CGPoint(x: -0.9955, y: 1.0188000000000001), .end_in_back),

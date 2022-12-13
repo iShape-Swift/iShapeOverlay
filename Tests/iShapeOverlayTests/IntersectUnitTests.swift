@@ -18,126 +18,126 @@ final class IntersectUnitTests: XCTestCase {
     
     private struct Result {
         let pinResult: Collision.PinResult
-        let regions: [IntPath]
+        let regions: [[IntPath]]
     }
     
     private let results: [Result] = [
         // 0
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -10.0), CGPoint(-5.0, -10.0), CGPoint(-5.0, 0.0), CGPoint(5.0, 0.0)
                 ].int)
-            ]
+            ]]
         ),
         // 1
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-5.0, -10.0), CGPoint(-5.0, 10.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 2
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-5.0, -10.0), CGPoint(-5.0, 10.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 3
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-5.0, -10.0), CGPoint(-5.0, 10.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 4
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, -10.0), CGPoint(-10.0, 10.0), CGPoint(10.0, 10.0), CGPoint(10.0, -10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 5
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, -10.0), CGPoint(-10.0, 0.0), CGPoint(-10.0, 10.0), CGPoint(10.0, 10.0), CGPoint(10.0, -10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 6
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -10.0), CGPoint(-10.0, -2.5), CGPoint(-10.0, 2.5), CGPoint(5.0, 10.0), CGPoint(10.0, 10.0), CGPoint(10.0, -10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 7
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, -10.0), CGPoint(-10.0, -5.0), CGPoint(-10.0, 0.0), CGPoint(0.0, 0.0), CGPoint(0.0, -10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 8
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 0.0), CGPoint(0.0, 0.0), CGPoint(0.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 9
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -10.0), CGPoint(-5.0, -10.0), CGPoint(0.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 10
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, -10.0), CGPoint(-5.0, 5.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 11
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(0.0, -10.0), CGPoint(0.0, 0.0), CGPoint(20.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 12
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -5.0), CGPoint(0.0, 0.0), CGPoint(10.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 13
         Result(
@@ -147,20 +147,20 @@ final class IntersectUnitTests: XCTestCase {
         // 14
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, -10.0), CGPoint(-10.0, -5.0), CGPoint(-10.0, 5.0), CGPoint(-5.0, 10.0), CGPoint(5.0, 10.0), CGPoint(10.0, 5.0), CGPoint(10.0, -5.0), CGPoint(5.0, -10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 15
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -5.0), CGPoint(0.0, -5.0), CGPoint(0.0, 0.0), CGPoint(5.0, 0.0)
                 ].int)
-            ]
+            ]]
         ),
         // 16
         Result(
@@ -170,259 +170,259 @@ final class IntersectUnitTests: XCTestCase {
         // 17
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, -5.0), CGPoint(-5.0, 5.0), CGPoint(10.0, 5.0), CGPoint(10.0, -5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 18
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -5.0), CGPoint(-5.0, -5.0), CGPoint(-5.0, 5.0), CGPoint(10.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 19
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 0.0), CGPoint(0.0, 5.0), CGPoint(10.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 20
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, -5.0), CGPoint(-10.0, -5.0), CGPoint(-10.0, 5.0), CGPoint(-5.0, 5.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(10.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 5.0), CGPoint(10.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 21
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 0.0), CGPoint(0.0, -5.0), CGPoint(0.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 22
         Result(
             pinResult: .success,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, 0.0), CGPoint(0.0, 5.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 23
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 0.0), CGPoint(0.0, 5.0), CGPoint(10.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 24
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, -5.0), CGPoint(-5.0, -5.0), CGPoint(-5.0, 0.0), CGPoint(0.0, 0.0)
                 ].int)
-            ]
+            ]]
         ),
         // 25
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(5.0, -10.0), CGPoint(5.0, 10.0), CGPoint(10.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 26
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(15.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 5.0), CGPoint(15.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 27
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(15.0, -2.5), CGPoint(5.0, -5.0), CGPoint(5.0, 5.0), CGPoint(15.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 28
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(15.0, -10.0), CGPoint(5.0, -10.0), CGPoint(5.0, 15.0), CGPoint(15.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 29
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 0.0), CGPoint(5.0, -5.0), CGPoint(5.0, 0.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(5.0, -5.0), CGPoint(-10.0, -10.0), CGPoint(-10.0, -5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 30
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(15.0, -10.0), CGPoint(-15.0, -10.0), CGPoint(-15.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 10.0), CGPoint(15.0, 15.0)
                 ].int)
-            ]
+            ]]
         ),
         // 31
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -5.0), CGPoint(0.0, 0.0), CGPoint(5.0, 0.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.0), CGPoint(-5.0, 5.0), CGPoint(-5.0, 10.0), CGPoint(0.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 32
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(5.0, -5.0), CGPoint(0.0, 0.0), CGPoint(5.0, 0.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 8.0), CGPoint(-2.0, 10.0), CGPoint(0.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 33
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-5.0, 10.0), CGPoint(-10.0, 10.0), CGPoint(-10.0, 15.0), CGPoint(-5.0, 15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(-5.0, 0.0), CGPoint(-10.0, 0.0), CGPoint(-10.0, 5.0), CGPoint(-5.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 34
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-8.125, 10.0), CGPoint(-15.0, 10.0), CGPoint(-5.0, 15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(-11.619, 5.0), CGPoint(-18.5, -3.5), CGPoint(-16.296300000000002, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 35
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, 10.0), CGPoint(-5.0, 10.0), CGPoint(-5.0, 15.0), CGPoint(0.0, 15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 3.0), CGPoint(-5.0, 3.0), CGPoint(-5.0, 5.0), CGPoint(0.0, 5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 36
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 5.0), CGPoint(5.0, 5.0), CGPoint(5.0, 10.0), CGPoint(10.0, 10.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 5.0), CGPoint(-5.0, 5.0), CGPoint(-5.0, 10.0), CGPoint(0.0, 10.0)
                 ].int)
-            ]
+            ]]
         ),
         // 37
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -2.5), CGPoint(5.0, -2.5), CGPoint(5.0, 2.5), CGPoint(10.0, 2.5)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.0), CGPoint(-5.0, 0.0), CGPoint(-5.0, 2.5), CGPoint(0.0, 2.5)
                 ].int)
-            ]
+            ]]
         ),
         // 38
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-11.0, -5.0), CGPoint(-10.0, 15.0), CGPoint(-10.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 15.0), CGPoint(10.0, 15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.0), CGPoint(-5.0, 0.0), CGPoint(-5.0, 15.0), CGPoint(0.0, 15.0)
                 ].int)
-            ]
+            ]]
         ),
         // 39
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-10.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 15.0), CGPoint(10.0, 15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.0), CGPoint(-5.0, 0.0), CGPoint(-5.0, 15.0), CGPoint(0.0, 15.0)
                 ].int)
-            ]
+            ]]
         ),
         // 40
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(7.0, -16.0), CGPoint(-20.0, -15.0), CGPoint(7.0, -15.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(7.0, -10.0), CGPoint(-15.0, -10.0), CGPoint(-15.0, 20.0), CGPoint(0.0, 20.0), CGPoint(0.0, 0.0), CGPoint(-5.0, 0.0), CGPoint(-5.0, 15.0), CGPoint(-10.0, 15.0), CGPoint(-10.0, -5.0), CGPoint(5.0, -5.0), CGPoint(5.0, 20.0), CGPoint(7.0, 20.0)
                 ].int)
-            ]
+            ]]
         ),
         // 41
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(4.0, -16.0), CGPoint(-20.0, -15.0), CGPoint(4.0833, -15.0)
                 ].int),
@@ -432,24 +432,24 @@ final class IntersectUnitTests: XCTestCase {
                 IntPath(unsafe: [
                     CGPoint(4.5, -10.0), CGPoint(-15.0, -10.0), CGPoint(-15.0, 20.0), CGPoint(0.0, 20.0), CGPoint(0.0, 0.0), CGPoint(-5.0, 0.0), CGPoint(-5.0, 15.0), CGPoint(-10.0, 15.0), CGPoint(-10.0, -5.0), CGPoint(4.9167000000000005, -5.0)
                 ].int)
-            ]
+            ]]
         ),
         // 42
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-15.0, -15.0), CGPoint(-20.0, -15.0), CGPoint(-16.8, -14.0), CGPoint(-10.0, -14.0)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(10.0, -10.0), CGPoint(-4.0, -10.0), CGPoint(10.0, -5.625)
                 ].int)
-            ]
+            ]]
         ),
         // 43
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(10.0, 10.0), CGPoint(5.0, 10.0), CGPoint(5.0, 15.0), CGPoint(10.0, 15.0)
                 ].int),
@@ -462,7 +462,7 @@ final class IntersectUnitTests: XCTestCase {
                 IntPath(unsafe: [
                     CGPoint(0.0, 10.0), CGPoint(-5.0, 10.0), CGPoint(-5.0, 15.0), CGPoint(0.0, 15.0)
                 ].int)
-            ]
+            ]]
         ),
         // 44
         Result(
@@ -472,50 +472,50 @@ final class IntersectUnitTests: XCTestCase {
         // 45
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.9999), CGPoint(-1.0, -0.0001), CGPoint(-1.0, 0.0), CGPoint(0.0, 1.0), CGPoint(1.0, 0.0), CGPoint(1.0, -0.0001)
                 ].int)
-            ]
+            ]]
         ),
         // 46
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(1.7047, -1.0), CGPoint(1.6986, -1.0), CGPoint(1.9140000000000001, -0.7433000000000001), CGPoint(2.0184, -0.7249), CGPoint(2.0173, -0.7262000000000001), CGPoint(1.9201000000000001, -0.7433000000000001)
                 ].int)
-            ]
+            ]]
         ),
         // 47
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(0.0, 0.0), CGPoint(-0.011000000000000001, 0.0019), CGPoint(-0.0109, 0.0019)
                 ].int),
                 IntPath(unsafe: [
                     CGPoint(-0.011000000000000001, 0.0019), CGPoint(-0.1296, 0.0228), CGPoint(-0.1143, 0.0555)
                 ].int)
-            ]
+            ]]
         ),
         // 48
         Result(
             pinResult: .success,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-0.0109, 0.0019), CGPoint(-0.1095, 0.0193), CGPoint(0.06670000000000001, 0.2515)
                 ].int)
-            ]
+            ]]
         ),
         // 49
         Result(
             pinResult: .modified,
-            regions: [
+            regions: [[
                 IntPath(unsafe: [
                     CGPoint(-0.0109, 0.002), CGPoint(-0.1203, 0.0212), CGPoint(-0.0073, 0.19310000000000002)
                 ].int)
-            ]
+            ]]
         )
     ]
             
@@ -752,7 +752,24 @@ final class IntersectUnitTests: XCTestCase {
                     navigator: Navigator(pins: bundle.pins)
                 )
                 
-                XCTAssertTrue(result.list.isSame(target.regions))
+                var isAnySame = target.regions.isEmpty
+                
+                for region in target.regions {
+                    let isSame = result.list.isSame(region)
+                    
+                    if !isSame {
+                        for i in 0..<result.list.count {
+                            let item = result.list[i]
+                            debugPrint("\(i): \(item.points.prettyPrint)")
+                        }
+                        return
+                    } else {
+                        isAnySame = true
+                        break
+                    }
+                }
+                
+                XCTAssertTrue(isAnySame)
             }
         }
     }
